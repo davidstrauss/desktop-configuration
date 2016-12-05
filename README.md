@@ -83,7 +83,7 @@ Current version: **Fedora 25**
 1. Complete the Machine Setup above.
 1. If the smart card is a YubiKey Neo, set the card's mode:
 
-       ykpersonalize -m82
+        ykpersonalize -m82
 
 1. Configure the card, generate a key pair, and upload the key:
 
@@ -108,11 +108,11 @@ Current version: **Fedora 25**
 1. Open a terminal.
 1. If you're restarted your computer since using the agent, start it:
 
-       gpg-agent --daemon
+        gpg-agent --daemon
 
 1. In any shell where you want to use it, point OpenSSH to the GPG agent:
 
-       export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
+        export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
 
 ## Go Development
 
@@ -144,7 +144,7 @@ Current version: **Fedora 25**
 1. Download the latest archive.
 1. Install necessary packages:
 
-       sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
+        sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
 
 1. Launch with `startlnp`
 1. Use `xterm -e` as the custom terminal command configuration.
