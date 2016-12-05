@@ -52,8 +52,9 @@ Current distribution: **Fedora 25**
  * [Sigilance OpenPGP Smart Card](https://www.sigilance.com/)
   * [Contact-only](https://www.sigilance.com/store/contact-cards/) as well
 * Reader only:
- * [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Add `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry.
- * Identiv SCM SPR 532: Should work with secure PIN entry out of the box.
+ * [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry.
+ * Identiv SCM SPR 532: Should work with secure PIN entry out of the box
+ * Lenovo ThinkPad T560 built-in: No secure PIN entry available
 
 ### Machine Setup
 
