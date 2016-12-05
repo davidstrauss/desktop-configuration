@@ -12,6 +12,7 @@ Current distribution: **Fedora 25**
 1. Boot to the USB drive.
 1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots. 
 1. Set up a single admin user (no password set for `root`).
+1. Reboot into the newly installed Fedora.
 1. Update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Configure the GNOME desktop:
 
