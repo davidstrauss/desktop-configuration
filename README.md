@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-Current version: Fedora 25
+Current version: **Fedora 25**
 
 ## Data to Back Up
 * `~/.gnupg/`
@@ -33,21 +33,99 @@ Current version: Fedora 25
 
         sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-1. Install OpenRA:
-
-        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_24/games:openra.repo
-        sudo dnf install -y openra
-
 1. Install other packages:
 
-        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend golang pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network
+        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network
 
-1. Add smart card support.
-1. Add Go paths to ~/.bashrc:
+## Smart Cards
 
-        # User specific aliases and functions
+### Machine Setup
+
+1. Install packages:
+
+         sudo dnf install ykpers pcsc-lite-ccid
+
+1. Start and enable the smart card daemon:
+
+        sudo systemctl enable --now pcscd
+
+1. Enable GnuPG SSH agent support:
+
+        echo "enable-ssh-support" >> .gnupg/gpg-agent.conf
+        
+1. Launch the GnuPG Agent for SSH use:
+
+        cat <<EOT >> ~/.bashrc
+        GPG_TTY=$(tty); export GPG_TTY;
+        if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+          export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+        fi
+        gpg-connect-agent /bye
+        EOT
+
+### Using an Existing Smart Card
+
+1. Complete the Machine Setup above.
+1. Import any existing smart card keys:
+
+        gpg2 --card-edit
+        > fetch
+        > quit
+        gpg2 --card-status
+
+1. Import any other keys:
+
+        gpg2 --keyserver hkps.pool.sks-keyservers.net --recv-key $KEYID
+        gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # A different database to try.
+
+### Setting Up a New Smart Card
+
+1. Complete the Machine Setup above.
+1. If the smart card is a YubiKey Neo, set the card's mode:
+
+       ykpersonalize -m82
+
+1. Configure the card, generate a key pair, and upload the key:
+
+        gpg2 --change-pin  # Change both the PIN (default is 123456) and the Admin PIN (default is 12345678).
+        gpg2 --card-edit
+        gpg/card> admin
+        gpg/card> generate  # No off-card backup. No expiration.
+        gpg/card> quit
+        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $KEYID
+        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $KEYID
+
+1. Display the public key in OpenSSH format:
+
+        ssh-add -L
+
+1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
+
+        gpg2 --export-secret-key --armor $KEYID > $KEYID.asc
+
+### One-Time or Test Usage of the Agent
+
+1. Open a terminal.
+1. If you're restarted your computer since using the agent, start it:
+
+       gpg-agent --daemon
+
+1. In any shell where you want to use it, point OpenSSH to the GPG agent:
+
+       export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
+
+## Go Development
+
+1. Install packages:
+
+        sudo dnf install golang
+
+1. Add Go to you path:
+
+        cat <<EOT >> ~/.bashrc
         export GOPATH=$HOME/go
         export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+        EOT
 
 ## PHP Development
 
@@ -70,3 +148,13 @@ Current version: Fedora 25
 
 1. Launch with `startlnp`
 1. Use `xterm -e` as the custom terminal command configuration.
+
+## OpenRA
+
+1. Add OpenRA repository:
+
+        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_24/games:openra.repo
+
+1. Install package:
+
+        sudo dnf install -y openra
