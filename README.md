@@ -162,3 +162,8 @@ Current distribution: **Fedora 25**
 1. Install package:
 
         sudo dnf install -y openra
+        
+## Other Resources
+
+* [U2F Local Login](http://blog.liw.fi/posts/u2f-pam/)
+
