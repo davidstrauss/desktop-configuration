@@ -13,18 +13,18 @@ Current distribution: **Fedora 25**
 1. Update Fedora using the GNOME Software Center.
 1. Configure the GNOME desktop:
 
-        gsettings set org.gnome.desktop.interface scaling-factor 1
-        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
-        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+        gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
+        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
+        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
         gsettings set org.gnome.desktop.interface clock-show-seconds true
         gsettings set org.gnome.desktop.interface clock-show-date true
-        gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-        gsettings set org.gnome.shell enabled-extensions "[]"  # Disables Fedora desktop logo
+        gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true  # Use Apple-style natural scrolling.
+        gsettings set org.gnome.shell enabled-extensions "[]"  # Disable the Fedora desktop logo.
         
         # Terminal:
-        gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'
+        gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'  # Set F12 to Reset and Clear
         TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
-        gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true
+        gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
 
 1. Install Google Chrome and authorize sandboxing:
 
