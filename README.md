@@ -47,8 +47,7 @@ Current distribution: **Fedora 25**
 
 * Combined reader and card:
  * [YubiKey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/)
- * [YubiKey Neo-N](https://www.yubico.com/wp-content/uploads/2016/02/Yubico_YubiKeyNEOn_ProductSheet.pdf)
- * YubiKey 4: Not tested yet but should work.
+ * [YubiKey 4](https://www.yubico.com/products/yubikey-hardware/yubikey4/) and 4 Nano: Not tested yet but should work. YubiKey 4 ordered for testing.
 * Card only:
  * [Sigilance Contact and NFC](https://www.sigilance.com/)
  * [Sigilance Contact-Only](https://www.sigilance.com/store/contact-cards/)
