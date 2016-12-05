@@ -19,7 +19,9 @@ Current distribution: **Fedora 25**
         gsettings set org.gnome.desktop.interface clock-show-seconds true
         gsettings set org.gnome.desktop.interface clock-show-date true
         gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-        gsettings set org.gnome.shell enabled-extensions "[]"
+        gsettings set org.gnome.shell enabled-extensions "[]"  # Disables Fedora desktop logo
+        
+        # Terminal:
         gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'
         TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
         gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true
@@ -36,6 +38,8 @@ Current distribution: **Fedora 25**
 1. Install other packages:
 
         sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network
+
+1. Using Firefox, add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
 ## Smart Cards
 
