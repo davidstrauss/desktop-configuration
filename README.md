@@ -10,7 +10,7 @@ Current distribution: **Fedora 25**
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer).
 1. Install, reclaiming space as necessary.
-1. Update Fedora using the GNOME Software Center.
+1. Update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Configure the GNOME desktop:
 
         gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
