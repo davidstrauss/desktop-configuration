@@ -120,7 +120,7 @@ Current distribution: **Fedora 25**
 
         sudo dnf install golang
 
-1. Add Go to you path:
+1. Add Go to the path:
 
         cat <<EOT >> ~/.bashrc
         export GOPATH=$HOME/go
