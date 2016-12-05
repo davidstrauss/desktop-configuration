@@ -31,12 +31,12 @@ Current version: Fedora 25
 
 1. Add RPM Fusion repositories:
 
-       sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+        sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 1. Install OpenRA:
 
-       sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_24/games:openra.repo
-       sudo dnf install -y openra
+        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_24/games:openra.repo
+        sudo dnf install -y openra
 
 1. Install other packages:
 
