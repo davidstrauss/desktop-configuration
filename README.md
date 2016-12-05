@@ -49,8 +49,8 @@ Current distribution: **Fedora 25**
  * [YubiKey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/)
   * Neo-N variant as well
 * Card only:
- * [Sigilance OpenPGP Smart Card](https://www.sigilance.com/)
-  * [Contact-only](https://www.sigilance.com/store/contact-cards/) as well
+ * [Sigilance Contact and NFC](https://www.sigilance.com/)
+ * [Sigilance Contact-Only](https://www.sigilance.com/store/contact-cards/)
 * Reader only:
  * [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry. The specific tested model was JK-A0100EU-2.
  * Identiv SCM SPR 532: Should work with secure PIN entry out of the box
