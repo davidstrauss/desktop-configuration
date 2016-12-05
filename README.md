@@ -43,7 +43,7 @@ Current distribution: **Fedora 25**
 
 1. Install packages:
 
-         sudo dnf install ykpers pcsc-lite-ccid
+        sudo dnf install ykpers pcsc-lite-ccid
 
 1. Start and enable the smart card daemon:
 
