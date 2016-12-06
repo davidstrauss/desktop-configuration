@@ -73,7 +73,7 @@ Current distribution: **Fedora 25**
 
         echo "enable-ssh-support" >> .gnupg/gpg-agent.conf
         
-1. Launch the GnuPG Agent for SSH use:
+1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
 
         cat <<EOT >> ~/.bashrc
         GPG_TTY=$(tty); export GPG_TTY;
