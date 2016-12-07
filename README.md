@@ -86,7 +86,7 @@ Current distribution: **Fedora 25**
 ### Using an Existing Smart Card
 
 1. Complete the Machine Setup above.
-1. Import any existing smart card keys:
+1. Import any existing smart card keys (that were set up according to the directions below):
 
         gpg2 --card-edit
         > fetch
