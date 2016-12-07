@@ -101,19 +101,19 @@ Current distribution: **Fedora 25**
 ### Setting Up a New Smart Card
 
 1. Complete the Machine Setup above.
-1. If the smart card is a YubiKey Neo, set the card's mode:
+1. If the smart card is a YubiKey Neo or YubiKey 4, set the card's mode:
 
-        ykpersonalize -m82
+        ykpersonalize -m86
 
 1. Configure the card, generate a key pair, and upload the key:
 
-        gpg2 --change-pin  # Change both the PIN (default is 123456) and the Admin PIN (default is 12345678).
+        gpg2 --change-pin  # Change both the PIN (default is 123456) and the Admin PIN (default is 12345678). I use pwgen for the admin PIN.
         gpg2 --card-edit
         gpg/card> admin
-        gpg/card> generate  # No off-card backup. No expiration.
-        gpg/card> quit
-        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $KEYID
-        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $KEYID
+        gpg/card> generate  # No off-card backup. No expiration. Back up the .rev file.
+        gpg/card> quit  # GPG will then print out data, including the key fingerpring as a long, alphanumeric string.
+        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
+        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
 1. Display the public key in OpenSSH format:
 
@@ -121,7 +121,9 @@ Current distribution: **Fedora 25**
 
 1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
 
-        gpg2 --export-secret-key --armor $KEYID > $KEYID.asc
+        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
+
+1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
 
 ### One-Time or Test Usage of the Agent
 
