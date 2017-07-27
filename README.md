@@ -40,7 +40,7 @@ Current distribution: **Fedora 26**
 
 1. Install other packages:
 
-        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network
+        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network chrome-gnome-shell
 
 1. Using Firefox, add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
