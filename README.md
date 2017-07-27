@@ -16,38 +16,38 @@ Current distribution: **Fedora 26**
 1. Update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Configure the GNOME desktop:
 
-        gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
-        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
-        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
-        gsettings set org.gnome.desktop.interface clock-show-seconds true
-        gsettings set org.gnome.desktop.interface clock-show-date true
-        gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true  # Use Apple-style natural scrolling.
-        gsettings set org.gnome.shell enabled-extensions "[]"  # Disable the Fedora desktop logo.
-        
-        # Terminal:
-        gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'  # Set F12 to Reset and Clear
-        TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
-        gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
+       gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
+       gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
+       gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
+       gsettings set org.gnome.desktop.interface clock-show-seconds true
+       gsettings set org.gnome.desktop.interface clock-show-date true
+       gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true  # Use Apple-style natural scrolling.
+       gsettings set org.gnome.shell enabled-extensions "[]"  # Disable the Fedora desktop logo.
+       
+       # Terminal:
+       gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'  # Set F12 to Reset and Clear
+       TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
+       gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
 
 1. Install Google Chrome and authorize sandboxing:
 
-        sudo dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-        sudo setsebool -P unconfined_chrome_sandbox_transition 0
+       sudo dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+       sudo setsebool -P unconfined_chrome_sandbox_transition 0
 
 1. Add RPM Fusion repositories:
 
-        sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+       sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 1. Install other packages:
 
-        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network chrome-gnome-shell
+       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network libvirt-daemon-driver-network chrome-gnome-shell
 
 1. Using Firefox, add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
 1. Configure git:
 
-        git config --global user.name "John Doe"
-        git config --global user.email johndoe@example.com
+       git config --global user.name "John Doe"
+       git config --global user.email johndoe@example.com
 
 ## Smart Cards
 
