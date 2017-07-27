@@ -104,6 +104,11 @@ Current distribution: **Fedora 26**
        gpg2 --keyserver hkps.pool.sks-keyservers.net --recv-key $KEYID  # Another database to try.
        gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # Another database to try.
 
+1. Add trust to any necessary keys:
+
+       gpg2 --edit-key $KEYID
+       > trust
+
 ### Setting Up a New Smart Card
 
 1. Complete the Machine Setup above.
