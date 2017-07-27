@@ -18,6 +18,7 @@ Current distribution: **Fedora 26**
 
        gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
+       gsettings set org.gnome.mutter dynamic-workspaces false  # Use static workspaces.
        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
        gsettings set org.gnome.desktop.interface clock-show-seconds true
        gsettings set org.gnome.desktop.interface clock-show-date true
