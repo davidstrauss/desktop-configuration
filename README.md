@@ -100,8 +100,9 @@ Current distribution: **Fedora 26**
 
 1. Import any other keys:
 
-        gpg2 --keyserver hkps.pool.sks-keyservers.net --recv-key $KEYID
-        gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # A different database to try.
+       gpg2 --keyserver keys.gnupg.net --recv-key $KEYID
+       gpg2 --keyserver hkps.pool.sks-keyservers.net --recv-key $KEYID  # Another database to try.
+       gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # Another database to try.
 
 ### Setting Up a New Smart Card
 
@@ -117,6 +118,7 @@ Current distribution: **Fedora 26**
         gpg/card> admin
         gpg/card> generate  # No off-card key backup. No expiration. Back up the .rev file.
         gpg/card> quit  # GPG will then print out data, including the key fingerpring as a long, alphanumeric string.
+        gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
         gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
         gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
