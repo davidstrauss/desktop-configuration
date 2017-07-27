@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-Current distribution: **Fedora 25**
+Current distribution: **Fedora 26**
 
 ## Data to Back Up
 * `~/.gnupg/`
