@@ -175,7 +175,7 @@ Current distribution: **Fedora 26**
 
 1. Add OpenRA repository:
 
-        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_24/games:openra.repo
+        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_25/games:openra.repo
 
 1. Install package:
 
