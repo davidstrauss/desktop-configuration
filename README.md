@@ -193,7 +193,20 @@ Current distribution: **Fedora 26**
 1. Install package:
 
         sudo dnf install -y openra
-        
+
+## BIOS Updates
+
+1. Install the conversion utility:
+
+        sudo dnf install geteltorito
+
+1. Download the "bootable CD" ISO. For ThinkPads, use [Lenovo's support site](http://pcsupport.lenovo.com/us/en/).
+1. Write it to a USB drive:
+
+        geteltorito -o update.img downloaded.iso
+
+1. Open the `update.img` in the Disks utility and restore it to the USB drive.
+
 ## Other Resources
 
 * [U2F Local Login](http://blog.liw.fi/posts/u2f-pam/)
