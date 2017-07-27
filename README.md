@@ -44,6 +44,11 @@ Current distribution: **Fedora 26**
 
 1. Using Firefox, add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
+1. Configure git:
+
+        git config --global user.name "John Doe"
+        git config --global user.email johndoe@example.com
+
 ## Smart Cards
 
 ### Tested Hardware
