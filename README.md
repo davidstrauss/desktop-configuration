@@ -75,13 +75,13 @@ Current distribution: **Fedora 26**
         
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
 
-        cat <<EOT >> ~/.bashrc
-        GPG_TTY=$(tty); export GPG_TTY;
-        if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-          export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-        fi
-        gpg-connect-agent /bye
-        EOT
+       cat <<EOT >> ~/.bashrc
+       GPG_TTY=$(tty); export GPG_TTY;
+       if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+         export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+       fi
+       gpg-connect-agent /bye
+       EOT
 
 ### Using an Existing Smart Card
 
