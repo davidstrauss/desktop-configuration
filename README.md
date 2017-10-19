@@ -128,7 +128,8 @@ Current distribution: **Fedora 26**
                           # Use a key size of 3072 for everything on YubiKey 4. Default is fine for NEO.
                           # No expiration.
                           # Back up the .rev file.
-       gpg/card> quit  # GPG will then print out data, including the key fingerpring as a long, alphanumeric string.
+       gpg/card> quit  # GPG will then print out data, including the key fingerprint
+                       # as a long, alphanumeric string.
        gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
