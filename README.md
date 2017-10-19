@@ -154,10 +154,7 @@ Current distribution: **Fedora 26**
 
 ### Revoking a Key
 
-1. If the key isn't imported locally, pull it down:
-
-       gpg2 --keyserver hkps://keys.gnupg.net --recv-key $FINGERPRINT
-
+1. If the key isn't imported locally, follow the "Using an Existing Smart Card" steps first.
 1. If you don't have the revocation certificate (`.rev`) backed up but have the private key:
 
        gpg2 --gen-revoke --output=$FINGERPRINT.rev $FINGERPRINT
