@@ -157,13 +157,17 @@ Current distribution: **Fedora 26**
 
 ### Revoking a Key
 
-1. If you don't have the revocation certificate (`.rev`) backed up but have the key:
+1. If the key isn't imported locally, pull it down:
+
+       gpg2 --keyserver hkps://keys.gnupg.net --recv-key $FINGERPRINT
+
+1. If you don't have the revocation certificate (`.rev`) backed up but have the private key:
 
        gpg2 --gen-revoke --output=$FINGERPRINT.rev $FINGERPRINT
 
 1. Import the revocation:
 
-       gpg2 --import $FINGERPRINT.rev
+       gpg2 --import $FINGERPRINT.rev  # May need to remove colon before the five dashes from file.
        
 1. Publish the revocation:
 
