@@ -159,7 +159,7 @@ Current distribution: **Fedora 26**
 
 1. If you don't have the revocation certificate (`.rev`) backed up but have the key:
 
-       gpg2 --gen-revoke --outpue=$FINGERPRINT.rev $FINGERPRINT
+       gpg2 --gen-revoke --output=$FINGERPRINT.rev $FINGERPRINT
 
 1. Import the revocation:
 
