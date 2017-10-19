@@ -91,10 +91,10 @@ Current distribution: **Fedora 26**
 1. Complete the Machine Setup above.
 1. Import any existing smart card keys (that were set up according to the directions below):
 
-        gpg2 --card-edit
-        > fetch
-        > quit
-        gpg2 --card-status
+       gpg2 --card-edit
+       > fetch
+       > quit
+       gpg2 --card-status
 
 1. Import any other keys:
 
