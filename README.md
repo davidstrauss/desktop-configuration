@@ -136,11 +136,11 @@ Current distribution: **Fedora 26**
 
 1. Display the public key in OpenSSH format:
 
-        ssh-add -L
+       ssh-add -L
 
 1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
 
-        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
+       gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
 
 1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
 
@@ -149,43 +149,43 @@ Current distribution: **Fedora 26**
 1. Open a terminal.
 1. If you're restarted your computer since using the agent, start it:
 
-        gpg-agent --daemon
+       gpg-agent --daemon
 
 1. In any shell where you want to use it, point OpenSSH to the GPG agent:
 
-        export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
+       export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
 
 ## Go Development
 
 1. Install packages:
 
-        sudo dnf install golang
+       sudo dnf install golang
 
 1. Add Go to the path:
 
-        cat <<EOT >> ~/.bashrc
-        export GOPATH=$HOME/go
-        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-        EOT
+       cat <<EOT >> ~/.bashrc
+       export GOPATH=$HOME/go
+       export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+       EOT
 
 ## PHP Development
 
 1. Install packages:
 
-        sudo dnf install -y httpd mariadb mariadb-server php php-mysqlnd php-dbg php-cli php-bcmath php-phpass php-mbstring php-opcache php-gd php-pecl-apcu php-pecl-xdebug
+       sudo dnf install -y httpd mariadb mariadb-server php php-mysqlnd php-dbg php-cli php-bcmath php-phpass php-mbstring php-opcache php-gd php-pecl-apcu php-pecl-xdebug
 
 1. Start and configure services:
 
-        sudo systemctl start mariadb
-        sudo mysql_secure_installation
-        echo "apc.rfc1867=1" | sudo tee -a /etc/php.d/40-apcu.ini
-        sudo systemctl start httpd
+       sudo systemctl start mariadb
+       sudo mysql_secure_installation
+       echo "apc.rfc1867=1" | sudo tee -a /etc/php.d/40-apcu.ini
+       sudo systemctl start httpd
 
 ## Dwarf Fortress
 1. Download the latest archive.
 1. Install necessary packages:
 
-        sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
+       sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
 
 1. Launch with `startlnp`
 1. Use `xterm -e` as the custom terminal command configuration.
@@ -194,22 +194,22 @@ Current distribution: **Fedora 26**
 
 1. Add OpenRA repository:
 
-        sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_25/games:openra.repo
+       sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_25/games:openra.repo
 
 1. Install package:
 
-        sudo dnf install -y openra
+       sudo dnf install -y openra
 
 ## BIOS Updates
 
 1. Install the conversion utility:
 
-        sudo dnf install geteltorito
+       sudo dnf install geteltorito
 
 1. Download the "bootable CD" ISO. For ThinkPads, use [Lenovo's support site](http://pcsupport.lenovo.com/us/en/).
 1. Write it to a USB drive:
 
-        geteltorito -o update.img downloaded.iso
+       geteltorito -o update.img downloaded.iso
 
 1. Open the `update.img` in the Disks utility and restore it to the USB drive.
 1. Boot from that drive.
@@ -217,4 +217,3 @@ Current distribution: **Fedora 26**
 ## Other Resources
 
 * [U2F Local Login](http://blog.liw.fi/posts/u2f-pam/)
-
