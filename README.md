@@ -155,6 +155,22 @@ Current distribution: **Fedora 26**
 
        export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
 
+### Revoking a Key
+
+1. If you don't have the revocation certificate (`.rev`) backed up but have the key:
+
+       gpg2 --gen-revoke --outpue=$FINGERPRINT.rev $FINGERPRINT
+
+1. Import the revocation:
+
+       gpg2 --import $FINGERPRINT.rev
+       
+1. Publish the revocation:
+
+       gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
+       gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
+       gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
+
 ## Go Development
 
 1. Install packages:
