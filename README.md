@@ -122,7 +122,10 @@ Current distribution: **Fedora 26**
         gpg2 --change-pin  # Change both the PIN (default is 123456) and the Admin PIN (default is 12345678). I use pwgen for the admin PIN.
         gpg2 --card-edit
         gpg/card> admin
-        gpg/card> generate  # No off-card key backup. No expiration. Back up the .rev file.
+        gpg/card> generate # No off-card key backup. 
+                           # Use a key size of 3072 for everything on YubiKey 4. Default is fine for NEO.
+                           # No expiration.
+                           # Back up the .rev file.
         gpg/card> quit  # GPG will then print out data, including the key fingerpring as a long, alphanumeric string.
         gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
         gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
