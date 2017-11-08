@@ -212,7 +212,7 @@ Current distribution: **Fedora 26**
            rewrite ^/~(.+?)/([^\/]+)(/.*)$ /~$1/$2/index.php?q=$3;
        }
        
-       location ^~ /~ {
+       location ^~ /~ {  # This allows us to own all paths starting with tildes.
            error_log /var/log/nginx/userdir.log notice;
        
            location ~ ^/~(?<username>.+?)(?<path>/.*\.php)$ {
