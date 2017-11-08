@@ -198,44 +198,38 @@ Current distribution: **Fedora 26**
        chmod 711 ~
        mkdir ~/public_html
        sudo setsebool -P httpd_enable_homedirs 1
+       sudo setsebool -P httpd_builtin_scripting 1  # Hope to fix: https://bugzilla.redhat.com/show_bug.cgi?id=1510717
+       sudo setsebool -P httpd_unified 1            # Same here.
+       sudo setsebool -P httpd_enable_cgi 1         # Same here.
 
 1. Add support for "userdir" to nginx:
 
        cat <<EOT | sudo tee /etc/nginx/default.d/userdir.conf
        location @drupal {
-           #error_log /var/log/nginx/userdir.log notice;
+           error_log /var/log/nginx/userdir.log notice;
            #rewrite_log on;
-       
-           root /home;
-           rewrite ^/(.+?)/public_html(/.*)\?(.*)$ /$1/public_html/index.php?q=$2&$3 break;
-           rewrite ^/(.+?)/public_html(/.*)$ /$1/public_html/index.php?q=$2 break;
-       
-           try_files $uri =404;
-       
-           fastcgi_intercept_errors on;
-           fastcgi_index  index.php;
-           include        fastcgi_params;
-           fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-           fastcgi_pass   php-fpm;
+           rewrite ^/~(.+?)/([^\/]+)(/.*)\?(.*)$ /~$1/$2/index.php?q=$3&$4;
+           rewrite ^/~(.+?)/([^\/]+)(/.*)$ /~$1/$2/index.php?q=$3;
        }
        
        location ^~ /~ {
-           #error_log /var/log/nginx/userdir.log notice;
-           #rewrite_log on;
+           error_log /var/log/nginx/userdir.log notice;
        
-           root /home;
-           rewrite ^/~(.+?)(/.*)?$ /$1/public_html$2 break;
-       
-           try_files $uri @drupal;
-       
-           location ~ \.php$ {
-               rewrite ^/~(.+?)(/.*)?$ /$1/public_html$2 break;
-               try_files $uri =404;
+           location ~ ^/~(?<username>.+?)(?<path>/.*\.php)$ {
+               root /home/$username/public_html;
+               #try_files $path =404;
                fastcgi_intercept_errors on;
                fastcgi_index  index.php;
                include        fastcgi_params;
-               fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+       
+               #fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+               fastcgi_param  SCRIPT_FILENAME  $document_root$path;
                fastcgi_pass   php-fpm;
+           }
+       
+           location ~ ^/~(?<username>.+?)(?<path>/.+?)?$ {
+               root /home/$username/public_html;
+               try_files $path @drupal;
            }
        }
        EOT
@@ -253,6 +247,7 @@ Current distribution: **Fedora 26**
 1. If new files with the wrong context get added, fix the selinux context:
 
        restorecon -R ~/public_html
+       chcon -R -t public_content_t ~/public_html/
 
 ## Dwarf Fortress
 1. Download the latest archive.
