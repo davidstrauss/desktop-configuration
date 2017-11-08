@@ -186,14 +186,69 @@ Current distribution: **Fedora 26**
 
 1. Install packages:
 
-       sudo dnf install -y httpd mariadb mariadb-server php php-mysqlnd php-dbg php-cli php-bcmath php-phpass php-mbstring php-opcache php-gd php-pecl-apcu php-pecl-xdebug
+       sudo dnf install -y nginx mariadb mariadb-server php php-fpm php-mysqlnd php-dbg php-cli php-bcmath php-phpass php-mbstring php-opcache php-gd php-pecl-apcu php-pecl-xdebug
 
-1. Start and configure services:
+1. Install, start, and configure the database:
 
        sudo systemctl start mariadb
-       sudo mysql_secure_installation
-       echo "apc.rfc1867=1" | sudo tee -a /etc/php.d/40-apcu.ini
-       sudo systemctl start httpd
+       mysql_secure_installation
+
+1. Create a directory for web projects (and enable web server access to directories of that type):
+
+       mkdir ~/public_html
+       sudo setsebool -P httpd_enable_homedirs 1
+
+1. Add support for "userdir" to nginx:
+
+       cat <<EOT | sudo tee /etc/nginx/default.d/userdir.conf
+       location @drupal {
+           #error_log /var/log/nginx/userdir.log notice;
+           #rewrite_log on;
+       
+           root /home;
+           rewrite ^/(.+?)/public_html(/.*)\?(.*)$ /$1/public_html/index.php?q=$2&$3 break;
+           rewrite ^/(.+?)/public_html(/.*)$ /$1/public_html/index.php?q=$2 break;
+       
+           try_files $uri =404;
+       
+           fastcgi_intercept_errors on;
+           fastcgi_index  index.php;
+           include        fastcgi_params;
+           fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+           fastcgi_pass   php-fpm;
+       }
+       
+       location ^~ /~ {
+           #error_log /var/log/nginx/userdir.log notice;
+           #rewrite_log on;
+       
+           root /home;
+           rewrite ^/~(.+?)(/.*)?$ /$1/public_html$2 break;
+       
+           try_files $uri @drupal;
+       
+           location ~ \.php$ {
+               rewrite ^/~(.+?)(/.*)?$ /$1/public_html$2 break;
+               try_files $uri =404;
+               fastcgi_intercept_errors on;
+               fastcgi_index  index.php;
+               include        fastcgi_params;
+               fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+               fastcgi_pass   php-fpm;
+           }
+       }
+       EOT
+
+1. Configure some PHP-related options:
+
+       sudo setsebool -P httpd_execmem 1  # Supports certain regex operations.
+       echo "apc.rfc1867=1" | sudo tee -a /etc/php.d/40-apcu.ini  # Upload progress tracking.
+       
+1. Start services for development (each time they're needed):
+
+       sudo systemctl start mariadb php-fpm nginx
+
+1. Use `~/public_html` as the web root, accessible via `http://localhost/~$USER/`.
 
 ## Dwarf Fortress
 1. Download the latest archive.
