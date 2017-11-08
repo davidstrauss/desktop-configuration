@@ -249,6 +249,10 @@ Current distribution: **Fedora 26**
 
 1. Use `~/public_html` as the web root, accessible via `http://localhost/~$USER/`.
 
+1. If new files with the wrong context get added, fix the selinux context:
+
+       restorecon -R ~/public_html
+
 ## Dwarf Fortress
 1. Download the latest archive.
 1. Install necessary packages:
