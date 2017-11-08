@@ -208,24 +208,24 @@ Current distribution: **Fedora 26**
        location @drupal {
            error_log /var/log/nginx/userdir.log notice;
            #rewrite_log on;
-           rewrite ^/~(.+?)/([^\/]+)(/.*)\?(.*)$ /~$1/$2/index.php?q=$3&$4;
-           rewrite ^/~(.+?)/([^\/]+)(/.*)$ /~$1/$2/index.php?q=$3;
+           rewrite ^/~([^/]+)/([^/]+)(.*)\?(.*)$ /~$1/$2/index.php?q=$3&$4;
+           rewrite ^/~([^/]+)/([^/]+)(/.*?)$ /~$1/$2/index.php?q=$3;
        }
        
-       location ^~ /~ {  # This allows us to own all paths starting with tildes.
+       location ^~ /~ {
            error_log /var/log/nginx/userdir.log notice;
        
-           location ~ ^/~(?<username>.+?)(?<path>/.*\.php)$ {
+           location ~ ^/~(?<username>[^/]+)(?<path>/.+\.php)$ {
                root /home/$username/public_html;
-               try_files /$path =404;
-               fastcgi_intercept_errors on;
+               try_files $path =404;
                fastcgi_index  index.php;
-               include        fastcgi_params;       
+               include        fastcgi_params;
                fastcgi_param  SCRIPT_FILENAME  $document_root$path;
+               fastcgi_param  SCRIPT_NAME      /~$username$path;
                fastcgi_pass   php-fpm;
            }
        
-           location ~ ^/~(?<username>.+?)(?<path>/.+?)?$ {
+           location ~ ^/~(?<username>[^/]+)(?<path>/.+?)?$ {
                root /home/$username/public_html;
                try_files $path @drupal;
            }
