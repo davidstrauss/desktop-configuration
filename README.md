@@ -241,7 +241,6 @@ Current distribution: **Fedora 26**
 
 1. Configure some PHP-related options:
 
-       sudo setsebool -P httpd_execmem 1  # Supports certain regex operations.
        echo "apc.rfc1867=1" | sudo tee -a /etc/php.d/40-apcu.ini  # Upload progress tracking.
        
 1. Start services for development (each time they're needed):
