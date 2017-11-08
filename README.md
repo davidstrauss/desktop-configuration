@@ -195,6 +195,7 @@ Current distribution: **Fedora 26**
 
 1. Create a directory for web projects (and enable web server access to directories of that type):
 
+       chmod 711 ~
        mkdir ~/public_html
        sudo setsebool -P httpd_enable_homedirs 1
 
