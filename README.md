@@ -217,12 +217,10 @@ Current distribution: **Fedora 26**
        
            location ~ ^/~(?<username>.+?)(?<path>/.*\.php)$ {
                root /home/$username/public_html;
-               #try_files $path =404;
+               try_files /$path =404;
                fastcgi_intercept_errors on;
                fastcgi_index  index.php;
-               include        fastcgi_params;
-       
-               #fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+               include        fastcgi_params;       
                fastcgi_param  SCRIPT_FILENAME  $document_root$path;
                fastcgi_pass   php-fpm;
            }
