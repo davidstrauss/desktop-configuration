@@ -240,12 +240,11 @@ Current distribution: **Fedora 26**
 
        sudo systemctl start mariadb php-fpm nginx
 
-1. Use `~/public_html` as the web root, accessible via `http://localhost/~$USER/`.
+1. Use `~/public_html/$PROJECT/` as the web root, accessible via `http://localhost/~$USER/$PROJECT/`.
 
 1. If new files with the wrong context get added, fix the selinux context:
 
        restorecon -R ~/public_html
-       chcon -R -t public_content_t ~/public_html/
 
 ## Dwarf Fortress
 1. Download the latest archive.
