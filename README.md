@@ -197,7 +197,8 @@ Current distribution: **Fedora 26**
 
        chmod 711 ~
        mkdir ~/public_html
-       sudo setsebool -P httpd_enable_homedirs 1
+       sudo setsebool -P httpd_enable_homedirs 1    # Enables use of ~/public_html by nginx and PHP-FPM.
+       sudo setsebool -P httpd_execmem 1            # Enables PHP's regex compilation.
        sudo setsebool -P httpd_builtin_scripting 1  # Hope to fix: https://bugzilla.redhat.com/show_bug.cgi?id=1510717
        sudo setsebool -P httpd_unified 1            # Same here.
        sudo setsebool -P httpd_enable_cgi 1         # Same here.
