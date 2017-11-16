@@ -203,9 +203,8 @@ Current distribution: **Fedora 27**
        sudo setsebool -P httpd_unified 1            # Same here.
        sudo setsebool -P httpd_enable_cgi 1         # Same here.
 
-1. Add support for "userdir" to nginx:
+1. Add support for `~/public_html` to nginx using `/etc/nginx/default.d/userdir.conf`:
 
-       cat <<EOT | sudo tee /etc/nginx/default.d/userdir.conf
        location @drupal {
            error_log /var/log/nginx/userdir.log notice;
            #rewrite_log on;
@@ -231,7 +230,6 @@ Current distribution: **Fedora 27**
                try_files $path @drupal;
            }
        }
-       EOT
 
 1. Configure some PHP-related options:
 
