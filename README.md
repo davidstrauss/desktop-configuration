@@ -258,13 +258,9 @@ Current distribution: **Fedora 27**
 
 ## OpenRA
 
-1. Add OpenRA repository:
+1. Download [the binary package for the current release](https://software.opensuse.org/download.html?project=games:openra&package=openra).
 
-       sudo dnf config-manager --add-repo http://download.opensuse.org/repositories/games:/openra/Fedora_25/games:openra.repo
-
-1. Install package:
-
-       sudo dnf install -y openra
+1. Install the RPM using Software Center or DNF (in order to install dependencies).
 
 ## BIOS Updates
 
