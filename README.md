@@ -274,6 +274,10 @@ Current distribution: **Fedora 27**
 1. Open the `update.img` in the Disks utility and restore it to the USB drive.
 1. Boot from that drive.
 
+## Crash Reporting
+
+* Reconfigure using `system-config-abrt`
+
 ## Other Resources
 
 * [U2F Local Login](http://blog.liw.fi/posts/u2f-pam/)
