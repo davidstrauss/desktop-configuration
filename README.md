@@ -74,7 +74,7 @@ Current distribution: **Fedora 27**
 
 1. Enable GnuPG SSH agent support:
 
-        echo "enable-ssh-support" >> .gnupg/gpg-agent.conf
+        echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
         
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
 
