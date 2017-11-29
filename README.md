@@ -145,7 +145,13 @@ Current distribution: **Fedora 27**
 
 When there's an issue, we can narrow the problem down to an individual component or connection.
 
-* Test the connection between GPG and the smart card. The following should prompt for the PIN and succeed:
+* Test that the standard PIN counter hasn't been exhausted. It's the first number returned here:
+
+        gpg2 --card-status|grep "PIN retry counter"
+        
+  * If the standard PIN counter has been exhausted, it's possible to unblock (using `gpg2 --card-edit` with `passwd`) as long as the third number wasn't also zero.
+
+* Test the GPG-to-smart card connection and key trust. The following should prompt for the regular PIN and succeed:
 
        echo "test" | gpg2 --sign --armor --local-user $FINGERPRINT
 
