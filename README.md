@@ -149,7 +149,9 @@ When there's an issue, we can narrow the problem down to an individual component
 
         gpg2 --card-status|grep "PIN retry counter"
         
-  * If the standard PIN counter has been exhausted, it's possible to unblock (using `gpg2 --card-edit` with `passwd`) as long as the third number wasn't also zero.
+  * If the standard PIN counter has been exhausted, it's possible to unblock (using `gpg2 --card-edit` with `passwd`) as long as the third number (the mangement/admin PIN retry counter) wasn't also zero.
+  
+  * If even the management/admin PIN is exhausted, then the entire GPG module needs to be reset: [YubiKey instructions](https://www.yubico.com/support/knowledge-base/categories/articles/reset-applet-yubikey/)
 
 * Test the GPG-to-smart card connection and key trust. The following should prompt for the regular PIN and succeed:
 
