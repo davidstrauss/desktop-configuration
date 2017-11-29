@@ -141,6 +141,18 @@ Current distribution: **Fedora 27**
 
 1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
 
+### Testing and Troubleshooting the Setup
+
+When there's an issue, we can narrow the problem down to an individual component or connection.
+
+* Test the connection between GPG and the smart card. The following should prompt for the PIN and succeed:
+
+       echo "test" | gpg2 --sign --armor --local-user $FINGERPRINT
+
+* Test the OpenSSH client's connection to the GPG agent. The following should output the SSH public key:
+
+       ssh-add -L
+
 ### One-Time or Test Usage of the Agent
 
 1. Open a terminal.
