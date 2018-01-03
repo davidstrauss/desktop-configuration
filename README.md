@@ -105,7 +105,9 @@ Current distribution: **Fedora 27**
 1. Add trust to any necessary keys:
 
        gpg2 --edit-key $KEYID
-       > trust
+       gpg> trust
+       Your decision? 5
+       gpg> quit
 
 ### Setting Up a New Smart Card
 
