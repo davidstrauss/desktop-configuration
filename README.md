@@ -1,6 +1,7 @@
 # Desktop Configuration
 
 Current distribution: **Fedora 27**
+Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
 * `~/.gnupg/`
