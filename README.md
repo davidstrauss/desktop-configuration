@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 27**
+* Current distribution: **Fedora 27** [Latest Respin](https://dl.fedoraproject.org/pub/alt/live-respins/)
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
