@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 27** [Latest Respin](https://dl.fedoraproject.org/pub/alt/live-respins/)
+* Current distribution: **Fedora 27**
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
@@ -14,10 +14,9 @@
 1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots. 
 1. Set up a single admin user (no password set for `root`).
 1. Reboot into the newly installed Fedora.
-1. Update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
+1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Configure the GNOME desktop:
 
-       gsettings set org.gnome.desktop.interface scaling-factor 1  # Disables HiDPI scaling.
        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
        gsettings set org.gnome.mutter dynamic-workspaces false  # Use static workspaces.
        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
@@ -42,7 +41,7 @@
 
 1. Install other packages:
 
-       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder u2f-hidraw-policy chromium libvirt-daemon-config-network chrome-gnome-shell
+       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell
 
 1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
@@ -67,15 +66,15 @@
 
 1. Install packages:
 
-        sudo dnf install ykpers pcsc-lite-ccid
+       sudo dnf install ykpers pcsc-lite-ccid
 
 1. Start and enable the smart card daemon:
 
-        sudo systemctl enable --now pcscd
+       sudo systemctl enable --now pcscd
 
 1. Enable GnuPG SSH agent support:
 
-        echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
+       echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
         
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
 
