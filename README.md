@@ -93,6 +93,7 @@
 
 1. Add a user service for the GPG agent and enable it:
 
+       mkdir -p ~/.config/systemd/user/
        cat <<EOT >> ~/.config/systemd/user/gpg-agent.service
        [Service]
        Type=forking
