@@ -42,6 +42,11 @@
 
        sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell
 
+1. Set the editor (in this case, nano, but anything will work):
+
+       mkdir -p ~/.config/environment.d/
+       echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
+
 1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
 1. Configure git:
@@ -86,7 +91,7 @@
 1. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
-       cat <<EOT >> ~/.config/environment.d/50-gpg-agent-ssh.conf
+       cat <<EOT >> ~/.config/environment.d/50-ssh-agent.conf
        SSH_AGENT_PID=
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
        EOT
@@ -105,9 +110,11 @@
 
        systemctl --user enable --now gpg-agent.service
 
-1. If using TTY-based PIN entry, update the TTY in new Bash sessions:
+1. If using TTY-based PIN entry, tell GPG to update the TTY in new Bash sessions:
 
-       echo "gpg-connect-agent updatestartuptty /bye" >> ~/.bashrc
+       echo "export GPG_TTY=`tty`" >> ~/.bashrc
+       # Or maybe this method is better?
+       #echo "gpg-connect-agent updatestartuptty /bye" >> ~/.bashrc
 
 ### Using an Existing Smart Card
 
