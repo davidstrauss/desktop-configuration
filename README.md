@@ -30,10 +30,9 @@
        TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
        gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
 
-1. Install Google Chrome and authorize sandboxing:
+1. Install Google Chrome:
 
        sudo dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-       # Still necessary? sudo setsebool -P unconfined_chrome_sandbox_transition 0
 
 1. Add RPM Fusion repositories:
 
@@ -49,6 +48,7 @@
 
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
+       git config --global color.ui auto
 
 ## Smart Cards
 
@@ -75,16 +75,26 @@
 1. Enable GnuPG SSH agent support:
 
        echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
-        
+
+1. Disable use of the GNOME Keyring as the SSH agent:
+
+       cat <<EOT >> ~/.pam_environment
+       SSH_AGENT_PID DEFAULT=
+       SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+       GSM_SKIP_SSH_AGENT_WORKAROUND DEFAULT="true"
+       EOT
+
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
 
-       cat <<EOT >> ~/.bashrc
-       GPG_TTY=$(tty); export GPG_TTY;
-       if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-         export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-       fi
-       gpg-connect-agent /bye
-       EOT
+       #cat <<EOT >> ~/.bashrc
+       #GPG_TTY=$(tty); export GPG_TTY;
+       #if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+       #  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+       #fi
+       #gpg-connect-agent updatestartuptty /bye
+       #EOT
+       
+       echo "gpg-connect-agent updatestartuptty /bye" >> ~/.bashrc
 
 ### Using an Existing Smart Card
 
