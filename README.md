@@ -76,12 +76,13 @@
 
        echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
 
-1. Disable use of the GNOME Keyring as the SSH agent:
+1. Redirect sessions to use the GPG agent for SSH:
 
-       cat <<EOT >> ~/.pam_environment
-       SSH_AGENT_PID DEFAULT=
-       SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
-       GSM_SKIP_SSH_AGENT_WORKAROUND DEFAULT="true"
+       mkdir -p ~/.config/environment.d/
+       cat <<EOT >> ~/.config/environment.d/gpg-agent-ssh.conf
+       SSH_AGENT_PID=
+       SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+       GSM_SKIP_SSH_AGENT_WORKAROUND="true"
        EOT
 
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
