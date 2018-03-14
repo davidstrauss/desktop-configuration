@@ -79,10 +79,10 @@
 1. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
-       cat <<EOT >> ~/.config/environment.d/gpg-agent-ssh.conf
+       cat <<EOT >> ~/.config/environment.d/100-gpg-agent-ssh.conf
        SSH_AGENT_PID=
-       SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
-       GSM_SKIP_SSH_AGENT_WORKAROUND="true"
+       SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
+       GSM_SKIP_SSH_AGENT_WORKAROUND=true
        EOT
 
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
