@@ -76,13 +76,24 @@
 
        echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
 
+1. Override the desktop file to disable GNOME's built-in SSH agent:
+
+       mkdir -p ~/.config/autostart/
+       cat <<EOT >> ~/.config/autostart/gnome-keyring-ssh.desktop
+       [Desktop Entry]
+       Type=Application
+       Name=SSH Key Agent
+       Exec=/usr/bin/true
+       GNOME-Autostart-enabled=false
+       EOT
+
 1. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
        cat <<EOT >> ~/.config/environment.d/99-gpg-agent-ssh.conf
        SSH_AGENT_PID=
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
-       GSM_SKIP_SSH_AGENT_WORKAROUND=1
+       #GSM_SKIP_SSH_AGENT_WORKAROUND=1
        EOT
 
 1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
