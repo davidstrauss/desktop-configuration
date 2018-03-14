@@ -68,15 +68,11 @@
 
        sudo dnf install ykpers pcsc-lite-ccid
 
-1. Start and enable the smart card daemon:
+1. Start and enable the smart card daemon at the system level:
 
        sudo systemctl enable --now pcscd
 
-1. Enable GnuPG SSH agent support:
-
-       echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf
-
-1. Override the desktop file to disable GNOME's built-in SSH agent:
+1. Disable the GNOME Keyring SSH agent by overring the desktop file:
 
        mkdir -p ~/.config/autostart/
        cat <<EOT >> ~/.config/autostart/gnome-keyring-ssh.desktop
@@ -84,28 +80,32 @@
        Type=Application
        Name=SSH Key Agent
        Exec=/usr/bin/true
-       GNOME-Autostart-enabled=false
+       Hidden=true
        EOT
 
 1. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
-       cat <<EOT >> ~/.config/environment.d/99-gpg-agent-ssh.conf
+       cat <<EOT >> ~/.config/environment.d/50-gpg-agent-ssh.conf
        SSH_AGENT_PID=
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
-       #GSM_SKIP_SSH_AGENT_WORKAROUND=1
        EOT
 
-1. Ensure the GnuPG Agent is available for SSH use whenever you start a Bash session:
+1. Add a user service for the GPG agent and enable it:
 
-       #cat <<EOT >> ~/.bashrc
-       #GPG_TTY=$(tty); export GPG_TTY;
-       #if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-       #  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-       #fi
-       #gpg-connect-agent updatestartuptty /bye
-       #EOT
-       
+       cat <<EOT >> ~/.config/systemd/user/gpg-agent.service
+       [Service]
+       Type=forking
+       ExecStart=/usr/bin/gpg-agent --daemon --enable-ssh-support
+
+       [Install]
+       WantedBy=default.target
+       EOT
+
+       systemctl --user enable --now gpg-agent.service
+
+1. If using TTY-based PIN entry, update the TTY in new Bash sessions:
+
        echo "gpg-connect-agent updatestartuptty /bye" >> ~/.bashrc
 
 ### Using an Existing Smart Card
