@@ -187,6 +187,7 @@ When there's an issue, we can narrow the problem down to an individual component
 
 * Test the GPG-to-smart card connection and key trust. The following should prompt for the regular PIN and succeed:
 
+       FINGERPRINT=`cat Sandbox/test.txt | grep -o "/[[:alnum:]]* " | grep -o "[[:alnum:]]*"`
        echo "test" | gpg2 --sign --armor --local-user $FINGERPRINT
 
 * Test the OpenSSH client's connection to the GPG agent. The following should output the SSH public key:
@@ -198,11 +199,11 @@ When there's an issue, we can narrow the problem down to an individual component
 1. Open a terminal.
 1. If you're restarted your computer since using the agent, start it:
 
-       gpg-agent --daemon
+       gpg-agent --daemon --enable-ssh-support
 
 1. In any shell where you want to use it, point OpenSSH to the GPG agent:
 
-       export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
+       export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh  # Or use the line shown in the output of starting the GPG agent
 
 ### Revoking a Key
 
