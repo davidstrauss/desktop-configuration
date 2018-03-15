@@ -73,9 +73,10 @@
 
        sudo dnf install ykpers pcsc-lite-ccid
 
-1. Disable the GNOME Keyring SSH agent by overring the desktop file:
+1. Disable the GNOME Keyring SSH agent by overriding the desktop file:
 
        mkdir -p ~/.config/autostart/
+       
        cat <<EOT >> ~/.config/autostart/gnome-keyring-ssh.desktop
        [Desktop Entry]
        Type=Application
@@ -87,6 +88,7 @@
 1. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
+       
        cat <<EOT >> ~/.config/environment.d/50-ssh-agent.conf
        SSH_AGENT_PID=
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
