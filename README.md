@@ -177,9 +177,21 @@
 
 When there's an issue, we can narrow the problem down to an individual component or connection.
 
+* Test that the GPG agent is running and accessible:
+
+       systemctl --user status gpg-agent.service
+       ls -l $SSH_AUTH_SOCK
+       
+       # Optionally, reinitialize it:
+       systemctl --user restart gpg-agent.service
+
+* Reinitialize the PCSC daemon:
+
+       sudo systemctl restart pcscd.service
+
 * Test that the standard PIN counter hasn't been exhausted. It's the first number returned here:
 
-        gpg2 --card-status|grep "PIN retry counter"
+       gpg2 --card-status|grep "PIN retry counter"
         
   * If the standard PIN counter has been exhausted, it's possible to unblock (using `gpg2 --card-edit` with `passwd`) as long as the third number (the mangement/admin PIN retry counter) wasn't also zero.
   
