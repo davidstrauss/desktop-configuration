@@ -340,7 +340,7 @@ When there's an issue, we can narrow the problem down to an individual component
 
        sudo dnf install geteltorito
 
-1. Download the "bootable CD" ISO. For ThinkPads, use [Lenovo's support site](http://pcsupport.lenovo.com/us/en/).
+1. Download the "bootable CD" ISO. For ThinkPads, use [Lenovo's My Products tool](https://account.lenovo.com/us/en/myproducts), click on the product model (after adding it), and then click Top Downloads > View All.
 1. Write it to a USB drive:
 
        geteltorito -o update.img downloaded.iso
