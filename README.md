@@ -351,7 +351,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 1. Open the `update.img` in the Disks utility and restore it to the USB drive.
 1. Boot from that drive.
 
-### Grub2 Method
+### GRUB2 EFI Chainloader Method
 
 1. **First Time:** Setup:
 
