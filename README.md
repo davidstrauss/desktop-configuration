@@ -353,39 +353,33 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
 ### Grub2 Method
 
-1. First-time setup:
+1. **First Time:** Setup:
 
-       #grub-mkimage -o core.img biosdisk iso9660
-       #cat /usr/lib/grub/i386-pc/cdboot.img core.img >torito.img
-
-       #sudo su
-       #BOOTROOT=`grep linuxefi /boot/efi/EFI/fedora/grub.cfg | head -n1 | cut -d' ' -f3`
+       sudo dnf install syslinux p7zip p7zip-plugins
        
-       dnf install syslinux p7zip p7zip-plugins
-       geteltorito -o eltorito.img downloaded.iso
-       7z x -oeltorito/ eltorito.img
-       sudo cp -R eltorito/Flash/ /boot/
-
-       #cp /usr/share/syslinux/memdisk /boot/memdisk
-
-       cat >> /etc/grub.d/40_custom <<EOF
+       ESPUUID=`grub2-probe --target=fs_uuid /boot/efi/`
+       cat >> 40_custom <<EOF
        menuentry "Firmware Update" {
-           #set $BOOTROOT
+           insmod fat
+           insmod part_gpt
            insmod chain
-           chainloader /Flash/SHELLFLASH.EFI
+           insmod search_fs_uuid
+           search --fs-uuid $ESPUUID
+           chainloader /Lenovo/EFI/Boot/BootX64.efi
        }
        EOF
        
-       grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+       sudo mv 40_custom /etc/grub.d/40_custom
+       sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 
-1. Extract the update to the EFI partition:
+1. **Every Time:** Extract the update to appropriate places in the EFI partition:
 
-       geteltorito -o update.img downloaded.iso
-       7z x -o/tmp/lenovo/ update.img
+       geteltorito -o eltorito.img downloaded.iso
+       7z x -oeltorito/ eltorito.img
+       sudo rsync --recursive --delete --verbose eltorito/EFI/ /boot/efi/Lenovo/EFI/
+       sudo rsync --recursive --delete --verbose eltorito/Flash/ /boot/efi/Flash/
 
-       sudo cp -R /tmp/lenovo /boot/efi/EFI/
-
-1. Reboot and select "Firmware Update."
+1. **Every Time:** Reboot and select "Firmware Update."
 
 ## Crash Reporting
 
