@@ -356,11 +356,13 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 1. First-time setup:
 
        sudo su
+       BOOTROOT=`cat /proc/mounts | grep " /boot " | cut -d' ' -f1`
        dnf install syslinux
        cp /usr/share/syslinux/memdisk /boot/memdisk
 
        cat >> /etc/grub.d/40_custom <<EOF
        menuentry "Firmware Update" {
+           set root=$BOOTROOT
            linux16 /boot/memdisk iso
            initrd16 /boot/update.iso
        }
