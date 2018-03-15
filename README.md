@@ -199,7 +199,7 @@ When there's an issue, we can narrow the problem down to an individual component
 
 * Test the GPG-to-smart card connection and key trust. The following should prompt for the regular PIN and succeed:
 
-       FINGERPRINT=`cat Sandbox/test.txt | grep -o "/[[:alnum:]]* " | grep -o "[[:alnum:]]*"`
+       FINGERPRINT=`gpg2 --card-status | grep "General key info" | grep -o "/[[:alnum:]]* " | grep -o "[[:alnum:]]*"`
        echo "test" | gpg2 --sign --armor --local-user $FINGERPRINT
 
 * Test the OpenSSH client's connection to the GPG agent. The following should output the SSH public key:
