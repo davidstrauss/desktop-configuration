@@ -125,12 +125,6 @@
 
        systemctl --user enable --now gpg-agent.socket gpg-agent-ssh.socket
 
-1. If using TTY-based PIN entry, tell GPG to update the TTY in new Bash sessions:
-
-       echo "export GPG_TTY=`tty`" >> ~/.bashrc
-       # Or maybe this method is better?
-       #echo "gpg-connect-agent updatestartuptty /bye" >> ~/.bashrc
-
 ### Using an Existing Smart Card
 
 1. Complete machine setup (above).
