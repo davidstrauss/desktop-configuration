@@ -73,10 +73,6 @@
 
        sudo dnf install ykpers pcsc-lite-ccid
 
-1. Start and enable the smart card daemon at the system level:
-
-       sudo systemctl enable --now pcscd
-
 1. Disable the GNOME Keyring SSH agent by overring the desktop file:
 
        mkdir -p ~/.config/autostart/
@@ -99,16 +95,37 @@
 1. Add a user service for the GPG agent and enable it:
 
        mkdir -p ~/.config/systemd/user/
+
        cat <<EOT >> ~/.config/systemd/user/gpg-agent.service
        [Service]
-       Type=forking
-       ExecStart=/usr/bin/gpg-agent --daemon --enable-ssh-support
-
-       [Install]
-       WantedBy=default.target
+       ExecStart=/usr/bin/gpg-agent --supervised --enable-ssh-support
+       ExecReload=/usr/bin/gpgconf --reload gpg-agent
        EOT
 
-       systemctl --user enable --now gpg-agent.service
+       cat <<EOT >> ~/.config/systemd/user/gpg-agent.socket
+       [Socket]
+       ListenStream=%t/gnupg/S.gpg-agent
+       FileDescriptorName=std
+       SocketMode=0600
+       DirectoryMode=0700
+       
+       [Install]
+       WantedBy=sockets.target
+       EOT
+
+       cat <<EOT >> ~/.config/systemd/user/gpg-agent-ssh.socket
+       [Socket]
+       ListenStream=%t/gnupg/S.gpg-agent.ssh
+       FileDescriptorName=ssh
+       Service=gpg-agent.service
+       SocketMode=0600
+       DirectoryMode=0700
+       
+       [Install]
+       WantedBy=sockets.target
+       EOT
+
+       systemctl --user enable --now gpg-agent.socket gpg-agent-ssh.socket
 
 1. If using TTY-based PIN entry, tell GPG to update the TTY in new Bash sessions:
 
