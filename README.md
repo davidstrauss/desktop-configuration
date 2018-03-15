@@ -69,10 +69,6 @@
 
 ### Machine Setup
 
-1. Install packages:
-
-       sudo dnf install ykpers pcsc-lite-ccid
-
 1. Disable the GNOME Keyring SSH agent by overriding the desktop file:
 
        mkdir -p ~/.config/autostart/
@@ -137,7 +133,7 @@
 
 ### Using an Existing Smart Card
 
-1. Complete the Machine Setup above.
+1. Complete machine setup (above).
 1. Import any existing smart card keys (that were set up according to the directions below):
 
        gpg2 --card-edit
@@ -160,7 +156,11 @@
 
 ### Setting Up a New Smart Card
 
-1. Complete the Machine Setup above.
+1. Complete machine setup (above).
+1. Install the personalization tool:
+
+       sudo dnf install ykpers
+
 1. If the smart card is a YubiKey Neo or YubiKey 4, set the card's mode:
 
         ykpersonalize -m86
