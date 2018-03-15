@@ -360,15 +360,19 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
        #sudo su
        #BOOTROOT=`grep linuxefi /boot/efi/EFI/fedora/grub.cfg | head -n1 | cut -d' ' -f3`
-       dnf install syslinux p7zip p7zip-plugins
        
-       cp /usr/share/syslinux/memdisk /boot/memdisk
+       dnf install syslinux p7zip p7zip-plugins
+       geteltorito -o eltorito.img downloaded.iso
+       7z x -oeltorito/ eltorito.img
+       sudo cp -R eltorito/Flash/ /boot/
+
+       #cp /usr/share/syslinux/memdisk /boot/memdisk
 
        cat >> /etc/grub.d/40_custom <<EOF
        menuentry "Firmware Update" {
            #set $BOOTROOT
-           linux16 /memdisk iso
-           initrd16 /update.iso
+           insmod chain
+           chainloader /Flash/SHELLFLASH.EFI
        }
        EOF
        
