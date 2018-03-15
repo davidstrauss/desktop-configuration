@@ -336,17 +336,43 @@ When there's an issue, we can narrow the problem down to an individual component
 
 ## BIOS Updates
 
+First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https://account.lenovo.com/us/en/myproducts), click on the product model (after adding yours), then Top Downloads > View All, and finally the "Bootable CD" ISO.
+
+### USB Thumb Drive Method
+
 1. Install the conversion utility:
 
        sudo dnf install geteltorito
 
-1. Download the "bootable CD" ISO. For ThinkPads, use [Lenovo's My Products tool](https://account.lenovo.com/us/en/myproducts), click on the product model (after adding it), and then click Top Downloads > View All.
 1. Write it to a USB drive:
 
        geteltorito -o update.img downloaded.iso
 
 1. Open the `update.img` in the Disks utility and restore it to the USB drive.
 1. Boot from that drive.
+
+### Grub2 Method
+
+1. First-time setup:
+
+       sudo su
+       dnf install syslinux
+       cp /usr/share/syslinux/memdisk /boot/memdisk
+
+       cat >> /etc/grub.d/40_custom <<EOF
+       menuentry "Firmware Update" {
+           linux16 /boot/memdisk iso
+           initrd16 /boot/update.iso
+       }
+       EOF
+       
+       grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+
+1. Copy the BIOS update to the boot partition:
+
+       cp downloaded.iso /boot/update.iso
+
+1. Reboot and select "Firmware Update."
 
 ## Crash Reporting
 
