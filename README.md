@@ -194,17 +194,13 @@
 
 When there's an issue, we can narrow the problem down to an individual component or connection.
 
-* Test that the GPG agent is running and accessible:
+* Test that the GPG agent is running and accessible (aften an attempt at use):
 
        systemctl --user status gpg-agent.service
        ls -l $SSH_AUTH_SOCK
        
-       # Optionally, reinitialize it:
-       systemctl --user restart gpg-agent.service
-
-* Reinitialize the PCSC daemon:
-
-       sudo systemctl restart pcscd.service
+       # Optionally, stop it (which will cause reinitialization on use):
+       systemctl --user stop gpg-agent.service
 
 * Test that the standard PIN counter hasn't been exhausted. It's the first number returned here:
 
