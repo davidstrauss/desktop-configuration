@@ -355,24 +355,31 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
 1. First-time setup:
 
-       sudo su
-       BOOTROOT=`grep linuxefi /boot/efi/EFI/fedora/grub.cfg | head -n1 | cut -d' ' -f3`
-       dnf install syslinux
+       #grub-mkimage -o core.img biosdisk iso9660
+       #cat /usr/lib/grub/i386-pc/cdboot.img core.img >torito.img
+
+       #sudo su
+       #BOOTROOT=`grep linuxefi /boot/efi/EFI/fedora/grub.cfg | head -n1 | cut -d' ' -f3`
+       dnf install syslinux p7zip p7zip-plugins
+       
        cp /usr/share/syslinux/memdisk /boot/memdisk
 
        cat >> /etc/grub.d/40_custom <<EOF
        menuentry "Firmware Update" {
-           set $BOOTROOT
-           linux16 /boot/memdisk iso
-           initrd16 /boot/update.iso
+           #set $BOOTROOT
+           linux16 /memdisk iso
+           initrd16 /update.iso
        }
        EOF
        
        grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 
-1. Copy the BIOS update to the boot partition:
+1. Extract the update to the EFI partition:
 
-       cp downloaded.iso /boot/update.iso
+       geteltorito -o update.img downloaded.iso
+       7z x -o/tmp/lenovo/ update.img
+
+       sudo cp -R /tmp/lenovo /boot/efi/EFI/
 
 1. Reboot and select "Firmware Update."
 
