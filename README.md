@@ -357,7 +357,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
        sudo dnf install syslinux p7zip p7zip-plugins
        
-       ESPUUID=`grub2-probe --target=fs_uuid /boot/efi/`
+       ESPUUID=`sudo grub2-probe --target=fs_uuid /boot/efi/`
        cat >> 40_custom <<EOF
        menuentry "Firmware Update" {
            insmod fat
@@ -365,7 +365,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
            insmod chain
            insmod search_fs_uuid
            search --fs-uuid $ESPUUID
-           chainloader /Lenovo/EFI/Boot/BootX64.efi
+           chainloader /LenovoEFI/Boot/BootX64.efi
        }
        EOF
        
@@ -376,8 +376,8 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
        geteltorito -o eltorito.img downloaded.iso
        7z x -oeltorito/ eltorito.img
-       sudo rsync --recursive --delete --verbose eltorito/EFI/ /boot/efi/Lenovo/EFI/
        sudo rsync --recursive --delete --verbose eltorito/Flash/ /boot/efi/Flash/
+       sudo rsync --recursive --delete --verbose eltorito/EFI/ /boot/efi/LenovoEFI/
 
 1. **Every Time:** Reboot and select "Firmware Update."
 
