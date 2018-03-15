@@ -92,7 +92,7 @@
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
        EOT
 
-1. Add a user service for the GPG agent and enable it:
+1. Add a user service and corresponding sockets for the GPG agent:
 
        mkdir -p ~/.config/systemd/user/
 
