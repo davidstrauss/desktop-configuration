@@ -251,7 +251,8 @@ When there's an issue, we can narrow the problem down to an individual component
 
 1. Add Go to the path:
 
-       cat <<EOT >> ~/.bashrc
+       mkdir -p ~/.config/environment.d/
+       cat <<EOT >> ~/.config/environment.d/50-golang.conf
        export GOPATH=\$HOME/go
        export PATH=\$PATH:\$GOROOT/bin:\$GOPATH/bin
        EOT
