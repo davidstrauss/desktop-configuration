@@ -253,8 +253,8 @@ When there's an issue, we can narrow the problem down to an individual component
 
        mkdir -p ~/.config/environment.d/
        cat <<EOT >> ~/.config/environment.d/50-golang.conf
-       export GOPATH=\$HOME/go
-       export PATH=\$PATH:\$GOROOT/bin:\$GOPATH/bin
+       GOPATH=\$HOME/go
+       PATH=\$PATH:\$GOROOT/bin:\$GOPATH/bin
        EOT
 
 ## PHP Development
