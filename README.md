@@ -190,7 +190,7 @@
 
 When there's an issue, we can narrow the problem down to an individual component or connection.
 
-* Test that the GPG agent is running and accessible (aften an attempt at use):
+* Test that the GPG agent is running and accessible (after an attempt at use):
 
        systemctl --user status gpg-agent.service
        ls -l $SSH_AUTH_SOCK
