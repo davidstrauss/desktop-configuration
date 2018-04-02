@@ -138,7 +138,7 @@
 1. Import any other keys:
 
        gpg2 --keyserver keys.gnupg.net --recv-key $KEYID
-       gpg2 --keyserver hkps.pool.sks-keyservers.net --recv-key $KEYID  # Another database to try.
+       gpg2 --keyserver pool.sks-keyservers.net --recv-key $KEYID  # Another database to try.
        gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # Another database to try.
 
 1. Add trust to any necessary keys:
@@ -173,7 +173,7 @@
        gpg/card> quit  # GPG will then print out data, including the key fingerprint
                        # as a long, alphanumeric string.
        gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
-       gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
+       gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
 1. Display the public key in OpenSSH format:
