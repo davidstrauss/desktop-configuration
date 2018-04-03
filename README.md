@@ -176,6 +176,8 @@
        gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
+    **Note:** Revocation certificates are backed up to `~/.gnupg/openpgp-revocs.d`
+
 1. Display the public key in OpenSSH format:
 
        ssh-add -L
