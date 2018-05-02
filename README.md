@@ -1,24 +1,24 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 27**
+* Current distribution: **Fedora 28**
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
 * `~/.gnupg/`
 * `~/.password-store/`
 * `~/.gitconfig`
+* `~/.pki/`
 
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer).
 2. Boot to the USB drive.
 3. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
-4. Set up a single admin user (no password set for `root`).
-5. Reboot into the newly installed Fedora.
-6. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
-7. Configure the GNOME desktop:
+4. Reboot into the newly installed Fedora and set up your user.
+5. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
+6. Configure the GNOME desktop:
 
        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
-       gsettings set org.gnome.mutter dynamic-workspaces false  # Use static workspaces.
+       gsettings set org.gnome.shell.overrides dynamic-workspaces false  # Use static workspaces.
        gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
        gsettings set org.gnome.desktop.interface clock-show-seconds true
        gsettings set org.gnome.desktop.interface clock-show-date true
@@ -30,30 +30,24 @@
        TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
        gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
 
-8. Install Google Chrome:
+7. Open Software Center, enable additional repositories, and install Google Chrome.
+8. Install other packages:
 
-       sudo dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell pcsc-lite
 
-9. Add [RPM Fusion](https://rpmfusion.org/) repositories:
-
-       sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-10. Install other packages:
-
-       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell
-
-11. Set the editor (in this case, nano, but anything will work):
+9. Set the editor (in this case, nano, but anything will work):
 
        mkdir -p ~/.config/environment.d/
        echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
 
-12. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
+10. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
+11. Configure git:
 
-13. Configure git:
-
+       ```
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
        git config --global color.ui auto
+       ```
 
 ## Smart Cards
 
@@ -64,12 +58,14 @@
 * Card only: [Fidesmo Dual Interface](http://shop.fidesmo.com/product/fidesmo-card-dual-interface)
 * Reader only: [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry. The specific tested model was JK-A0100EU-2.
 * Reader only: Identiv SCM SPR 532: Should work with secure PIN entry out of the box
-* Reader only: Lenovo ThinkPad T560 built-in: No secure PIN entry available
+* Reader only: Lenovo ThinkPad T-series built-in: No secure PIN entry available
 * [LWN Article: A comparison of cryptographic keycards](https://lwn.net/Articles/736231/)
 
 ### Machine Setup
 
-1. Disable the GNOME Keyring SSH agent by overriding the desktop file:
+1. The following steps assume that machine setup above is complete, particularly packages.
+
+2. Disable the GNOME Keyring SSH agent by overriding the desktop file:
 
        mkdir -p ~/.config/autostart/
 
@@ -81,7 +77,7 @@
        Hidden=true
        EOT
 
-2. Redirect sessions to use the GPG agent for SSH:
+3. Redirect sessions to use the GPG agent for SSH:
 
        mkdir -p ~/.config/environment.d/
 
@@ -90,7 +86,7 @@
        SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
        EOT
 
-3. Add a user service and corresponding sockets for the GPG agent:
+4. Add a user service and corresponding sockets for the GPG agent:
 
        mkdir -p ~/.config/systemd/user/
 
@@ -124,6 +120,9 @@
        EOT
 
        systemctl --user enable --now gpg-agent.socket gpg-agent-ssh.socket
+       sudo systemctl enable --now pcscd.socket
+
+5. Log out and back into your user session (to pick up the new environmental variables).
 
 ### Using an Existing Smart Card
 
