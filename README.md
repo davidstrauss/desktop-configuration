@@ -11,10 +11,16 @@
 
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer).
-2. Boot to the USB drive.
-3. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
-4. Reboot into the newly installed Fedora and set up your user.
-5. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
+1. Boot to the USB drive.
+1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
+1. Reboot into the newly installed Fedora and set up your user.
+1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
+1. Install Ansible:
+       sudo dnf install -y ansible
+1. Run remaining configuration:
+       ansible-playbook --ask-become-pass --check -vvv post_install.yml  # Optional Very Verbose Dry Run
+       ansible-playbook --ask-become-pass post_install.yml
+
 6. Configure the GNOME desktop:
 
        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl

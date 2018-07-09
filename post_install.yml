@@ -1,0 +1,187 @@
+- hosts: localhost
+  tasks:
+    - name: Install Builder
+      become: yes
+      package:
+        name: gnome-builder
+        state: present
+    - name: Install GIMP
+      become: yes
+      package:
+        name: gimp
+        state: present
+    - name: Install Inkscape
+      become: yes
+      package:
+        name: inkscape
+        state: present
+    - name: Install htop
+      become: yes
+      package:
+        name: htop
+        state: present
+    - name: Install iotop
+      become: yes
+      package:
+        name: iotop
+        state: present
+    - name: Install MariaDB
+      become: yes
+      package:
+        name: mariadb
+        state: present
+    - name: Install Meld
+      become: yes
+      package:
+        name: meld
+        state: present
+    - name: Install GNU Nano
+      become: yes
+      package:
+        name: nano
+        state: present
+    - name: Install PHP with CLI
+      become: yes
+      package:
+        name: php-cli
+        state: present
+    - name: Install Powertop
+      become: yes
+      package:
+        name: powertop
+        state: present
+    - name: Install Quassel Client
+      become: yes
+      package:
+        name: quassel-client
+        state: present
+    - name: Install Tor
+      become: yes
+      package:
+        name: tor
+        state: present
+    - name: Install Unbound
+      become: yes
+      package:
+        name: unbound
+        state: present
+    - name: Install Wireshark for GNOME
+      become: yes
+      package:
+        name: wireshark-gnome
+        state: present
+
+    - name: Install Transmission
+      become: yes
+      package:
+        name: transmission
+        state: present
+    - name: Install GNOME System Log
+      become: yes
+      package:
+        name: gnome-system-log
+        state: present
+    - name: Install FATSort
+      become: yes
+      package:
+        name: fatsort
+        state: present
+    - name: Install Unbound DNS Client
+      become: yes
+      package:
+        name: unbound
+        state: present
+    - name: Install Nmap Network Scanner Frontend
+      become: yes
+      package:
+        name: nmap-frontend
+        state: present
+    - name: Install Password Manager
+      become: yes
+      package:
+        name: pass
+        state: present
+    - name: Install GHex Hex Editor
+      become: yes
+      package:
+        name: ghex
+        state: present
+    - name: Install Composer for PHP
+      become: yes
+      package:
+        name: composer
+        state: present
+    - name: Install Network Configuration for libvirt Virtual Machines
+      become: yes
+      package:
+        name: libvirt-daemon-config-network
+        state: present
+    - name: Install GNOME Shell Support for Chrome
+      become: yes
+      package:
+        name: chrome-gnome-shell
+        state: present
+    - name: Install PCSC Smart Card Drivers
+      become: yes
+      package:
+        name: pcsc-lite
+        state: present
+    - name: Install System Utilities for Python (for Ansible)
+      become: yes
+      package:
+        name: pcsc-lite
+        state: present
+    - name: Interpret Caps Lock as Ctrl
+      dconf:
+        key: /org/gnome/desktop/input-sources/xkb-options
+        value: "['caps:ctrl_modifier']"
+    - name: Use Static Workspaces
+      dconf:
+        key: /org/gnome/shell/overrides/dynamic-workspaces
+        value: "false"
+    - name: Use One Static Workspace
+      dconf:
+        key: /org/gnome/desktop/wm/preferences/num-workspaces
+        value: 1
+    - name: Show Seconds on the Desktop Clock
+      dconf:
+        key: /org/gnome/desktop/interface/clock-show-seconds
+        value: "true"
+    - name: Show Date on the Desktop Clock
+      dconf:
+        key: /org/gnome/desktop/interface/clock-show-date
+        value: "true"
+    - name: Use Natural Scrolling
+      dconf:
+        key: /org/gnome/desktop/peripherals/mouse/natural-scroll
+        value: "true"
+    - name: Disable All GNOME Extensions
+      dconf:
+        key: /org/gnome/shell/enabled-extensions
+        value: "[]"
+    - name: Configure F12 to Reset and Clear the Terminal
+      dconf:
+        key: /org/gnome/terminal/legacy/keybindings/reset-and-clear
+        value: "F12"
+    - name: Use LCD-Style Antialiasing
+      dconf:
+        key: /org/gnome/settings-daemon/plugins/xsettings
+        value: "rgba"
+    - name: Automatically Remove Old Temporary Files
+      dconf:
+        key: /org/gnome/desktop/privacy/remove-old-temp-files
+        value: "true"
+    - name: Automatically Remove Old Trash Files
+      dconf:
+        key: /org/gnome/desktop/privacy/remove-old-trash-files
+        value: "true"
+    - name: Assume GNOME Software Has Been Used Before
+      dconf:
+        key: /org/gnome/software/first-run
+        value: "false"
+    - name: Disable DConf Editor Warning
+      dconf:
+        key: /ca/desrt/dconf-editor/show-warning
+        value: "false"
+
+
