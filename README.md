@@ -244,20 +244,6 @@ When there's an issue, we can narrow the problem down to an individual component
        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
-## Go Development
-
-1. Install packages:
-
-       sudo dnf install golang
-
-1. Add Go to the path:
-
-       mkdir -p ~/.config/environment.d/
-       cat <<EOT >> ~/.config/environment.d/50-golang.conf
-       GOPATH=\$HOME/go
-       PATH=\$PATH:\$GOROOT/bin:\$GOPATH/bin
-       EOT
-
 ## PHP Development
 
 1. Install packages:
