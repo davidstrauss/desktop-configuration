@@ -244,6 +244,12 @@ When there's an issue, we can narrow the problem down to an individual component
        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
+## Go Development
+
+Configure `go get` to use SSH-based authentication:
+
+    git config --global url.git@github.com:.insteadOf https://github.com/
+
 ## PHP Development
 
 1. Install packages:
