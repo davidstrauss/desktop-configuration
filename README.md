@@ -165,10 +165,9 @@
                           # I use pwgen for the admin PIN.
        gpg2 --card-edit
        gpg/card> admin
-       gpg/card> generate # No off-card key backup.
+       gpg/card> generate # Perform the off-card backup (which is only a shim private key, anyway).
                           # Use a key size of 3072 for everything on YubiKey 4. Default is fine for NEO.
                           # No expiration.
-                          # Back up the .rev file.
        gpg/card> quit  # GPG will then print out data, including the key fingerprint
                        # as a long, alphanumeric string.
        gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
