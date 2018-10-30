@@ -17,7 +17,7 @@
 1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Install Ansible:
 
-       sudo dnf install -y ansible
+       sudo dnf install -y ansible python3-psutil  # Ansible's dconf support requires psutil.
 
 1. Run remaining configuration:
 
