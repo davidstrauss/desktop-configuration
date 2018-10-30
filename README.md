@@ -15,6 +15,7 @@
 1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
 1. Reboot into the newly installed Fedora and set up your user.
 1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
+1. Open Software Center, enable additional repositories, and install Google Chrome.
 1. Install Ansible:
 
        sudo dnf install -y ansible python3-psutil  # Ansible's dconf support requires psutil.
@@ -26,23 +27,13 @@
        ansible-playbook --ask-become-pass --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook --ask-become-pass post_install.yml
 
-1. Configure the GNOME desktop:
-
-       TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
-       gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
-
-7. Open Software Center, enable additional repositories, and install Google Chrome.
-8. Install other packages:
-
-       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell pcsc-lite
-
-9. Set the editor (in this case, nano, but anything will work):
+1. Set the editor (in this case, nano, but anything will work):
 
        mkdir -p ~/.config/environment.d/
        echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
 
-10. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
-11. Configure git:
+1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
+1. Configure git:
 
        ```
        git config --global user.name "David Strauss"
