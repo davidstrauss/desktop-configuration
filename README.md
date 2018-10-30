@@ -27,11 +27,6 @@
        ansible-playbook --ask-become-pass --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook --ask-become-pass post_install.yml
 
-1. Set the editor (in this case, nano, but anything will work):
-
-       mkdir -p ~/.config/environment.d/
-       echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
-
 1. Configure git:
 
        git config --global user.name "David Strauss"
