@@ -35,6 +35,8 @@
 
 1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
+1. Log back out and in to use the smart card configuration.
+
 ## Smart Cards
 
 ### Tested Hardware
@@ -46,69 +48,6 @@
 * Reader only: Identiv SCM SPR 532: Should work with secure PIN entry out of the box
 * Reader only: Lenovo ThinkPad T-series built-in: No secure PIN entry available
 * [LWN Article: A comparison of cryptographic keycards](https://lwn.net/Articles/736231/)
-
-### Machine Setup
-
-1. The following steps assume that machine setup above is complete, particularly packages.
-
-2. Disable the GNOME Keyring SSH agent by overriding the desktop file:
-
-       mkdir -p ~/.config/autostart/
-
-       cat <<EOT >> ~/.config/autostart/gnome-keyring-ssh.desktop
-       [Desktop Entry]
-       Type=Application
-       Name=SSH Key Agent
-       Exec=/usr/bin/true
-       Hidden=true
-       EOT
-
-3. Redirect sessions to use the GPG agent for SSH:
-
-       mkdir -p ~/.config/environment.d/
-
-       cat <<EOT >> ~/.config/environment.d/50-ssh-agent.conf
-       SSH_AGENT_PID=
-       SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
-       EOT
-
-4. Add a user service and corresponding sockets for the GPG agent:
-
-       mkdir -p ~/.config/systemd/user/
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent.service
-       [Service]
-       ExecStart=/usr/bin/gpg-agent --supervised --enable-ssh-support
-       ExecReload=/usr/bin/gpgconf --reload gpg-agent
-       EOT
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent.socket
-       [Socket]
-       ListenStream=%t/gnupg/S.gpg-agent
-       FileDescriptorName=std
-       SocketMode=0600
-       DirectoryMode=0700
-
-       [Install]
-       WantedBy=sockets.target
-       EOT
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent-ssh.socket
-       [Socket]
-       ListenStream=%t/gnupg/S.gpg-agent.ssh
-       FileDescriptorName=ssh
-       Service=gpg-agent.service
-       SocketMode=0600
-       DirectoryMode=0700
-
-       [Install]
-       WantedBy=sockets.target
-       EOT
-
-       systemctl --user enable --now gpg-agent.socket gpg-agent-ssh.socket
-       sudo systemctl enable --now pcscd.socket
-
-5. Log out and back into your user session (to pick up the new environmental variables).
 
 ### Using an Existing Smart Card
 
