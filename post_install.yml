@@ -197,3 +197,71 @@
       copy:
         dest: "~/.config/environment.d/50-editor.conf"
         content: EDITOR=nano
+
+    - name: Create Autostart Configuration Directory
+      file:
+        path: ~/.config/autostart/
+        state: directory
+    - name: Disable GNOME Keyring Autostart
+      copy:
+        dest: "~/.config/autostart/gnome-keyring-ssh.desktop"
+        content: |
+          [Desktop Entry]
+          Type=Application
+          Name=SSH Key Agent
+          Exec=/usr/bin/true
+          Hidden=true
+    - name: Configure SSH to Use the GPG Agent
+      copy:
+        dest: "~/.config/environment.d/50-ssh-agent.conf"
+        content: |
+          SSH_AGENT_PID=
+          SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
+    - name: Create systemd User Session Directory
+      file:
+        path: ~/.config/systemd/user/
+        state: directory
+    - name: Create a GPG Agent Service
+      copy:
+        dest: "~/.config/systemd/user/gpg-agent.service"
+        content: |
+          [Service]
+          ExecStart=/usr/bin/gpg-agent --supervised --enable-ssh-support
+          ExecReload=/usr/bin/gpgconf --reload gpg-agent
+    - name: Create a GPG Agent Socket
+      copy:
+        dest: "~/.config/systemd/user/gpg-agent.socket"
+        content: |
+          [Socket]
+          ListenStream=%t/gnupg/S.gpg-agent
+          FileDescriptorName=std
+          SocketMode=0600
+          DirectoryMode=0700
+          
+          [Install]
+          WantedBy=sockets.target
+    - name: Create a GPG SSH Agent Socket
+      copy:
+        dest: "~/.config/systemd/user/gpg-agent-ssh.socket"
+        content: |
+          [Socket]
+          ListenStream=%t/gnupg/S.gpg-agent.ssh
+          FileDescriptorName=ssh
+          Service=gpg-agent.service
+          SocketMode=0600
+          DirectoryMode=0700
+          
+          [Install]
+          WantedBy=sockets.target
+    - name: Enable and Start the GPG Agent Socket
+      systemd:
+        name: gpg-agent.socket
+        state: started
+        enabled: yes
+        user: yes
+    - name: Enable and Start the GPG SSH Agent Socket
+      systemd:
+        name: gpg-agent-ssh.socket
+        state: started
+        enabled: yes
+        user: yes
