@@ -176,5 +176,5 @@
     - name: Configure F12 to Reset and Clear the Terminal
       dconf:
         key: /org/gnome/terminal/legacy/keybindings/reset-and-clear
-        value: "F12"
+        value: "'F12'"
 
