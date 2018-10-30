@@ -50,11 +50,6 @@
       package:
         name: powertop
         state: present
-    - name: Install Quassel Client
-      become: yes
-      package:
-        name: quassel-client
-        state: present
     - name: Install Tor
       become: yes
       package:
