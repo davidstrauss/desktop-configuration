@@ -189,3 +189,11 @@
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
         value: "true"
+    - name: Create Environment Configuration Directory
+      file:
+        path: ~/.config/environment.d/
+        state: directory
+    - name: Use GNU Nano as the Default Editor
+      copy:
+        dest: "~/.config/environment.d/50-editor.conf"
+        content: EDITOR=nano
