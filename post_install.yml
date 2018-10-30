@@ -169,6 +169,10 @@
       dconf:
         key: /org/gnome/software/first-run
         value: "false"
+    - name: Disable Dynamic Workspaces
+      dconf:
+        key: /org/gnome/mutter/dynamic-workspaces
+        value: "false"
     - name: Disable All GNOME Extensions
       dconf:
         key: /org/gnome/shell/enabled-extensions
