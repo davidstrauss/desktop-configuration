@@ -85,10 +85,10 @@
       package:
         name: unbound
         state: present
-    - name: Install Nmap Network Scanner Frontend
+    - name: Install Nmap Network Scanner
       become: yes
       package:
-        name: nmap-frontend
+        name: nmap
         state: present
     - name: Install Password Manager
       become: yes
