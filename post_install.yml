@@ -148,7 +148,7 @@
     - name: Use LCD-Style Antialiasing
       dconf:
         key: /org/gnome/settings-daemon/plugins/xsettings
-        value: "rgba"
+        value: "'rgba'"
     - name: Automatically Remove Old Temporary Files
       dconf:
         key: /org/gnome/desktop/privacy/remove-old-temp-files
