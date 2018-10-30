@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 28**
+* Current distribution: **Fedora 29**
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
