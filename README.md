@@ -16,12 +16,17 @@
 1. Reboot into the newly installed Fedora and set up your user.
 1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
 1. Install Ansible:
+
        sudo dnf install -y ansible
+
 1. Run remaining configuration:
+
+       cd ~/Downloads/
+       curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/master/post_install.yml > post_install.yml
        ansible-playbook --ask-become-pass --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook --ask-become-pass post_install.yml
 
-6. Configure the GNOME desktop:
+1. Configure the GNOME desktop:
 
        gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
        gsettings set org.gnome.shell.overrides dynamic-workspaces false  # Use static workspaces.
