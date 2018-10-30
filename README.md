@@ -32,14 +32,13 @@
        mkdir -p ~/.config/environment.d/
        echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
 
-1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 1. Configure git:
 
-       ```
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
        git config --global color.ui auto
-       ```
+
+1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
 ## Smart Cards
 
