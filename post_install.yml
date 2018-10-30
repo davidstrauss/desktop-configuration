@@ -133,14 +133,6 @@
       dconf:
         key: /org/gnome/desktop/input-sources/xkb-options
         value: "['caps:ctrl_modifier']"
-    - name: Use Static Workspaces
-      dconf:
-        key: /org/gnome/shell/overrides/dynamic-workspaces
-        value: "false"
-    - name: Use One Static Workspace
-      dconf:
-        key: /org/gnome/desktop/wm/preferences/num-workspaces
-        value: 1
     - name: Show Seconds on the Desktop Clock
       dconf:
         key: /org/gnome/desktop/interface/clock-show-seconds
@@ -169,7 +161,15 @@
       dconf:
         key: /org/gnome/software/first-run
         value: "false"
-    - name: Disable Dynamic Workspaces
+    - name: Use One Workspace
+      dconf:
+        key: /org/gnome/desktop/wm/preferences/num-workspaces
+        value: 1
+    - name: Disable Dynamic Workspaces in GNOME Shell
+      dconf:
+        key: /org/gnome/shell/overrides/dynamic-workspaces
+        value: "false"
+    - name: Disable Dynamic Workspaces in Mutter
       dconf:
         key: /org/gnome/mutter/dynamic-workspaces
         value: "false"
