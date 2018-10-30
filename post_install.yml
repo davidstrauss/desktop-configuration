@@ -65,12 +65,11 @@
       package:
         name: unbound
         state: present
-    - name: Install Wireshark for GNOME
+    - name: Install Wireshark
       become: yes
       package:
-        name: wireshark-gnome
+        name: wireshark
         state: present
-
     - name: Install Transmission
       become: yes
       package:
