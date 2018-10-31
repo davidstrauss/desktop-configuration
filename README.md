@@ -35,6 +35,14 @@
 
 1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
 
+1. Set battery charging thresholds:
+
+       echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
+       echo 90 | sudo tee /sys/class/power_supply/BAT0/charge_stop_threshold
+       #Configuring thresholds for the second battery doesn't seem to work yet.
+       #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
+       #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
+
 1. Log back out and in to use the smart card configuration.
 
 ## Smart Cards
