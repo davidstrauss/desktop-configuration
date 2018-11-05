@@ -241,10 +241,10 @@
         name: gpg-agent.socket
         state: started
         enabled: yes
-        user: yes
+        scope: user
     - name: Enable and Start the GPG SSH Agent Socket
       systemd:
         name: gpg-agent-ssh.socket
         state: started
         enabled: yes
-        user: yes
+        scope: user
