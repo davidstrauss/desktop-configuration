@@ -43,6 +43,10 @@
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
+1. Remove the DLNA integration, which often [hangs on shutdown](https://github.com/intel/dleyna-renderer/issues/164). This also removes GNOME Photos, which depends on `dleyna-renderer`.
+
+       sudo dnf remove dleyna-renderer
+
 1. Log back out and in to use the smart card configuration.
 
 ## Smart Cards
