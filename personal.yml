@@ -1,0 +1,18 @@
+- hosts: localhost
+  tasks:
+    - name: Use One Workspace
+      dconf:
+        key: /org/gnome/desktop/wm/preferences/num-workspaces
+        value: 1
+    - name: Disable Dynamic Workspaces in GNOME Shell
+      dconf:
+        key: /org/gnome/shell/overrides/dynamic-workspaces
+        value: "false"
+    - name: Disable Dynamic Workspaces in Mutter
+      dconf:
+        key: /org/gnome/mutter/dynamic-workspaces
+        value: "false"
+    - name: Use GNU Nano as the Default Editor
+      copy:
+        dest: "~/.config/environment.d/50-editor.conf"
+        content: EDITOR=nano
