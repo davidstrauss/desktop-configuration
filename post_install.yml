@@ -120,6 +120,11 @@
       package:
         name: pcsc-lite
         state: present
+    - name: Install Python VirtualEnv Tools for Isolated Environments
+      become: yes
+      package:
+        name: python3-virtualenv
+        state: present
     - name: Install System Utilities for Python (for Ansible)
       become: yes
       package:
