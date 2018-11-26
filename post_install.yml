@@ -123,7 +123,7 @@
     - name: Install System Utilities for Python (for Ansible)
       become: yes
       package:
-        name: pcsc-lite
+        name: python3-psutil
         state: present
     - name: Disable DConf Editor Warning
       dconf:
