@@ -39,7 +39,7 @@ Fleet Commander provides desktop management in a form similar to Microsoft's Gro
 
 [Homepage](https://theforeman.org/)
 
-The Foreman can [aggregate OpenSCAP results](https://github.com/theforeman/foreman_openscap).
+The Foreman is primarily based on Puppet and can [aggregate OpenSCAP results](https://github.com/theforeman/foreman_openscap).
 
 ### SSSD with Active Directory
 
