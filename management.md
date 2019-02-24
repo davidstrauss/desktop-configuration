@@ -41,6 +41,12 @@ Fleet Commander provides desktop management in a form similar to Microsoft's Gro
 
 The Foreman is primarily based on Puppet and can [aggregate OpenSCAP results](https://github.com/theforeman/foreman_openscap).
 
+### Spacewalk
+
+[Homepage](https://spacewalkproject.github.io/)
+
+Spacewalk seems maintained but mostly deprecated in favor of The Foreman (with Katello).
+
 ### SSSD with Active Directory
 
 [Documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/windows_integration_guide/sssd-ad)
