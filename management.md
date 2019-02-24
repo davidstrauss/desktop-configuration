@@ -33,3 +33,7 @@ Fleet Commander provides desktop management in a form similar to Microsoft's Gro
 ### OpenSCAP
 
 [Guide for Fedora](https://static.open-scap.org/ssg-guides/ssg-fedora-guide-index.html)
+
+### SSSD with Active Directory
+
+[Documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/windows_integration_guide/sssd-ad)
