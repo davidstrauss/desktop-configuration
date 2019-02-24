@@ -10,7 +10,7 @@ This document catalogs potential management utilities for a deployment of Fedora
 
 ### Pros
 * Operable against SaaS (e.g. hosted Chef, Azure AD) or lightweight cloud services (S3)
-* Can apply security configuration, not just audit
+* Can remediate security configuration, not just audit
 * Has provisioning-friendly design to accelerate new machine setup by IT
 * Can configure setups like GPG smart card support and GPG-SSH agent integration
 * Can support Windows or Mac desktops as well
