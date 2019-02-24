@@ -35,6 +35,12 @@ Fleet Commander provides desktop management in a form similar to Microsoft's Gro
 
 [Guide for Fedora](https://static.open-scap.org/ssg-guides/ssg-fedora-guide-index.html)
 
+### The Foreman
+
+[Homepage](https://theforeman.org/)
+
+The Foreman can [aggregate OpenSCAP results](https://github.com/theforeman/foreman_openscap).
+
 ### SSSD with Active Directory
 
 [Documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/windows_integration_guide/sssd-ad)
