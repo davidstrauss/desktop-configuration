@@ -6,6 +6,7 @@ This document catalogs potential management utilities for a deployment of Fedora
 
 ### Requirements
 * Reporting on enrolled machine compliance
+* Reporting on applied security updates
 
 ### Pros
 * Operable against SaaS (e.g. hosted Chef, Azure AD) or lightweight cloud services (S3)
