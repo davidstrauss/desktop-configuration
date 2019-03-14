@@ -1,4 +1,6 @@
-# Create a Master Key to Certify Sub-Keys
+# Using a GPG Master Key with GPG Smart Cards
+
+## Create a Master Key to Certify Sub-Keys
 
 1. Start creating a new key:
 
@@ -11,3 +13,12 @@
 1. Export the keypair to a backup drive:
 
        gpg2 --export-secret-keys $ID > my-private-key.asc
+
+1. Remove the secret key from the local machine:
+
+       gpg2 --delete-secret-key $ID
+
+## Certify an Existing Smart Card
+
+## Provision a New Smart Card
+
