@@ -44,7 +44,7 @@
 1. Add the new keys as subkeys on the card:
 
        gpg2 --edit-key $CERTKEY
-       gpg> addcardkey
+       gpg> addcardkey  # Repeat for signing, encryption, and authentication.
 
 ## Certify an Existing Smart Card
 
