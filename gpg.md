@@ -1,6 +1,6 @@
-# Using a GPG Master Key with GPG Smart Cards
+# Using a GPG Certification Key with GPG Smart Cards
 
-## Create a Master Key to Certify Sub-Keys
+## Create a Certification Key to Certify Sub-Keys
 
 1. Start creating a new key:
 
@@ -10,15 +10,34 @@
 1. Disable all but "Certify."
 1. Choose 3072 bits.
 1. Back up the revocation certificate from `~/.gnupg/openpgp-revocs.d/`.
+1. Consider this key ID to be `$CERTKEY`.
 1. Export the keypair to a backup drive:
 
-       gpg2 --export-secret-keys $ID > my-private-key.asc
+       gpg2 --export-secret-keys $CERTKEY > my-private-key.asc
 
 1. Remove the secret key from the local machine:
 
-       gpg2 --delete-secret-key $ID
+       gpg2 --delete-secret-key $CERTKEY
 
 ## Certify an Existing Smart Card
 
 ## Provision a New Smart Card
 
+1. YubiKey Only: Reset the GPG module:
+
+       ykman openpgp reset
+
+1. YubiKey Only: Set the mode:
+
+       sudo ykpersonalize -m6
+
+1. Set the PIN and admin PIN:
+
+       gpg2 --change-pin  # Change both the PIN (default is 123456)
+                          # and the Admin PIN (default is 12345678).
+                          # I use pwgen for the admin PIN.
+
+1. Add the new keys as subkeys on the card:
+
+       gpg2 --edit-key $CERTKEY
+       gpg> addcardkey
