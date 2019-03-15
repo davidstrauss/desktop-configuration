@@ -21,13 +21,13 @@
 
 ## Provision a New Smart Card
 
-1. YubiKey Only: Reset the GPG module:
-
-       ykman openpgp reset
-
 1. YubiKey Only: Set the mode:
 
        sudo ykpersonalize -m6
+
+1. YubiKey Only: Reset the GPG module:
+
+       ykman openpgp reset
 
 1. Set the PIN and admin PIN:
 
