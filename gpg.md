@@ -37,6 +37,12 @@
                           # and the Admin PIN (default is 12345678).
                           # I use pwgen for the admin PIN.
 
+1. Configure the key to use RSA with 3072 bits:
+
+       gpg2 --card-edit
+       gpg/card> admin
+       gpg/card> key-attr
+
 1. Add the new keys as subkeys on the card:
 
        gpg2 --edit-key $CERTKEY
