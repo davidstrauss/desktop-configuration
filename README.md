@@ -93,7 +93,7 @@
 
 3. If the smart card is a YubiKey Neo or YubiKey 4, set the card's mode:
 
-        ykpersonalize -m86
+        ykpersonalize -m6
 
 4. Configure the card, generate a key pair, and upload the key:
 
