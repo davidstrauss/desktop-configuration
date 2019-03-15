@@ -35,11 +35,11 @@
                           # and the Admin PIN (default is 12345678).
                           # I use pwgen for the admin PIN.
 
-1. YubiKey 4+ Only: Configure the key to use RSA with 3072 bits:
+1. YubiKey 4+ Only: Configure the key lengths:
 
        gpg2 --card-edit
        gpg/card> admin
-       gpg/card> key-attr
+       gpg/card> key-attr  # Choose RSA 3072 for each key type.
 
 1. Add the new keys as subkeys on the card:
 
