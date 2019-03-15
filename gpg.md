@@ -19,8 +19,6 @@
 
        gpg2 --delete-secret-key $CERTKEY
 
-## Certify an Existing Smart Card
-
 ## Provision a New Smart Card
 
 1. YubiKey Only: Reset the GPG module:
@@ -47,3 +45,7 @@
 
        gpg2 --edit-key $CERTKEY
        gpg> addcardkey
+
+## Certify an Existing Smart Card
+
+@TODO
