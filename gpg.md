@@ -1,6 +1,6 @@
-# Using a GPG Certification Key with GPG Smart Cards
+# GPG Smart Cards with Only Sub-Keys
 
-## Create a Certification Key to Certify Sub-Keys
+## Create a Certification/Master Key
 
 1. Start creating a new key:
 
@@ -35,7 +35,7 @@
                           # and the Admin PIN (default is 12345678).
                           # I use pwgen for the admin PIN.
 
-1. Configure the key to use RSA with 3072 bits:
+1. YubiKey 4+ Only: Configure the key to use RSA with 3072 bits:
 
        gpg2 --card-edit
        gpg/card> admin
