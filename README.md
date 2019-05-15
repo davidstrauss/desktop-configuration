@@ -12,19 +12,15 @@
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer).
 1. Boot to the USB drive.
-1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
+1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup).
 1. Reboot into the newly installed Fedora and set up your user.
-1. Update Fedora using the GNOME Software Center.
+1. Update Fedora using the GNOME Software Center (and reboot).
 1. Open Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
 1. [Add Flathub].
-1. Install Ansible, system-level, and CLI utilities:
+1. Install Ansible, system-level, and CLI utilities (and reboot):
 
        rpm-ostree install ansible python3-psutil pcsc-lite nano pass # Ansible's dconf support requires psutil.
-
-1. Reboot (via CLI or another method):
-
-       systemctl reboot
 
 1. Run remaining configuration:
 
