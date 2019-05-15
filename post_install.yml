@@ -3,34 +3,42 @@
     - name: Install gedit
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.gedit.flatpakref
+        method: user
         state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
+        method: user
         state: present
     - name: Install Steam
       flatpak:
         name:  https://flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
+        method: user
         state: present
     - name: Install the GIMP
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
+        method: user
         state: present
     - name: Install Inkscape
       flatpak:
         name:  https://flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
+        method: user
         state: present
     - name: Install Meld
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.meld.flatpakref
+        method: user
         state: present
     - name: Install Transmission
       flatpak:
         name:  https://flathub.org/repo/appstream/com.transmissionbt.Transmission.flatpakref
+        method: user
         state: present
     - name: Install GNOME Hex Editor
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.ghex.flatpakref
+        method: user
         state: present
     - name: Disable DConf Editor Warning
       dconf:
