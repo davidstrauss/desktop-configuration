@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 29**
+* Current distribution: **Fedora 30 Silverblue**
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
@@ -14,11 +14,17 @@
 1. Boot to the USB drive.
 1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
 1. Reboot into the newly installed Fedora and set up your user.
-1. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
-1. Open Software Center, enable additional repositories, and install Google Chrome.
-1. Install Ansible:
+1. Update Fedora using the GNOME Software Center.
+1. Open Software Center, enable additional repositories.
+1. [Download](https://www.google.com/chrome/) and install Google Chrome.
+1. [Add Flathub].
+1. Install Ansible, system-level, and CLI utilities:
 
-       sudo dnf install -y ansible python3-psutil  # Ansible's dconf support requires psutil.
+       rpm-ostree install ansible python3-psutil pcsc-lite nano pass # Ansible's dconf support requires psutil.
+
+1. Reboot (via CLI or another method):
+
+       systemctl reboot
 
 1. Run remaining configuration:
 
@@ -33,8 +39,6 @@
        git config --global user.email name@example.com
        git config --global color.ui auto
 
-1. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
-
 1. Set battery charging thresholds:
 
        echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
@@ -42,10 +46,6 @@
        #Configuring thresholds for the second battery doesn't seem to work yet.
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
-
-1. Remove the DLNA integration, which often [hangs on shutdown](https://github.com/intel/dleyna-renderer/issues/164). This also removes GNOME Photos, which depends on `dleyna-renderer`.
-
-       sudo dnf remove dleyna-renderer
 
 1. Log back out and in to use the smart card configuration.
 
