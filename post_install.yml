@@ -1,134 +1,32 @@
 - hosts: localhost
   tasks:
     - name: Install Builder
-      become: yes
-      package:
-        name: gnome-builder
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
         state: present
-    - name: Install GIMP
-      become: yes
-      package:
-        name: gimp
+    - name: Install Steam
+      flatpak:
+        name:  https://flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
+        state: present
+    - name: Install the GIMP
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
         state: present
     - name: Install Inkscape
-      become: yes
-      package:
-        name: inkscape
-        state: present
-    - name: Install htop
-      become: yes
-      package:
-        name: htop
-        state: present
-    - name: Install iotop
-      become: yes
-      package:
-        name: iotop
-        state: present
-    - name: Install MariaDB
-      become: yes
-      package:
-        name: mariadb
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
         state: present
     - name: Install Meld
-      become: yes
-      package:
-        name: meld
-        state: present
-    - name: Install GNU Nano
-      become: yes
-      package:
-        name: nano
-        state: present
-    - name: Install PHP with CLI
-      become: yes
-      package:
-        name: php-cli
-        state: present
-    - name: Install Powertop
-      become: yes
-      package:
-        name: powertop
-        state: present
-    - name: Install Tor
-      become: yes
-      package:
-        name: tor
-        state: present
-    - name: Install Unbound
-      become: yes
-      package:
-        name: unbound
-        state: present
-    - name: Install Wireshark
-      become: yes
-      package:
-        name: wireshark
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.meld.flatpakref
         state: present
     - name: Install Transmission
-      become: yes
-      package:
-        name: transmission
+      flatpak:
+        name:  https://flathub.org/repo/appstream/com.transmissionbt.Transmission.flatpakref
         state: present
-    - name: Install GNOME System Log
-      become: yes
-      package:
-        name: gnome-system-log
-        state: present
-    - name: Install FATSort
-      become: yes
-      package:
-        name: fatsort
-        state: present
-    - name: Install Unbound DNS Client
-      become: yes
-      package:
-        name: unbound
-        state: present
-    - name: Install Nmap Network Scanner
-      become: yes
-      package:
-        name: nmap
-        state: present
-    - name: Install Password Manager
-      become: yes
-      package:
-        name: pass
-        state: present
-    - name: Install GHex Hex Editor
-      become: yes
-      package:
-        name: ghex
-        state: present
-    - name: Install Composer for PHP
-      become: yes
-      package:
-        name: composer
-        state: present
-    - name: Install Network Configuration for libvirt Virtual Machines
-      become: yes
-      package:
-        name: libvirt-daemon-config-network
-        state: present
-    - name: Install GNOME Shell Support for Chrome
-      become: yes
-      package:
-        name: chrome-gnome-shell
-        state: present
-    - name: Install PCSC Smart Card Drivers
-      become: yes
-      package:
-        name: pcsc-lite
-        state: present
-    - name: Install Python VirtualEnv Tools for Isolated Environments
-      become: yes
-      package:
-        name: python3-virtualenv
-        state: present
-    - name: Install System Utilities for Python (for Ansible)
-      become: yes
-      package:
-        name: python3-psutil
+    - name: Install GNOME Hex Editor
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.ghex.flatpakref
         state: present
     - name: Disable DConf Editor Warning
       dconf:
