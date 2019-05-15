@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
+    - name: Install gedit
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.gedit.flatpakref
+        state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
@@ -80,6 +84,7 @@
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
         value: "true"
+      when: not ansible_check_mode
     - name: Create Environment Configuration Directory
       file:
         path: ~/.config/environment.d/
