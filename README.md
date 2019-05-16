@@ -44,8 +44,6 @@
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
-1. Log back out and in to use the smart card configuration.
-
 ## Smart Cards
 
 ### Tested Hardware
