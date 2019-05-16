@@ -68,6 +68,8 @@
       shell: dconf write /org/gnome/shell/enabled-extensions "@as []"
     - name: Configure F12 to Reset and Clear the Terminal
       shell: dconf write /org/gnome/terminal/legacy/keybindings/reset-and-clear "'F12'"
+    - name: Disable Lock Screen Notifications
+      shell: dconf write /org/gnome/desktop/notifications/show-in-lock-screen "false"
     - name: Read Default Terminal Profile
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
