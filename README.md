@@ -183,6 +183,8 @@ Configure `go get` to use SSH-based authentication:
 
 ## PHP Development
 
+**This section is not yet updated for Fedora 30 Silverblue.**
+
 1. Install packages:
 
        sudo dnf install -y nginx mariadb mariadb-server php php-fpm php-mysqlnd php-dbg php-cli php-bcmath php-phpass php-mbstring php-opcache php-gd php-pecl-apcu php-pecl-xdebug
@@ -247,8 +249,11 @@ Configure `go get` to use SSH-based authentication:
        restorecon -R ~/public_html
 
 ## Dwarf Fortress
+
+**This section is not yet updated for Fedora 30 Silverblue.**
+
 1. Download the latest archive.
-2. Install necessary packages:
+2. Install necessary dependencies:
 
        sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
 
@@ -256,6 +261,8 @@ Configure `go get` to use SSH-based authentication:
 4. Use `xterm -e` as the custom terminal command configuration.
 
 ## OpenRA
+
+**This section is not yet updated for Fedora 30 Silverblue.**
 
 1. Download [the binary package for the current release](https://software.opensuse.org/download.html?project=games:openra&package=openra).
 
@@ -269,7 +276,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
 1. Install the conversion utility:
 
-       sudo dnf install geteltorito
+       rpm-ostree install geteltorito  # And reboot.
 
 2. Write it to a USB drive:
 
@@ -282,7 +289,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
 1. **First Time:** Setup:
 
-       sudo dnf install syslinux p7zip p7zip-plugins
+       rpm-ostree install syslinux p7zip p7zip-plugins  # And reboot.
 
        ESPUUID=`sudo grub2-probe --target=fs_uuid /boot/efi/`
        cat >> 40_custom <<EOF
