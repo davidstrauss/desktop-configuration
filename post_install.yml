@@ -40,58 +40,40 @@
         name:  https://flathub.org/repo/appstream/org.gnome.ghex.flatpakref
         method: user
         state: present
+    - name: Install Dconf Editor
+      flatpak:
+        name:  https://flathub.org/repo/appstream/ca.desrt.dconf-editor.flatpakref
+        method: user
+        state: present
+
     - name: Disable DConf Editor Warning
-      dconf:
-        key: /ca/desrt/dconf-editor/show-warning
-        value: "false"
+      shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
     - name: Interpret Caps Lock as Ctrl
-      dconf:
-        key: /org/gnome/desktop/input-sources/xkb-options
-        value: "['caps:ctrl_modifier']"
+      shell: dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:ctrl_modifier']"
     - name: Show Seconds on the Desktop Clock
-      dconf:
-        key: /org/gnome/desktop/interface/clock-show-seconds
-        value: "true"
+      shell: dconf write /org/gnome/desktop/interface/clock-show-seconds "true"
     - name: Show Date on the Desktop Clock
-      dconf:
-        key: /org/gnome/desktop/interface/clock-show-date
-        value: "true"
+      shell: dconf write /org/gnome/desktop/interface/clock-show-date "true"
     - name: Use Natural Scrolling
-      dconf:
-        key: /org/gnome/desktop/peripherals/mouse/natural-scroll
-        value: "true"
+      shell: dconf write /org/gnome/desktop/peripherals/mouse/natural-scroll "true"
     - name: Use LCD-Style Antialiasing
-      dconf:
-        key: /org/gnome/settings-daemon/plugins/xsettings
-        value: "'rgba'"
+      shell: dconf write /org/gnome/settings-daemon/plugins/xsettings "'rgba'"
     - name: Automatically Remove Old Temporary Files
-      dconf:
-        key: /org/gnome/desktop/privacy/remove-old-temp-files
-        value: "true"
+      shell: dconf write /org/gnome/desktop/privacy/remove-old-temp-files "true"
     - name: Automatically Remove Old Trash Files
-      dconf:
-        key: /org/gnome/desktop/privacy/remove-old-trash-files
-        value: "true"
+      shell: dconf write /org/gnome/desktop/privacy/remove-old-trash-files "true"
     - name: Assume GNOME Software Has Been Used Before
-      dconf:
-        key: /org/gnome/software/first-run
-        value: "false"
+      shell: dconf write /org/gnome/software/first-run "false"
     - name: Disable All GNOME Extensions
-      dconf:
-        key: /org/gnome/shell/enabled-extensions
-        value: "@as []"
+      shell: dconf write /org/gnome/shell/enabled-extensions "@as []"
     - name: Configure F12 to Reset and Clear the Terminal
-      dconf:
-        key: /org/gnome/terminal/legacy/keybindings/reset-and-clear
-        value: "'F12'"
+      shell: dconf write /org/gnome/terminal/legacy/keybindings/reset-and-clear "'F12'"
     - name: Read Default Terminal Profile
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
       tags: register
     - name: Terminal - Unlimited Scrollback
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
-        value: "true"
+      shell: dconf write /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited "true"
       when: not ansible_check_mode
     - name: Create Environment Configuration Directory
       file:
@@ -152,6 +134,8 @@
           
           [Install]
           WantedBy=sockets.target
+    - name: Reload user-level systemd configuration
+      shell: systemctl --user daemon-reload
     - name: Enable and Start the GPG Agent Socket
       systemd:
         name: gpg-agent.socket
