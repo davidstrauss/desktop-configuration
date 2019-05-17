@@ -55,6 +55,11 @@
         name: https://flathub.org/repo/appstream/org.gnome.Games.flatpakref
         method: user
         state: present
+    - name: Install GNOME Calculator
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.gnome.Calculator.flatpakref
+        method: user
+        state: present
     - name: Disable DConf Editor Warning
       shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
     - name: Interpret Caps Lock as Ctrl
