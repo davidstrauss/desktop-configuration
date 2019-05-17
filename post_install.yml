@@ -85,11 +85,16 @@
         name: https://flathub.org/repo/appstream/org.gnome.Boxes.flatpakref
         method: user
         state: present
-    - name: Install UberWriter
+    - name: Install UberWriter Markdown Editor
       flatpak:
         name: https://flathub.org/repo/appstream/de.wolfvollprecht.UberWriter.flatpakref
         method: user
-        state: present        
+        state: present
+    - name: Install Polari IRC Client
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.gnome.Polari.flatpakref
+        method: user
+        state: present
     - name: Disable DConf Editor Warning
       shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
     - name: Interpret Caps Lock as Ctrl
