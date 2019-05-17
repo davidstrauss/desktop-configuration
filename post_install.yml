@@ -64,6 +64,31 @@
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.eog.flatpakref
         method: user
+        state: present
+    - name: Install GNU Octave
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.octave.Octave.flatpakref
+        method: user
+        state: present
+    - name: Install LibreOffice
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
+        method: user
+        state: present
+    - name: Install Fedora Media Writer
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
+        method: user
+        state: present
+    - name: Install GNOME Boxes
+      flatpak:
+        name: https://flathub.org/repo/appstream/org.gnome.Boxes.flatpakref
+        method: user
+        state: present
+    - name: Install UberWriter
+      flatpak:
+        name: https://flathub.org/repo/appstream/de.wolfvollprecht.UberWriter.flatpakref
+        method: user
         state: present        
     - name: Disable DConf Editor Warning
       shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
