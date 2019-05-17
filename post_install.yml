@@ -64,7 +64,7 @@
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.eog.flatpakref
         method: user
-        state: present
+        state: present        
     - name: Disable DConf Editor Warning
       shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
     - name: Interpret Caps Lock as Ctrl
