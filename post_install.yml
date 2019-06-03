@@ -5,6 +5,11 @@
         name:  https://flathub.org/repo/appstream/org.gnome.gedit.flatpakref
         method: user
         state: present
+    - name: Install Evince
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.Evince.flatpakref
+        method: user
+        state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
