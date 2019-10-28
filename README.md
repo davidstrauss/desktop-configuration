@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 30 Silverblue**
+* Current distribution: **Fedora 31 Silverblue**
 * Current hardware: **ThinkPad T580**
 
 ## Data to Back Up
@@ -43,6 +43,23 @@
        #Configuring thresholds for the second battery doesn't seem to work yet.
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
+
+## Upgrading
+
+1. Remove RPM Fusion repositories for current Fedora:
+
+       rpm-ostree remove rpmfusion-nonfree-release-$(rpm -E %fedora)-1.noarch
+       rpm-ostree remove rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
+
+1. Rebase on the next release (and resolve issues with any missing packages):
+
+       rpm-ostree rebase fedora:fedora/$(expr $(rpm -E %fedora) + 1)/x86_64/silverblue
+
+1. Add RPM Fusion repositories for next Fedora:
+
+       rpm-ostree install rpmfusion-nonfree-release-$(expr $(rpm -E %fedora) + 1)-1.noarch rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1)-1.noarch
+
+1. Reboot.
 
 ## Smart Cards
 
