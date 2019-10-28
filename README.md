@@ -57,7 +57,7 @@
 
 1. Add RPM Fusion repositories for next Fedora:
 
-       rpm-ostree install rpmfusion-nonfree-release-$(expr $(rpm -E %fedora) + 1)-1.noarch rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1)-1.noarch
+       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
 1. Reboot.
 
