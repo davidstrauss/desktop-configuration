@@ -20,7 +20,7 @@
 1. [Add Flathub].
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
-       rpm-ostree install ansible pcsc-lite nano pass gnome-tweak-tool gnome-screenshot file-roller baobab fuse-exfat exfat-utils f2fs-tools
+       rpm-ostree install ansible pcsc-lite nano pass gnome-tweak-tool gnome-screenshot file-roller baobab fuse-exfat exfat-utils f2fs-tools udftools
        # Ansible's dconf support requires python3-psutil, but it's currently incompatible with Fedora 30 D-Bus changes.
 
 1. Run remaining configuration:
