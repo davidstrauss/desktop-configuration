@@ -26,7 +26,7 @@
 1. Run remaining configuration:
 
        cd ~/Downloads/
-       curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/master/post_install.yml > post_install.yml
+       curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
 
