@@ -123,7 +123,7 @@
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
         value: "true"
       when: not ansible_check_mode
-- name: Create Environment Configuration Directory
+    - name: Create Environment Configuration Directory
       file:
         path: ~/.config/environment.d/
         state: directory
