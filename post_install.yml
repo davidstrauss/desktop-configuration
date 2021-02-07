@@ -1,15 +1,5 @@
 - hosts: localhost
   tasks:
-    - name: Install gedit
-      flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.gedit.flatpakref
-        method: system
-        state: present
-    - name: Install Evince
-      flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.Evince.flatpakref
-        method: system
-        state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
@@ -35,9 +25,9 @@
         name:  https://flathub.org/repo/appstream/org.gnome.meld.flatpakref
         method: system
         state: present
-    - name: Install Transmission
+    - name: Install Fragments
       flatpak:
-        name:  https://flathub.org/repo/appstream/com.transmissionbt.Transmission.flatpakref
+        name:  https://flathub.org/repo/appstream/de.haeckerfelix.Fragments.flatpakref
         method: system
         state: present
     - name: Install GNOME Hex Editor
@@ -60,16 +50,6 @@
         name: https://flathub.org/repo/appstream/org.gnome.Games.flatpakref
         method: system
         state: present
-    - name: Install GNOME Calculator
-      flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.Calculator.flatpakref
-        method: system
-        state: present
-    - name: Install Eye of GNOME Image Viewer
-      flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.eog.flatpakref
-        method: system
-        state: present
     - name: Install GNU Octave
       flatpak:
         name: https://flathub.org/repo/appstream/org.octave.Octave.flatpakref
@@ -83,11 +63,6 @@
     - name: Install Fedora Media Writer
       flatpak:
         name: https://flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
-        method: system
-        state: present
-    - name: Install GNOME Boxes
-      flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.Boxes.flatpakref
         method: system
         state: present
     - name: Install UberWriter Markdown Editor
