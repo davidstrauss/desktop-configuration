@@ -6,7 +6,3 @@
       shell: dconf write /org/gnome/shell/overrides/dynamic-workspaces "false"
     - name: Disable Dynamic Workspaces in Mutter
       shell: dconf write /org/gnome/mutter/dynamic-workspaces "false"
-    - name: Use GNU Nano as the Default Editor
-      copy:
-        dest: "~/.config/environment.d/50-editor.conf"
-        content: EDITOR=nano
