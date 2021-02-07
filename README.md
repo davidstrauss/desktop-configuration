@@ -36,13 +36,7 @@
        git config --global user.email name@example.com
        git config --global color.ui auto
 
-1. Tell Zoom in Flatpak to use Wayland for screen sharing. In `~/.var/app/us.zoom.Zoom/config/zoomus.conf`:
-
-       [General]
-       enableWaylandShare=true
-       [...]
-
-1. Set battery charging thresholds:
+1. Set battery charging thresholds (on laptop):
 
        echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
        echo 90 | sudo tee /sys/class/power_supply/BAT0/charge_stop_threshold
