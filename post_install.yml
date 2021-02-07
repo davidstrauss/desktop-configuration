@@ -65,9 +65,9 @@
         name: https://flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
         method: system
         state: present
-    - name: Install UberWriter Markdown Editor
+    - name: Install Apostrophe Markdown Editor
       flatpak:
-        name: https://flathub.org/repo/appstream/de.wolfvollprecht.UberWriter.flatpakref
+        name: https://flathub.org/repo/appstream/org.gnome.gitlab.somas.Apostrophe.flatpakref
         method: system
         state: present
     - name: Disable DConf Editor Warning
