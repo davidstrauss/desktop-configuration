@@ -3,102 +3,97 @@
     - name: Install gedit
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.gedit.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Evince
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Evince.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Steam
       flatpak:
         name:  https://flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install the GIMP
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Inkscape
       flatpak:
         name:  https://flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Meld
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.meld.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Transmission
       flatpak:
         name:  https://flathub.org/repo/appstream/com.transmissionbt.Transmission.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNOME Hex Editor
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.ghex.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Dconf Editor
       flatpak:
         name:  https://flathub.org/repo/appstream/ca.desrt.dconf-editor.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNOME Videos
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.Totem.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNOME Games
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.Games.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNOME Calculator
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.Calculator.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Eye of GNOME Image Viewer
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.eog.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNU Octave
       flatpak:
         name: https://flathub.org/repo/appstream/org.octave.Octave.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install LibreOffice
       flatpak:
         name: https://flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install Fedora Media Writer
       flatpak:
         name: https://flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install GNOME Boxes
       flatpak:
         name: https://flathub.org/repo/appstream/org.gnome.Boxes.flatpakref
-        method: user
+        method: system
         state: present
     - name: Install UberWriter Markdown Editor
       flatpak:
         name: https://flathub.org/repo/appstream/de.wolfvollprecht.UberWriter.flatpakref
-        method: user
-        state: present
-    - name: Install Polari IRC Client
-      flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.Polari.flatpakref
-        method: user
+        method: system
         state: present
     - name: Disable DConf Editor Warning
       shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
