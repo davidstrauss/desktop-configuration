@@ -12,7 +12,7 @@
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer) using an image from [Fedora Silverblue](https://silverblue.fedoraproject.org/).
 1. Boot to the USB drive.
-1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup).
+1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup and [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) on my desktop.
 1. Reboot into the newly installed Fedora and set up your user.
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Open Software Center, enable additional repositories.
