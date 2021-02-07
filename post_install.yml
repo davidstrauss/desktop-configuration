@@ -30,9 +30,9 @@
         name:  https://flathub.org/repo/appstream/de.haeckerfelix.Fragments.flatpakref
         method: system
         state: present
-    - name: Install GNOME Hex Editor
+    - name: Install GHex Editor
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.ghex.flatpakref
+        name:  https://flathub.org/repo/appstream/org.gnome.GHex.flatpakref
         method: system
         state: present
     - name: Install Dconf Editor
