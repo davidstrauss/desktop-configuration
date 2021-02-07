@@ -71,39 +71,59 @@
         method: system
         state: present
     - name: Disable DConf Editor Warning
-      shell: dconf write /ca/desrt/dconf-editor/show-warning "false"
+      dconf:
+        key: /ca/desrt/dconf-editor/show-warning
+        value: "false"
     - name: Interpret Caps Lock as Ctrl
-      shell: dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:ctrl_modifier']"
+      dconf:
+        key: /org/gnome/desktop/input-sources/xkb-options
+        value: "['caps:ctrl_modifier']"
     - name: Show Seconds on the Desktop Clock
-      shell: dconf write /org/gnome/desktop/interface/clock-show-seconds "true"
+      dconf:
+        key: /org/gnome/desktop/interface/clock-show-seconds
+        value: "true"
     - name: Show Date on the Desktop Clock
-      shell: dconf write /org/gnome/desktop/interface/clock-show-date "true"
+      dconf:
+        key: /org/gnome/desktop/interface/clock-show-date
+        value: "true"
     - name: Use Natural Scrolling
-      shell: dconf write /org/gnome/desktop/peripherals/mouse/natural-scroll "true"
+      dconf:
+        key: /org/gnome/desktop/peripherals/mouse/natural-scroll
+        value: "true"
     - name: Use LCD-Style Antialiasing
-      shell: dconf write /org/gnome/settings-daemon/plugins/xsettings "'rgba'"
+      dconf:
+        key: /org/gnome/settings-daemon/plugins/xsettings
+        value: "'rgba'"
     - name: Automatically Remove Old Temporary Files
-      shell: dconf write /org/gnome/desktop/privacy/remove-old-temp-files "true"
+      dconf:
+        key: /org/gnome/desktop/privacy/remove-old-temp-files
+        value: "true"
     - name: Automatically Remove Old Trash Files
-      shell: dconf write /org/gnome/desktop/privacy/remove-old-trash-files "true"
+      dconf:
+        key: /org/gnome/desktop/privacy/remove-old-trash-files
+        value: "true"
     - name: Assume GNOME Software Has Been Used Before
-      shell: dconf write /org/gnome/software/first-run "false"
+      dconf:
+        key: /org/gnome/software/first-run
+        value: "false"
     - name: Disable All GNOME Extensions
-      shell: dconf write /org/gnome/shell/enabled-extensions "@as []"
+      dconf:
+        key: /org/gnome/shell/enabled-extensions
+        value: "@as []"
     - name: Configure F12 to Reset and Clear the Terminal
-      shell: dconf write /org/gnome/terminal/legacy/keybindings/reset-and-clear "'F12'"
-    - name: Disable Lock Screen Notifications
-      shell: dconf write /org/gnome/desktop/notifications/show-in-lock-screen "false"
-    - name: Cap History Retention Time
-      shell: dconf write /org/gnome/desktop/privacy/recent-files-max-age 30
+      dconf:
+        key: /org/gnome/terminal/legacy/keybindings/reset-and-clear
+        value: "'F12'"
     - name: Read Default Terminal Profile
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
       tags: register
     - name: Terminal - Unlimited Scrollback
-      shell: dconf write /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited "true"
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
+        value: "true"
       when: not ansible_check_mode
-    - name: Create Environment Configuration Directory
+- name: Create Environment Configuration Directory
       file:
         path: ~/.config/environment.d/
         state: directory
