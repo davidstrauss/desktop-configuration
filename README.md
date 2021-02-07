@@ -1,7 +1,7 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 31 Silverblue**
-* Current hardware: **ThinkPad T580**
+* Current distribution: **Fedora 33 Silverblue**
+* Current hardware: **ThinkPad T580** and **AMD CPU + AMD GPU Desktop**
 
 ## Data to Back Up
 * `~/.gnupg/`
