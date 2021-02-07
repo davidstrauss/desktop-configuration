@@ -1,8 +1,14 @@
 - hosts: localhost
   tasks:
     - name: Use One Workspace
-      shell: dconf write /org/gnome/desktop/wm/preferences/num-workspaces 1
+      dconf:
+        key: /org/gnome/desktop/wm/preferences/num-workspaces
+        value: 1
     - name: Disable Dynamic Workspaces in GNOME Shell
-      shell: dconf write /org/gnome/shell/overrides/dynamic-workspaces "false"
+      dconf:
+        key: /org/gnome/shell/overrides/dynamic-workspaces
+        value: "false"
     - name: Disable Dynamic Workspaces in Mutter
-      shell: dconf write /org/gnome/mutter/dynamic-workspaces "false"
+      dconf:
+        key: /org/gnome/mutter/dynamic-workspaces
+        value: "false"
