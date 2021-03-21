@@ -34,6 +34,7 @@
 
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
+       git config --global init.defaultBranch main
        git config --global color.ui auto
        
 1. Tell Zoom in Flatpak to use Wayland for screen sharing. In `~/.var/app/us.zoom.Zoom/config/zoomus.conf`:
