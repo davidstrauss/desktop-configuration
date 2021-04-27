@@ -17,7 +17,7 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Open Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
-1. [Add Flathub].
+1. [Add Flathub](https://flatpak.org/setup/Fedora/).
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
        rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools
