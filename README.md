@@ -1,7 +1,7 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 33 Silverblue**
-* Current hardware: **ThinkPad T580** and **AMD X570 + 5900X + RX580 Desktop**
+* Current distribution: **Fedora 34 Silverblue**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and (soon) **ThinkPad T15 Gen 2**
 
 ## Data to Back Up
 * `~/.gnupg/`
@@ -30,7 +30,7 @@
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
 
-1. Configure git:
+1. Configure git (if not restoring `~/.gitconfig`):
 
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
