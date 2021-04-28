@@ -50,6 +50,10 @@
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
+1. Update boot menus to use BLS (and remove duplicate entries):
+
+       sudo grub2-switch-to-blscfg
+
 ## Upgrading
 
 1. Remove RPM Fusion repositories for current Fedora:
@@ -66,6 +70,67 @@
        rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
 1. Reboot.
+
+## DevContainer and Related Tools
+
+1. Install the Microsoft Visual Studio Code package repository:
+
+       sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+1. Install supporting packages and daemon permissions:
+
+       rpm-ostree install podman-docker podman-remote podman-compose code
+       cat "[Socket]\nSocketGroup=wheel" | sudo tee /etc/systemd/system/podman.socket.d/override.conf
+       cat "x /tmp/podman-run-*\nD! /run/podman 0770 root wheel\nD! /var/lib/cni/networks" | sudo tee /etc/tmpfiles.d/podman.conf
+       sudo touch /etc/containers/nodocker
+
+1. Reboot.
+1. Set up Podman and user permissions:
+
+       sudo usermod -aG wheel $(whoami)
+       newgrp wheel
+       sudo systemctl enable --now podman.socket
+
+1. Install "Remote - Containers"
+
+
+## Virtual Machines and Kubernetes
+
+1. Install the Kubernetes package repository (for `kubectl`):
+
+       sudo sh -c 'echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/kubernetes.repo'
+
+1. Install supporting packages:
+
+       rpm-ostree install libvirt virt-manager qemu-kvm virt-install virt-top libguestfs-tools bridge-utils kubectl
+
+1. [Install minikube](https://minikube.sigs.k8s.io/docs/start/).
+1. Uncomment the `unix_sock_group = "libvirt"` and `unix_sock_rw_perms = "0770"` options in `/etc/libvirt/libvirtd.conf`.
+1. Reboot.
+1. Enable and start services:
+
+       sudo groupadd --system libvirt  # Unnecessary?
+       grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group  # Workaround: https://bugzilla.redhat.com/show_bug.cgi?id=1919994#c13
+       sudo usermod -a -G libvirt $(whoami)
+       newgrp libvirt
+       sudo systemctl enable --now libvirtd
+
+1. Test the setup:
+
+       minikube start
+
+1. Enable Minikube options:
+
+       minikube addons enable dashboard
+       minikube addons enable metrics-server
+       minikube addons enable logviewer
+
+       minikube addons list
+
+### Resources
+
+* https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/building_running_and_managing_containers/using-the-container-tools-api_using-the-container-tools-cli
+* https://phoenixnap.com/kb/install-minikube-on-centos
 
 ## Smart Cards
 
