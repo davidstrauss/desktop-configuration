@@ -64,12 +64,11 @@ After a complete wipe of the EFI partition, Windows won't have .
 1. Use `diskpart` to assign a drive letter (like `G`) to the EFI partition (which should be labeled `System`).
 1. Restore boot files:
 
-       G:
-       cd EFI
+       G:\EFI
        bootrec /rebuildbcd
 
 1. Booting to Windows 10 should now appear as an option from the recovery menus.
-1. Use the GUI boot repair tool.
+1. Use the GUI boot repair tool, or [attempt it from the CLI](https://superuser.com/a/1111656).
 1. Review BIOS/firmware settings to restore Fedora Linux as the default.
 1. Switch to BLS and add Windows into the Linux boot menu:
 
