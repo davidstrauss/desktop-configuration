@@ -56,8 +56,24 @@
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
 
-1. If Windows is also on the system, probe for it:
+## Coexistence with Windows
 
+After a complete wipe of the EFI partition, Windows won't have .
+
+1. Boot from Windows install media (F8 for the boot menu on Asus boards).
+1. Use `diskpart` to assign a drive letter (like `G`) to the EFI partition (which should be labeled `System`).
+1. Restore boot files:
+
+       G:
+       cd EFI
+       bootrec /rebuildbcd
+
+1. Booting to Windows 10 should now appear as an option from the recovery menus.
+1. Use the GUI boot repair tool.
+1. Review BIOS/firmware settings to restore Fedora Linux as the default.
+1. Switch to BLS and add Windows into the Linux boot menu:
+
+       sudo grub2-switch-to-blscfg
        sudo os-prober
        sudo grub2-mkconfig
 
