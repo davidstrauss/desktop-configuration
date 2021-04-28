@@ -56,6 +56,11 @@
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
 
+1. If Windows is also on the system, probe for it:
+
+       sudo os-prober
+       sudo grub2-mkconfig
+
 ## Upgrading
 
 1. Remove RPM Fusion repositories for current Fedora:
