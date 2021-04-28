@@ -1,7 +1,7 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 33 Silverblue**
-* Current hardware: **ThinkPad T580** and **AMD X570 + 5900X + RX580 Desktop**
+* Current distribution: **Fedora 34 Silverblue**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and (soon) **ThinkPad T15 Gen 2**
 
 ## Data to Back Up
 * `~/.gnupg/`
@@ -17,7 +17,10 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Open Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
-1. [Add Flathub].
+1. [Add Flathub](https://flatpak.org/setup/Fedora/):
+
+       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
        rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools
@@ -30,10 +33,11 @@
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
 
-1. Configure git:
+1. Configure git (if not restoring `~/.gitconfig`):
 
        git config --global user.name "David Strauss"
        git config --global user.email name@example.com
+       git config --global init.defaultBranch main
        git config --global color.ui auto
        
 1. Tell Zoom in Flatpak to use Wayland for screen sharing. In `~/.var/app/us.zoom.Zoom/config/zoomus.conf`:
@@ -49,6 +53,8 @@
        #Configuring thresholds for the second battery doesn't seem to work yet.
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
+
+1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
 
 1. Update boot menus to use BLS (and remove duplicate entries):
 
