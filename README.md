@@ -75,6 +75,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
        sudo grub2-switch-to-blscfg
        sudo os-prober
+       sudo grub2-editenv - unset menu_auto_hide
        sudo grub2-mkconfig
 
 ## Upgrading
