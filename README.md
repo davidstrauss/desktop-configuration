@@ -74,9 +74,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 1. Switch to BLS and add Windows into the Linux boot menu:
 
        sudo grub2-switch-to-blscfg
-       sudo os-prober
-       sudo grub2-editenv - unset menu_auto_hide
-       sudo grub2-mkconfig
+       sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ## Upgrading
 
