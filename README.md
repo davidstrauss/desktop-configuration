@@ -137,7 +137,7 @@ After a complete wipe of the EFI partition, Windows won't have .
          sudo dnf install ykpers
          ykpersonalize -m6
 
-   * For YubiKey 5, check that the OpenPGP app is enabled:
+   * YubiKey 5 seems to ship with OpenPGP enabled. To verify and get other information:
 
          sudo dnf install -y swig gcc pcsc-lite-devel python-devel  # Can be in Fedora Toolbox
          pip install --user yubikey-manager                         # Can be in Fedora Toolbox
@@ -162,15 +162,15 @@ After a complete wipe of the EFI partition, Windows won't have .
 
     **Note:** Revocation certificates are backed up to `~/.gnupg/openpgp-revocs.d`
 
-5. Display the public key in OpenSSH format:
+1. Display the public key in OpenSSH format:
 
        ssh-add -L
 
-6. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
+1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
 
        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
 
-7. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
+1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
 
 ### Testing and Troubleshooting the Setup
 
