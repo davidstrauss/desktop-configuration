@@ -130,15 +130,20 @@ After a complete wipe of the EFI partition, Windows won't have .
 ### Setting Up a New Smart Card
 
 1. Complete machine setup (above).
-2. Install the personalization tool:
+1. If it's a YubiKey, enable OpenPGP:
 
-       sudo dnf install ykpers
+   * For YubiKey Neo or YubiKey 4:
 
-3. If the smart card is a YubiKey Neo or YubiKey 4, set the card's mode:
+         sudo dnf install ykpers
+         ykpersonalize -m6
 
-        ykpersonalize -m6
+   * For YubiKey 5, check that the OpenPGP app is enabled:
 
-4. Configure the card, generate a key pair, and upload the key:
+         sudo dnf install -y swig gcc pcsc-lite-devel python-devel  # Can be in Fedora Toolbox
+         pip install --user yubikey-manager                         # Can be in Fedora Toolbox
+         ykman openpgp info  # Must be outside Toolbox to use PC/SC APIs
+
+1. Configure the card, generate a key pair, and upload the key:
 
        gpg2 --change-pin  # Change both the PIN (default is 123456)
                           # and the Admin PIN (default is 12345678).
