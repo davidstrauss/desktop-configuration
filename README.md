@@ -150,7 +150,7 @@ After a complete wipe of the EFI partition, Windows won't have .
                           # I use pwgen for the admin PIN.
        gpg2 --card-edit
        gpg/card> admin
-       gpg/card> key-attr # On YubiKey 5, choose ECC and Curve 25519 for each option. Older keys don't support this.
+       gpg/card> key-attr # On YubiKey firmware 5.2.3+, choose ECC and Curve 25519 for each option. Older keys and firmwares don't support this.
        gpg/card> generate # Perform the off-card backup (which is only a shim private key, anyway).
                           # Use a key size of 3072 for RSA on YubiKey 4. Defaults are fine for NEO and YubiKey 5.
                           # No expiration.
