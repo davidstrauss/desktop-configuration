@@ -110,7 +110,11 @@ After a complete wipe of the EFI partition, Windows won't have .
 * Reader only: [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry. The specific tested model was JK-A0100EU-2.
 * Reader only: Identiv SCM SPR 532: Should work with secure PIN entry out of the box
 * Reader only: Lenovo ThinkPad T-series built-in: No secure PIN entry available
+
+#### Resources
+
 * [LWN Article: A comparison of cryptographic keycards](https://lwn.net/Articles/736231/)
+* [OpenKeychain Compatibility](https://github.com/open-keychain/open-keychain/wiki/Security-Tokens)
 
 ### Using an Existing Smart Card
 
