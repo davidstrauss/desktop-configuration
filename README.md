@@ -174,7 +174,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
        ssh-add -L
 
-1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable):
+1. Optionally, export the "secret key," which will only be a stub (not the actual key, which is not obtainable). This is importable into OpenKeychain on Android.
 
        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
 
@@ -183,10 +183,6 @@ After a complete wipe of the EFI partition, Windows won't have .
 1. To add to Password Store, add the desired keys (including existing ones) and re-encrypt:
 
        pass init $FINGERPRINT [...additional fingerprints...]  # Ensure existing key is connected and unlocked first.
-
-1. To import the key into OpenKeychain, potentially for use with Android Password Store, import the `.asc` backup (which is only a stub, anyway). To re-export:
-
-       gpg2 --armor --export-secret-keys $FINGERPRINT > $FINGERPRINT.asc
 
 ### Testing and Troubleshooting the Setup
 
