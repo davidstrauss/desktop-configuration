@@ -172,9 +172,13 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
 
-1. If using Password Store, optionally add the new key and re-encrypt:
+1. To add to Password Store, add the desired keys (including existing ones) and re-encrypt:
 
-       pass init $FINGERPRINT  # Ensure existing key is connected and unlocked first.
+       pass init $FINGERPRINT [...additional fingerprints...]  # Ensure existing key is connected and unlocked first.
+
+1. To import the key into OpenKeychain, potentially for use with Android Password Store, import the `.asc` backup (which is only a stub, anyway). To re-export:
+
+       gpg2 --armor --export-secret-keys $FINGERPRINT > $FINGERPRINT.asc
 
 ### Testing and Troubleshooting the Setup
 
