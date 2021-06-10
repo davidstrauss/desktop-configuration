@@ -156,7 +156,6 @@ After a complete wipe of the EFI partition, Windows won't have .
                           # No expiration.
        gpg/card> quit  # GPG will then print out data, including the key fingerprint
                        # as a long, alphanumeric string.
-       gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
@@ -171,6 +170,10 @@ After a complete wipe of the EFI partition, Windows won't have .
        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
 
 1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
+
+1. If using Password Store, optionally add the new key and re-encrypt:
+
+       pass init $FINGERPRINT
 
 ### Testing and Troubleshooting the Setup
 
