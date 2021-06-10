@@ -173,7 +173,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 1. If using Password Store, optionally add the new key and re-encrypt:
 
-       pass init $FINGERPRINT
+       pass init $FINGERPRINT  # Ensure existing key is connected and unlocked first.
 
 ### Testing and Troubleshooting the Setup
 
