@@ -96,8 +96,16 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 ### Tested Hardware
 
-* Reader and card: [YubiKey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/) and Neo-N
-* Reader and card: [YubiKey 4](https://www.yubico.com/products/yubikey-hardware/yubikey4/) and 4 Nano
+#### In Current Use
+
+* Reader and card: YubiKey 5 and 5C
+
+#### Previously Used and Tested
+
+*Instructions may be out of date for these cards.*
+
+* Reader and card: YubiKey Neo and Neo-N
+* Reader and card: YubiKey 4 and 4 Nano
 * Card only: [Fidesmo Dual Interface](http://shop.fidesmo.com/product/fidesmo-card-dual-interface)
 * Reader only: [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry. The specific tested model was JK-A0100EU-2.
 * Reader only: Identiv SCM SPR 532: Should work with secure PIN entry out of the box
