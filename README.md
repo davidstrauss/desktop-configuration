@@ -116,7 +116,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 3. Import any other keys:
 
-       gpg2 --keyserver keys.gnupg.net --recv-key $KEYID
+       gpg2 --keyserver hkps://keys.openpgp.org --recv-key $KEYID
        gpg2 --keyserver pool.sks-keyservers.net --recv-key $KEYID  # Another database to try.
        gpg2 --keyserver pgp.mit.edu --recv-key $KEYID  # Another database to try.
 
@@ -156,6 +156,7 @@ After a complete wipe of the EFI partition, Windows won't have .
                           # No expiration.
        gpg/card> quit  # GPG will then print out data, including the key fingerprint
                        # as a long, alphanumeric string.
+       gpg2 --keyserver hkps://keys.openpgp.org --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
@@ -228,7 +229,7 @@ When there's an issue, we can narrow the problem down to an individual component
 
 4. Publish the revocation:
 
-       gpg2 --keyserver hkps://keys.gnupg.net --send-keys $FINGERPRINT
+       gpg2 --keyserver hkps://keys.openpgp.org --send-keys $FINGERPRINT
        gpg2 --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys $FINGERPRINT
        gpg2 --keyserver hkp://pgp.mit.edu --send-keys $FINGERPRINT
 
