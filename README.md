@@ -178,7 +178,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
        gpg2 --export-secret-key --armor $FINGERPRINT > $FINGERPRINT.asc  # Back this up, too.
 
-1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are fine for this backup; these files cannot be used to impersonate you.
+1. After this is finished, the card should work. You should also have `$FINGERPRINT.asc` and `$FINGERPRINT.rev` backed up. Google Drive and Dropbox are usually fine for this backup; these files cannot be used to impersonate or decrypt, only revoke.
 
 1. To add to Password Store:
    1. Connect one existing key that can already access passwords.
