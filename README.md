@@ -46,6 +46,8 @@
        enableWaylandShare=true
        [...]
 
+1. Tell Chrome to use Pipewire for screen sharing; enable `chrome://flags/#enable-webrtc-pipewire-capturer`.
+
 1. Set battery charging thresholds (on laptop):
 
        echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
