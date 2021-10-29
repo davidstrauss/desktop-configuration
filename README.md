@@ -96,11 +96,11 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 ## Mobile Phone Setup
 
-1. Install OpenKeychain and Password Store.
+1. Install [OpenKeychain](https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain) and [Password Store](https://play.google.com/store/apps/details?id=dev.msfjarvis.aps).
 1. Generate a new SSH key.
 1. Add the new key to the git server.
 1. Clone the repository.
-1. Copy the private key stub `EXAMPLE.asc` to the phone. If downloaded from Google Drive, it may need to get copied into another app as text and re-saved using a plain text editor (since Drive likes to convert the file to a PDF on download).
+1. Copy the private key stub `EXAMPLE.asc` to the phone. If downloaded from Google Drive, it may need to get copied into another app as text and re-saved using a [one or another](https://play.google.com/store/apps/details?id=com.maskyn.fileeditor) [plain text editors](https://play.google.com/store/apps/details?id=com.rhmsoft.edit.pro). Drive likes to convert the `.asc` file to a PDF on download.
 1. OpenKeychain > Import Key from File
 1. Choose the `.asc` file.
 
