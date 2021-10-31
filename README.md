@@ -1,7 +1,7 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 34 Silverblue**
-* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and (soon) **ThinkPad T15 Gen 2**
+* Current distribution: **Fedora 35 Silverblue**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T580**
 
 ## Data to Back Up
 * `~/.gnupg/`
@@ -21,10 +21,13 @@
 
        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+1. Add RPM Fusion repositories (and reboot):
+
+       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
-       rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools
-       # Ansible's dconf support requires python3-psutil, but it's currently incompatible with Fedora 30 D-Bus changes.
+       rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools python3-psutil
 
 1. Run remaining configuration:
 
