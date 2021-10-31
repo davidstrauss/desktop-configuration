@@ -356,11 +356,12 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 
 ### USB Thumb Drive Method
 
-1. Install the conversion utility:
+1. Install the conversion utility into a Toolbox:
 
-       rpm-ostree install geteltorito  # And reboot.
+       toolbox enter
+       dnf install geteltorito
 
-2. Write it to a USB drive:
+2. Write it to a raw drive image:
 
        geteltorito -o update.img downloaded.iso
 
