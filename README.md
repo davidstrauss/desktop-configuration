@@ -359,7 +359,7 @@ First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https:
 1. Install the conversion utility into a Toolbox:
 
        toolbox enter
-       dnf install geteltorito
+       sudo dnf install -y geteltorito
 
 2. Write it to a raw drive image:
 
