@@ -43,12 +43,6 @@
        git config --global init.defaultBranch main
        git config --global color.ui auto
        
-1. Tell Zoom in Flatpak to use Wayland for screen sharing. In `~/.var/app/us.zoom.Zoom/config/zoomus.conf`:
-
-       [General]
-       enableWaylandShare=true
-       [...]
-
 1. Tell Chrome to use Pipewire for screen sharing; enable `chrome://flags/#enable-webrtc-pipewire-capturer`.
 
 1. Set battery charging thresholds (on laptop):
