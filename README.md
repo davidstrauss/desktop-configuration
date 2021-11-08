@@ -78,8 +78,7 @@ After a complete wipe of the EFI partition, Windows won't have .
 
 1. Remove RPM Fusion repositories for current Fedora:
 
-       rpm-ostree remove rpmfusion-nonfree-release-$(rpm -E %fedora)-1.noarch
-       rpm-ostree remove rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
+       rpm-ostree remove rpmfusion-nonfree-release-$(rpm -E %fedora)-1.noarch rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
 
 1. Rebase on the next release (and resolve issues with any missing packages):
 
