@@ -341,14 +341,6 @@ Configure `go get` to use SSH-based authentication:
 3. Launch with `startlnp`
 4. Use `xterm -e` as the custom terminal command configuration.
 
-## OpenRA
-
-**This section is not yet updated for Fedora 30 Silverblue.**
-
-1. Download [the binary package for the current release](https://software.opensuse.org/download.html?project=games:openra&package=openra).
-
-2. Install the RPM using Software Center or DNF (in order to install dependencies).
-
 ## BIOS Updates
 
 First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https://account.lenovo.com/us/en/myproducts), click on the product model (after adding yours), then Top Downloads > View All, and finally the "Bootable CD" ISO.
