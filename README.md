@@ -27,7 +27,7 @@
 
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
-       rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools python3-psutil
+       rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools python3-psutil steam-devices
 
 1. Run remaining configuration:
 
