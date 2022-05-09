@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 35 Silverblue**
+* Current distribution: **Fedora 36 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T580**
 
 ## Data to Back Up
