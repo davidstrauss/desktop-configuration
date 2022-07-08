@@ -1,5 +1,10 @@
 - hosts: localhost
   tasks:
+    - name: Install Firefox
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.mozilla.firefox
+        method: system
+        state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
