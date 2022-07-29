@@ -56,6 +56,8 @@
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
 
+1. Use [Bottles with Steam](https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager#steam-flatpak).
+
 ## Coexistence with Windows
 
 After a complete wipe of the EFI partition, Windows won't have .
