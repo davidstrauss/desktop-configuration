@@ -1,7 +1,7 @@
 # Desktop Configuration
 
 * Current distribution: **Fedora 36 Silverblue**
-* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T580**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T16 Gen 1**
 
 ## Data to Back Up
 * `~/.gnupg/`
@@ -11,11 +11,12 @@
 
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer) using an image from [Fedora Silverblue](https://silverblue.fedoraproject.org/).
+1. On ThinkPad, enable Microsoft's third-party Secure Boot CA.
 1. Boot to the USB drive.
 1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup and [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) on my desktop.
-1. Reboot into the newly installed Fedora and set up your user.
+1. Reboot into the newly installed Fedora and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
-1. Open Software Center, enable additional repositories.
+1. Open GNOME Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
 1. [Add Flathub](https://flatpak.org/setup/Fedora/):
 
@@ -60,9 +61,9 @@
 
 ## Coexistence with Windows
 
-After a complete wipe of the EFI partition, Windows won't have .
+After a complete wipe of the EFI partition, Windows won't have its required resources to boot.
 
-1. Boot from Windows install media (F8 for the boot menu on Asus boards).
+1. Boot from Windows install media (F8 for the boot menu on Asus boards and F12 on ThinkPad).
 1. Use `diskpart` to assign a drive letter (like `G`) to the EFI partition (which should be labeled `System`).
 1. Restore boot files:
 
