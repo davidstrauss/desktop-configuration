@@ -352,7 +352,7 @@ Configure `go get` to use SSH-based authentication:
     toolbox create stable-diffusion
     toolbox enter stable-diffusion
     sudo dnf upgrade -y
-    sudo dnf install -y conda
+    sudo dnf install -y conda python3-opencv
     git clone git@github.com:CompVis/stable-diffusion.git
     cd stable-diffusion
     conda env create -f environment.yaml
