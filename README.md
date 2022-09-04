@@ -345,6 +345,26 @@ Configure `go get` to use SSH-based authentication:
 3. Launch with `startlnp`
 4. Use `xterm -e` as the custom terminal command configuration.
 
+## Stable Diffusion
+
+### Setup
+
+    toolbox create stable-diffusion
+    toolbox enter stable-diffusion
+    sudo dnf upgrade -y
+    sudo dnf install -y conda
+    git clone git@github.com:CompVis/stable-diffusion.git
+    cd stable-diffusion
+    conda env create -f environment.yaml
+    conda activate ldm
+    mkdir -p models/ldm/stable-diffusion-v1/
+    curl https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/blob/main/sd-v1-4.ckpt > models/ldm/stable-diffusion-v1/model.ckpt
+
+### Operation
+
+    cd ~/stable-diffusion
+    python3 scripts/txt2img.py --prompt "a photograph of an astronaut riding a horse" --plms
+
 ## BIOS Updates
 
 First, acquire the update. For ThinkPads, use [Lenovo's My Products tool](https://account.lenovo.com/us/en/myproducts), click on the product model (after adding yours), then Top Downloads > View All, and finally the "Bootable CD" ISO.
