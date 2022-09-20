@@ -33,6 +33,7 @@
 1. Enable bootupd socket:
 
        sudo systemctl enable --now bootupd.socket
+       sudo bootupctl adopt-and-update  # Not working yet. Label mismatch: EFI\x20System\x20Partition vs. EFI-SYSTEM
 
 1. Run remaining configuration:
 
