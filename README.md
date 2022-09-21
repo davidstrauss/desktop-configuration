@@ -25,7 +25,7 @@
 
 1. Add RPM Fusion repositories (and reboot):
 
-       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
 1. Install Ansible, system-level, and CLI utilities (and reboot):
 
@@ -92,7 +92,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 1. Remove RPM Fusion repositories for current Fedora:
 
-       rpm-ostree remove rpmfusion-nonfree-release-$(rpm -E %fedora)-1.noarch rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
+       rpm-ostree remove rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
 
 1. Rebase on the next release (and resolve issues with any missing packages):
 
@@ -100,7 +100,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 1. Add RPM Fusion repositories for next Fedora:
 
-       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
+       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
 1. Reboot.
 
