@@ -5,7 +5,7 @@
         name:  https://flathub.org/repo/appstream/org.mozilla.firefox.flatpakref
         method: system
         state: present
-    - name: Install File Roller
+    - name: Install File Roller Archive Manager
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.FileRoller
         method: system
