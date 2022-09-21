@@ -18,9 +18,11 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Open GNOME Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
-1. [Add Flathub](https://flatpak.org/setup/Fedora/):
+1. [Add Flathub](https://flatpak.org/setup/Fedora/) and switch to Flatpak for Firefox:
 
        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+       flatpak install flathub org.mozilla.firefox
+       rpm-ostree override remove firefox      
 
 1. Add RPM Fusion repositories (and reboot):
 
@@ -30,10 +32,10 @@
 
        rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools python3-psutil steam-devices bootupd
 
-1. Enable bootupd socket:
+1. Enable bootupd:
 
        sudo systemctl enable --now bootupd.socket
-       sudo bootupctl adopt-and-update  # Not working yet. Label mismatch: EFI\x20System\x20Partition vs. EFI-SYSTEM
+       sudo bootupctl adopt-and-update  # Rename EFI partition label to "EFI-SYSTEM" if mismatched.
 
 1. Run remaining configuration:
 
@@ -41,7 +43,6 @@
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
-       rpm-ostree override remove firefox
 
 1. Configure git (if not restoring `~/.gitconfig`):
 
