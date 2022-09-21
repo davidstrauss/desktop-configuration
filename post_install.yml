@@ -2,87 +2,87 @@
   tasks:
     - name: Install Firefox
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.mozilla.firefox.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.mozilla.firefox.flatpakref
         method: system
         state: present
     - name: Install File Roller Archive Manager
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.FileRoller
+        name:  https://dl.flathub.org/repo/appstream/org.gnome.FileRoller.flatpakref
         method: system
         state: present
     - name: Install Baobab File Usage Analyzer
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.baobab
+        name:  https://dl.flathub.org/repo/appstream/org.gnome.baobab.flatpakref
         method: system
         state: present
     - name: Install Builder
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.gnome.Builder.flatpakref
         method: system
         state: present
     - name: Install Steam
       flatpak:
-        name:  https://flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
         method: system
         state: present
     - name: Install the GIMP
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
         method: system
         state: present
     - name: Install Inkscape
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
         method: system
         state: present
     - name: Install Meld
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.meld.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.gnome.meld.flatpakref
         method: system
         state: present
     - name: Install Fragments
       flatpak:
-        name:  https://flathub.org/repo/appstream/de.haeckerfelix.Fragments.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/de.haeckerfelix.Fragments.flatpakref
         method: system
         state: present
     - name: Install GHex Editor
       flatpak:
-        name:  https://flathub.org/repo/appstream/org.gnome.GHex.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/org.gnome.GHex.flatpakref
         method: system
         state: present
     - name: Install Dconf Editor
       flatpak:
-        name:  https://flathub.org/repo/appstream/ca.desrt.dconf-editor.flatpakref
+        name:  https://dl.flathub.org/repo/appstream/ca.desrt.dconf-editor.flatpakref
         method: system
         state: present
     - name: Install GNOME Videos
       flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.Totem.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.gnome.Totem.flatpakref
         method: system
         state: present
     - name: Install GNOME Games
       flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.Games.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.gnome.Games.flatpakref
         method: system
         state: present
     - name: Install GNU Octave
       flatpak:
-        name: https://flathub.org/repo/appstream/org.octave.Octave.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.octave.Octave.flatpakref
         method: system
         state: present
     - name: Install LibreOffice
       flatpak:
-        name: https://flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
         method: system
         state: present
     - name: Install Fedora Media Writer
       flatpak:
-        name: https://flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
         method: system
         state: present
     - name: Install Apostrophe Markdown Editor
       flatpak:
-        name: https://flathub.org/repo/appstream/org.gnome.gitlab.somas.Apostrophe.flatpakref
+        name: https://dl.flathub.org/repo/appstream/org.gnome.gitlab.somas.Apostrophe.flatpakref
         method: system
         state: present
     - name: Disable DConf Editor Warning
