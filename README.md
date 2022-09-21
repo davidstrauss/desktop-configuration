@@ -29,7 +29,7 @@
 
 1. Install system-level tools and CLI utilities (and reboot):
 
-       rpm-ostree install ansible bootupd exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool ltunify pass powertop udftools python3-psutil steam-devices
+       rpm-ostree install ansible bootupd exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
 
 1. Configure newly installed packages and desktop environment settings:
 
