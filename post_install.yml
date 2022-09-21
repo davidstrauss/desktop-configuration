@@ -5,6 +5,16 @@
         name:  https://flathub.org/repo/appstream/org.mozilla.firefox.flatpakref
         method: system
         state: present
+    - name: Install File Roller
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.FileRoller
+        method: system
+        state: present
+    - name: Install Baobab File Usage Analyzer
+      flatpak:
+        name:  https://flathub.org/repo/appstream/org.gnome.baobab
+        method: system
+        state: present
     - name: Install Builder
       flatpak:
         name:  https://flathub.org/repo/appstream/org.gnome.Builder.flatpakref
