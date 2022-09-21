@@ -33,13 +33,13 @@
 
 1. Configure newly installed packages and desktop environment settings:
 
+       sudo systemctl enable --now virtnetworkd-ro.socket
        sudo systemctl enable --now bootupd.socket
        sudo bootupctl adopt-and-update  # Rename EFI partition label to "EFI-SYSTEM" if mismatched.
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
-       systemctl enable --now virtnetworkd-ro.socket
 
 1. Configure git (if not restoring `~/.gitconfig`):
 
