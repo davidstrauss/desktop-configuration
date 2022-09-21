@@ -11,12 +11,11 @@
 
 ## Machine Setup
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer) using an image from [Fedora Silverblue](https://silverblue.fedoraproject.org/).
-1. On ThinkPad, enable Microsoft's third-party Secure Boot CA.
-1. Boot to the USB drive.
-1. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup and [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) on my desktop.
-1. Reboot into the newly installed Fedora and set up the first user.
+1. On ThinkPad, enable Microsoft's third-party Secure Boot CA in "BIOS."
+1. Boot to the Fedora Silverblue install media.
+1. Reclaim disk space. Disk encryption is good; either use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) (weaker) or [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) (stronger).
+1. Reboot into the newly installed Fedora, enable additional repositories, and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
-1. Open GNOME Software Center, enable additional repositories.
 1. [Download](https://www.google.com/chrome/) and install Google Chrome.
 1. [Add Flathub](https://flatpak.org/setup/Fedora/) and switch to Flatpak for Firefox:
 
