@@ -27,21 +27,19 @@
 
        rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
-1. Install Ansible, system-level, and CLI utilities (and reboot):
+1. Install system-level tools and CLI utilities (and reboot):
 
-       rpm-ostree install ansible baobab exfat-utils f2fs-tools ffmpeg ffmpeg-libs file-roller gnome-boxes gnome-screenshot gnome-tweak-tool gstreamer1-vaapi h264enc libva-intel-driver libva-utils libva-vdpau-driver libvdpau-va-gl ltunify pass powertop udftools python3-psutil steam-devices bootupd
+       rpm-ostree install ansible bootupd exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool ltunify pass powertop udftools python3-psutil steam-devices
 
-1. Enable bootupd:
+1. Configure newly installed packages and desktop environment settings:
 
        sudo systemctl enable --now bootupd.socket
        sudo bootupctl adopt-and-update  # Rename EFI partition label to "EFI-SYSTEM" if mismatched.
-
-1. Run remaining configuration:
-
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml
+       systemctl enable --now virtnetworkd-ro.socket
 
 1. Configure git (if not restoring `~/.gitconfig`):
 
