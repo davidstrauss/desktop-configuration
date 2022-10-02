@@ -58,14 +58,22 @@
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
-1. Intel laptop CPUs sometimes need "panel self refresh" or c-states altered to fix glitches. Use as necessary.
+1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
+
+1. Use [Bottles with Steam](https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager#steam-flatpak).
+
+## Workarounds
+
+* Intel laptop CPUs sometimes need "panel self refresh" or c-states altered to fix glitches:
 
        rpm-ostree kargs --append=i915.enable_psr=0
        rpm-ostree kargs --append=intel_idle.max_cstate=2
 
-1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
+* `bootupctl` won't yet adopt on Silverblue. Update shim another way:
 
-1. Use [Bottles with Steam](https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager#steam-flatpak).
+       wget https://kojipkgs.fedoraproject.org//packages/shim/15.6/2/x86_64/shim-x64-15.6-2.x86_64.rpm # https://koji.fedoraproject.org/koji/packageinfo?packageID=14502
+       sudo rpm-ostree usroverlay
+       sudo rpm -i --reinstall shim-*.rpm
 
 ## Coexistence with Windows
 
