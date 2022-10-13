@@ -75,6 +75,11 @@
        sudo rpm-ostree usroverlay
        sudo rpm -i --reinstall shim-*.rpm
 
+* Missing Flatpak icons (untested fix):
+
+       sudo gtk-update-icon-cache -f /var/lib/flatpak/exports/share/icons/hicolor/
+       sudo gtk4-update-icon-cache -f /var/lib/flatpak/exports/share/icons/hicolor/
+
 ## Coexistence with Windows
 
 After a complete wipe of the EFI partition, Windows won't have its required resources to boot.
