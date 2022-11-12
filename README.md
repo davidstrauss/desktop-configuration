@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 36 Silverblue**
+* Current distribution: **Fedora 37 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T16 Gen 1**
 
 ## Data to Back Up
@@ -21,7 +21,7 @@
 
        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
        flatpak install flathub org.mozilla.firefox
-       rpm-ostree override remove firefox      
+       rpm-ostree override remove firefox firefox-langpacks
 
 1. Add RPM Fusion repositories (and reboot):
 
@@ -29,13 +29,13 @@
 
 1. Install system-level tools and CLI utilities (and reboot):
 
-       rpm-ostree install ansible bootupd exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
+       rpm-ostree install ansible exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
 
 1. Configure newly installed packages and desktop environment settings:
 
        sudo systemctl enable --now virtnetworkd-ro.socket
        sudo systemctl enable --now bootupd.socket
-       sudo bootupctl adopt-and-update  # Rename EFI partition label to "EFI-SYSTEM" if mismatched.
+       sudo bootupctl adopt-and-update
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
