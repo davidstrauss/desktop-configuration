@@ -105,6 +105,10 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
        rpm-ostree remove rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
 
+1. For the Fedora 37 Silverblue update, restore Firefox to unbreak a dependency of `firefox-langpacks` added in Fedora 37:
+
+       rpm-ostree override reset firefox
+
 1. Rebase on the next release (and resolve issues with any missing packages):
 
        rpm-ostree rebase fedora:fedora/$(expr $(rpm -E %fedora) + 1)/x86_64/silverblue
@@ -112,6 +116,10 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 1. Add RPM Fusion repositories for next Fedora:
 
        rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
+
+1. For the Fedora 37 Silverblue update, re-remove Firefox:
+
+       rpm-ostree override remove firefox firefox-langpacks
 
 1. Reboot.
 
