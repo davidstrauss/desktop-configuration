@@ -25,6 +25,11 @@
         name:  https://dl.flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
         method: system
         state: present
+    - name: Install Camera Controls
+      flatpak:
+        name:  https://dl.flathub.org/repo/appstream/hu.irl.cameractrls
+        method: system
+        state: present
     - name: Install the GIMP
       flatpak:
         name:  https://dl.flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
