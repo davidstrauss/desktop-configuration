@@ -20,6 +20,11 @@
         name:  https://dl.flathub.org/repo/appstream/org.gnome.Builder.flatpakref
         method: system
         state: present
+    - name: Install Junction
+      flatpak:
+        name:  https://dl.flathub.org/repo/appstream/re.sonny.Junction
+        method: system
+        state: present
     - name: Install Steam
       flatpak:
         name:  https://dl.flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
