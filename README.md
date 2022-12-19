@@ -3,6 +3,10 @@
 * Current distribution: **Fedora 37 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop** and **ThinkPad T16 Gen 1**
 
+## Upstream Watchlist
+
+* [Migration of Fedora Silverblue to use `bootupd`](https://github.com/fedora-silverblue/issue-tracker/issues/120)
+
 ## Data to Back Up
 * `~/.gnupg/`
 * `~/.password-store/`
