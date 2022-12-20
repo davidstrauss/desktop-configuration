@@ -5,7 +5,9 @@
 
 ## Upstream Watchlist
 
-* [Migration of Fedora Silverblue to use `bootupd`](https://github.com/fedora-silverblue/issue-tracker/issues/120)
+* Migration of Fedora Silverblue to use `bootupd`
+  * [Silverblue GitHub Issue](https://github.com/fedora-silverblue/issue-tracker/issues/120)
+  * [Fedora Change Page](https://fedoraproject.org/wiki/Changes/FedoraSilverblueBootupd)
 
 ## Data to Back Up
 * `~/.gnupg/`
