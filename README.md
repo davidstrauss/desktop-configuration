@@ -22,16 +22,11 @@
 1. Reclaim disk space. Disk encryption is good; either use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) (weaker) or [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) (stronger).
 1. Reboot into the newly installed Fedora, enable additional repositories, and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
-1. [Download](https://www.google.com/chrome/) and install Google Chrome.
-1. [Add Flathub](https://flatpak.org/setup/Fedora/) and switch to Flatpak for Firefox:
+1. Switch to Flatpak for Firefox, install system-level tools and CLI utilities, and reboot:
 
-       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
        flatpak install flathub org.mozilla.firefox
        rpm-ostree override remove firefox firefox-langpacks
-
-1. Install system-level tools and CLI utilities (and reboot):
-
-       rpm-ostree install ansible f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
+       rpm-ostree install ansible f2fs-tools gnome-boxes gnome-tweak-tool google-chrome-stable libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
 
 1. Configure newly installed packages and desktop environment settings:
 
