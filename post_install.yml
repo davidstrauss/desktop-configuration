@@ -2,99 +2,61 @@
   tasks:
     - name: Install Firefox
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.mozilla.firefox.flatpakref
-        method: system
-        state: present
+        name:  org.mozilla.firefox
     - name: Install File Roller Archive Manager
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gnome.FileRoller.flatpakref
-        method: system
-        state: present
+        name:  org.gnome.FileRoller
     - name: Install Baobab File Usage Analyzer
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gnome.baobab.flatpakref
-        method: system
-        state: present
+        name:  org.gnome.baobab
     - name: Install Builder
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gnome.Builder.flatpakref
-        method: system
-        state: present
+        name:  org.gnome.Builder
     - name: Install Junction
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/re.sonny.Junction
-        method: system
-        state: present
+        name:  re.sonny.Junction
     - name: Install Steam
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/com.valvesoftware.Steam.flatpakref
-        method: system
-        state: present
+        name:  com.valvesoftware.Steam
     - name: Install Camera Controls
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/hu.irl.cameractrls
-        method: system
-        state: present
+        name:  hu.irl.cameractrls
     - name: Install the GIMP
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
-        method: system
-        state: present
+        name:  org.gimp.GIMP
     - name: Install Inkscape
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.inkscape.Inkscape.flatpakref
-        method: system
-        state: present
+        name:  org.inkscape.Inkscape
     - name: Install Meld
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gnome.meld.flatpakref
-        method: system
-        state: present
+        name:  org.gnome.meld
     - name: Install Fragments
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/de.haeckerfelix.Fragments.flatpakref
-        method: system
-        state: present
+        name:  de.haeckerfelix.Fragments
     - name: Install GHex Editor
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/org.gnome.GHex.flatpakref
-        method: system
-        state: present
+        name:  org.gnome.GHex
     - name: Install Dconf Editor
       flatpak:
-        name:  https://dl.flathub.org/repo/appstream/ca.desrt.dconf-editor.flatpakref
-        method: system
-        state: present
+        name:  ca.desrt.dconf-editor
     - name: Install GNOME Videos
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.gnome.Totem.flatpakref
-        method: system
-        state: present
+        name: org.gnome.Totem
     - name: Install GNOME Games
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.gnome.Games.flatpakref
-        method: system
-        state: present
+        name: org.gnome.Games
     - name: Install GNU Octave
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.octave.Octave.flatpakref
-        method: system
-        state: present
+        name: org.octave.Octave
     - name: Install LibreOffice
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
-        method: system
-        state: present
+        name: org.libreoffice.LibreOffice
     - name: Install Fedora Media Writer
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.fedoraproject.MediaWriter.flatpakref
-        method: system
-        state: present
+        name: org.fedoraproject.MediaWriter
     - name: Install Apostrophe Markdown Editor
       flatpak:
-        name: https://dl.flathub.org/repo/appstream/org.gnome.gitlab.somas.Apostrophe.flatpakref
-        method: system
-        state: present
+        name: org.gnome.gitlab.somas.Apostrophe
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
