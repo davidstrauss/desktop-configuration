@@ -29,13 +29,9 @@
        flatpak install flathub org.mozilla.firefox
        rpm-ostree override remove firefox firefox-langpacks
 
-1. Add RPM Fusion repositories (and reboot):
-
-       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-
 1. Install system-level tools and CLI utilities (and reboot):
 
-       rpm-ostree install ansible exfat-utils f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
+       rpm-ostree install ansible f2fs-tools gnome-boxes gnome-tweak-tool libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
 
 1. Configure newly installed packages and desktop environment settings:
 
