@@ -16,10 +16,16 @@
 * `~/.pki/`
 
 ## Machine Setup
+
+### Operating System Installation
+
 1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer) using an image from [Fedora Silverblue](https://silverblue.fedoraproject.org/).
 1. On ThinkPad, enable Microsoft's third-party Secure Boot CA in "BIOS."
 1. Boot to the Fedora Silverblue install media.
 1. Reclaim disk space. Disk encryption is good; either use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) (weaker) or [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup) (stronger).
+
+### System Configuration
+
 1. Reboot into the newly installed Fedora, enable additional repositories, and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Switch to Flatpak for Firefox, install system-level tools and CLI utilities, and reboot:
