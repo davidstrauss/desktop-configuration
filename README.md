@@ -52,8 +52,6 @@
        git config --global init.defaultBranch main
        git config --global color.ui auto
        
-1. Tell Chrome to use Pipewire for screen sharing; enable `chrome://flags/#enable-webrtc-pipewire-capturer`.
-
 1. Set battery charging thresholds (on laptop):
 
        echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
@@ -63,8 +61,6 @@
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
-
-1. Use [Bottles with Steam](https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager#steam-flatpak).
 
 ## Workarounds
 
