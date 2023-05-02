@@ -42,9 +42,6 @@
     - name: Install GNOME Videos
       flatpak:
         name: org.gnome.Totem
-    - name: Install GNOME Games
-      flatpak:
-        name: org.gnome.Games
     - name: Install GNU Octave
       flatpak:
         name: org.octave.Octave
