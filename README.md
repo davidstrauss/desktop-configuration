@@ -113,10 +113,6 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
        rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
-1. For the Fedora 37 Silverblue update, re-remove Firefox:
-
-       rpm-ostree override remove firefox firefox-langpacks
-
 1. Reboot.
 
 ## Mobile Phone Setup
