@@ -101,7 +101,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 ## Upgrading
 
-1. Remove RPM Fusion repositories for current Fedora:
+1. _Only if needed:_ Remove RPM Fusion repositories for current Fedora:
 
        rpm-ostree remove rpmfusion-free-release-$(rpm -E %fedora)-1.noarch
 
@@ -113,7 +113,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
        rpm-ostree rebase fedora:fedora/$(expr $(rpm -E %fedora) + 1)/x86_64/silverblue
 
-1. Add RPM Fusion repositories for next Fedora:
+1. _Only if needed:_ Add RPM Fusion repositories for next Fedora:
 
        rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
