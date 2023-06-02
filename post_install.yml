@@ -51,6 +51,9 @@
     - name: Install Fedora Media Writer
       flatpak:
         name: org.fedoraproject.MediaWriter
+    - name: Install Tube Converter
+      flatpak:
+        name: org.nickvision.tubeconverter
     - name: Install Apostrophe Markdown Editor
       flatpak:
         name: org.gnome.gitlab.somas.Apostrophe
