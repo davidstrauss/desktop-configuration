@@ -62,6 +62,10 @@
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
 
+## Wireguard VPN Setup
+
+       sudo nmcli connection import type wireguard file "$filename"
+
 ## Workarounds
 
 * Intel laptop CPUs sometimes need "panel self refresh" or c-states altered to fix glitches:
