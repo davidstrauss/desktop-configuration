@@ -358,17 +358,20 @@ Configure `go get` to use SSH-based authentication:
 
        restorecon -R ~/public_html
 
-## Dwarf Fortress
+## OpenMW
 
-**This section is not yet updated for Fedora 30 Silverblue.**
+1. Install the Flatpak:
 
-1. Download the latest archive.
-2. Install necessary dependencies:
+       flatpak install flathub org.openmw.OpenMW
 
-       sudo dnf install -y SDL.i686 SDL_image.i686 SDL_ttf.i686 mesa-libGLU.i686 gtk2.i686 zlib.i686 openal-soft.i686 xterm python qt qt-x11 bzip2 xorg-x11-fonts-Type1
+1. Download the "backup" file from GOG.
+1. Extract the backup:
 
-3. Launch with `startlnp`
-4. Use `xterm -e` as the custom terminal command configuration.
+       mkdir morrowind
+       mv setup_tes_morrowind_goty_2.0.0.7.exe morrowind/
+       cd morrowind
+       innoextract setup_tes_morrowind_goty_2.0.0.7.exe
+       #mv app/Data\ Files/* ~/.var/app/org.openmw.OpenMW/data/openmw/
 
 ## Stable Diffusion
 
