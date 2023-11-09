@@ -32,7 +32,7 @@
 
        flatpak install flathub org.mozilla.firefox
        rpm-ostree override remove firefox firefox-langpacks
-       rpm-ostree install ansible f2fs-tools gnome-boxes gnome-tweak-tool google-chrome-stable libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices udftools
+       rpm-ostree install ansible gnome-boxes gnome-tweak-tool google-chrome-stable libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices
 
 1. Configure newly installed packages and desktop environment settings:
 
