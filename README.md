@@ -1,7 +1,7 @@
 # Desktop Configuration
 
 * Current distribution: **Fedora 39 Silverblue**
-* Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **NUC (8th Generation)**, **ThinkPad T16 Gen 1**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1**
 
 ## Upstream Watchlist
 
