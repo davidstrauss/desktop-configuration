@@ -4,13 +4,32 @@
 * Moonlight
 * NVIDIA Shield hardware
 
-## Settings
+## Settings App
 
-### Disable Hardware Accelerated GPU Scheduling (HAGS)
+* Settings > System > Display > Graphics Settings
+    * Toggle off "Hardware-Accelerated GPU Scheduling"
+* Personalization > Taskbar > Taskbar items
+    * Disable "Search"
+    * Disable "Copilot"
+    * Disable "Widgets"
+    * Disable "Chat"
 
-1. Settings > System > Display > Graphics Settings
-1. Toggle off "Hardware-Accelerated GPU Scheduling"
+## Registry
 
-### Winlogon automatic restart sign-on (ARSO)
- 
-[Documentation](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/winlogon-automatic-restart-sign-on--arso-)
+TKTK
+
+## Group Policy
+
+1. Winlogon automatic restart sign-on (ARSO)
+    1. [Documentation](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/winlogon-automatic-restart-sign-on--arso-)
+
+## Uninstall
+
+* Camera
+* OneDrive
+* XBox Live
+* Maps
+* People
+* Weather
+* Feedback Hub
+* Cortana
