@@ -12,3 +12,7 @@
       dconf:
         key: /org/gnome/mutter/dynamic-workspaces
         value: "false"
+    - name: Use 24-hour clock
+      dconf:
+        key: /org/gnome/desktop/interface/clock-format
+        value: "'24h'"
