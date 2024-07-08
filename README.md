@@ -37,8 +37,8 @@
 1. Configure newly installed packages and desktop environment settings:
 
        sudo systemctl enable --now virtnetworkd-ro.socket
-       sudo systemctl enable --now bootupd.socket
-       sudo bootupctl adopt-and-update
+       #sudo systemctl enable --now bootupd.socket
+       #sudo bootupctl adopt-and-update
        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
