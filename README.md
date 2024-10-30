@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 40 Silverblue**
+* Current distribution: **Fedora 41 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1**
 
 ## Upstream Watchlist
@@ -37,8 +37,6 @@
 1. Configure newly installed packages and desktop environment settings:
 
        sudo systemctl enable --now virtnetworkd-ro.socket
-       #sudo systemctl enable --now bootupd.socket
-       #sudo bootupctl adopt-and-update
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
@@ -72,7 +70,7 @@
        rpm-ostree kargs --append=i915.enable_psr=0
        rpm-ostree kargs --append=intel_idle.max_cstate=2
 
-* `bootupctl` won't yet adopt on Silverblue.
+* *Probably obsolete for Fedora 41+:* `bootupctl` won't yet adopt on Silverblue.
 
        # Update grub and other boot partition artifacts
        # Source: https://github.com/fedora-silverblue/issue-tracker/issues/543#issuecomment-2048350047
