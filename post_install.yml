@@ -39,9 +39,6 @@
     - name: Install Dconf Editor
       flatpak:
         name:  ca.desrt.dconf-editor
-    - name: Install GNOME Videos
-      flatpak:
-        name: org.gnome.Totem
     - name: Install GNU Octave
       flatpak:
         name: org.octave.Octave
@@ -54,9 +51,6 @@
     - name: Install Tube Converter
       flatpak:
         name: org.nickvision.tubeconverter
-    - name: Install Apostrophe Markdown Editor
-      flatpak:
-        name: org.gnome.gitlab.somas.Apostrophe
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
