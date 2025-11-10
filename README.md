@@ -3,12 +3,6 @@
 * Current distribution: **Fedora 43 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1**
 
-## Upstream Watchlist
-
-* Migration of Fedora Silverblue to use `bootupd`
-  * [Silverblue GitHub Issue](https://github.com/fedora-silverblue/issue-tracker/issues/120)
-  * [Fedora Change Page](https://fedoraproject.org/wiki/Changes/FedoraSilverblueBootupd)
-
 ## Data to Back Up
 * `~/.gnupg/`
 * `~/.password-store/`
@@ -69,45 +63,6 @@
 
        rpm-ostree kargs --append=i915.enable_psr=0
        rpm-ostree kargs --append=intel_idle.max_cstate=2
-
-* *Probably obsolete for Fedora 41+:* `bootupctl` won't yet adopt on Silverblue.
-
-       # Update grub and other boot partition artifacts
-       # Source: https://github.com/fedora-silverblue/issue-tracker/issues/543#issuecomment-2048350047
-       #
-       # Enter a root shell on the host (i.e. not in a toolbox)
-       $ sudo -i
-       
-       # Make a backup of the content of the EFI partition
-       $ cd /boot/efi/
-       $ cp -a EFI EFI.bkp
-       
-       # Copy updated bootloader versions
-       $ cp /usr/lib/ostree-boot/efi/EFI/BOOT/{BOOTIA32.EFI,BOOTX64.EFI,fbia32.efi,fbx64.efi} /boot/efi/EFI/BOOT/
-       $ cp /usr/lib/ostree-boot/efi/EFI/fedora/{BOOTIA32.CSV,BOOTX64.CSV,grubia32.efi,grubx64.efi,mmia32.efi,mmx64.efi,shim.efi,shimia32.efi,shimx64.efi} /boot/efi/EFI/fedora/
-       
-       # Only needed if it exists already on your system
-       $ cp /usr/lib/ostree-boot/efi/EFI/fedora/shimx64.efi /boot/efi/EFI/fedora/shimx64-fedora.efi
-       
-       # Sync changes to the disk
-       $ sync
-       
-       # Reboot and clean up backups
-       
-       # Enter a root shell on the host (i.e. not in a toolbox)
-       $ sudo -i
-       
-       # Make a backup of the content of the EFI partition
-       $ cd /boot/efi/
-       $ rm -ri ./EFI.bkp
-       
-       # Sync changes to the disk
-       $ sync
-
-       # Update shim another way:
-       wget https://kojipkgs.fedoraproject.org//packages/shim/15.8/3/x86_64/shim-x64-15.8-3.x86_64.rpm # https://koji.fedoraproject.org/koji/buildinfo?buildID=2423319
-       sudo rpm-ostree usroverlay  # We only need the side-effects of package installation outside the immutable system.
-       sudo rpm -i --reinstall shim-*.rpm
 
 * Missing Flatpak icons (untested fix):
 
