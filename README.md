@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 41 Silverblue**
+* Current distribution: **Fedora 43 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1**
 
 ## Upstream Watchlist
@@ -32,7 +32,7 @@
 
        flatpak install flathub org.mozilla.firefox
        rpm-ostree override remove firefox firefox-langpacks
-       rpm-ostree install ansible gnome-boxes gnome-tweak-tool google-chrome-stable libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices
+       rpm-ostree install ansible gnome-boxes gnome-tweak-tool google-chrome-stable libvirt-daemon-config-network ltunify pass powertop python3-psutil steam-devices gnupg2-scdaemon yubikey-manager
 
 1. Configure newly installed packages and desktop environment settings:
 
