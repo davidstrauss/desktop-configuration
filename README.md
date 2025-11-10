@@ -173,9 +173,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
    * YubiKey 5 seems to ship with OpenPGP enabled. To verify and get other information:
 
-         sudo dnf install -y swig gcc pcsc-lite-devel python-devel  # Can be in Fedora Toolbox
-         pip install --user yubikey-manager                         # Can be in Fedora Toolbox
-         ykman openpgp info  # Must be outside Toolbox to use PC/SC APIs
+         ykman openpgp info
 
 1. Configure the card, generate a key pair, and upload the key:
 
