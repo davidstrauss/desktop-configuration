@@ -75,6 +75,8 @@
       dconf:
         key: /org/gnome/software/first-run
         value: "false"
+    - name: Disable Donation Reminder
+      shell: gsettings set org.gnome.settings-daemon.plugins.housekeeping donation-reminder-enabled false
     - name: Show Seconds on the Desktop Clock
       dconf:
         key: /org/gnome/desktop/interface/clock-show-seconds
