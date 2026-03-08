@@ -62,10 +62,6 @@
       dconf:
         key: /org/gnome/desktop/input-sources/xkb-options
         value: "['caps:ctrl_modifier']"
-    - name: Use LCD-Style Antialiasing
-      dconf:
-        key: /org/gnome/desktop/interface/font-antialiasing
-        value: "'rgba'"
     - name: Automatically Remove Old Temporary Files
       dconf:
         key: /org/gnome/desktop/privacy/remove-old-temp-files
@@ -82,6 +78,10 @@
       dconf:
         key: /org/gnome/settings-daemon/plugins/housekeeping/donation-reminder-enabled
         value: "false"
+    - name: Use 24-Hour Clock Format
+      dconf:
+        key: /org/gnome/desktop/interface/clock-format
+        value: "'24h'"
     - name: Show Seconds on the Desktop Clock
       dconf:
         key: /org/gnome/desktop/interface/clock-show-seconds
@@ -94,6 +94,26 @@
       dconf:
         key: /org/gnome/desktop/peripherals/mouse/natural-scroll
         value: "true"
+    - name: Use Static Workspaces
+      dconf:
+        key: /org/gnome/mutter/dynamic-workspaces
+        value: "false"
+    - name: Use a Single Workspace
+      dconf:
+        key: /org/gnome/desktop/wm/preferences/num-workspaces
+        value: "1"
+    - name: Use List View in Nautilus
+      dconf:
+        key: /org/gnome/nautilus/preferences/default-folder-viewer
+        value: "'list-view'"
+    - name: Allow Volume Above 100%
+      dconf:
+        key: /org/gnome/desktop/sound/allow-volume-above-100-percent
+        value: "true"
+    - name: Disable Sleep on AC Power
+      dconf:
+        key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+        value: "'nothing'"
     - name: Disable All GNOME Extensions
       dconf:
         key: /org/gnome/shell/enabled-extensions
@@ -114,4 +134,17 @@
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
         value: "true"
+      when: not ansible_check_mode
+    - name: Read Default Ptyxis Profile
+      shell: "dconf read /org/gnome/Ptyxis/default-profile-uuid | tr --delete \"'\""
+      register: ptyxis_default_profile
+      changed_when: false
+    - name: Ptyxis - Configure F12 to Reset and Clear
+      dconf:
+        key: /org/gnome/Ptyxis/Shortcuts/reset-and-clear
+        value: "'F12'"
+    - name: Ptyxis - Unlimited Scrollback
+      dconf:
+        key: /org/gnome/Ptyxis/Profiles/{{ ptyxis_default_profile.stdout }}/limit-scrollback
+        value: "false"
       when: not ansible_check_mode
