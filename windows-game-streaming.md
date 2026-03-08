@@ -1,8 +1,7 @@
 # Windows Game Streaming
 
-* NVIDIA Shield streaming server
-* Moonlight
-* NVIDIA Shield hardware
+* [Sunshine](https://github.com/LizardByte/Sunshine) streaming server
+* [Moonlight](https://moonlight-stream.org/) client
 
 ## Settings App
 
@@ -13,10 +12,6 @@
     * Disable "Copilot"
     * Disable "Widgets"
     * Disable "Chat"
-
-## Registry
-
-TKTK
 
 ## Group Policy
 

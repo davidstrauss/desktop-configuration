@@ -1,1 +1,0 @@
-# OpenSCAP Auditing

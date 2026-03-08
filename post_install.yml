@@ -1,4 +1,5 @@
 - hosts: localhost
+  gather_facts: false
   tasks:
     - name: Configure VSCode Repository
       become: yes
@@ -16,43 +17,43 @@
           exclude=*.aarch64 *.armv7hl
     - name: Install Firefox
       flatpak:
-        name:  org.mozilla.firefox
+        name:org.mozilla.firefox
     - name: Install File Roller Archive Manager
       flatpak:
-        name:  org.gnome.FileRoller
+        name:org.gnome.FileRoller
     - name: Install Baobab File Usage Analyzer
       flatpak:
-        name:  org.gnome.baobab
+        name:org.gnome.baobab
     - name: Install Builder
       flatpak:
-        name:  org.gnome.Builder
+        name:org.gnome.Builder
     - name: Install Junction
       flatpak:
-        name:  re.sonny.Junction
+        name:re.sonny.Junction
     - name: Install Steam
       flatpak:
-        name:  com.valvesoftware.Steam
+        name:com.valvesoftware.Steam
     - name: Install Camera Controls
       flatpak:
-        name:  hu.irl.cameractrls
+        name:hu.irl.cameractrls
     - name: Install the GIMP
       flatpak:
-        name:  org.gimp.GIMP
+        name:org.gimp.GIMP
     - name: Install Inkscape
       flatpak:
-        name:  org.inkscape.Inkscape
+        name:org.inkscape.Inkscape
     - name: Install Meld
       flatpak:
-        name:  org.gnome.meld
+        name:org.gnome.meld
     - name: Install Fragments
       flatpak:
-        name:  de.haeckerfelix.Fragments
+        name:de.haeckerfelix.Fragments
     - name: Install GHex Editor
       flatpak:
-        name:  org.gnome.GHex
+        name:org.gnome.GHex
     - name: Install Dconf Editor
       flatpak:
-        name:  ca.desrt.dconf-editor
+        name:ca.desrt.dconf-editor
     - name: Install GNU Octave
       flatpak:
         name: org.octave.Octave
@@ -116,82 +117,8 @@
     - name: Read Default Terminal Profile
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
-      tags: register
     - name: Terminal - Unlimited Scrollback
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
         value: "true"
       when: not ansible_check_mode
-    - name: Create Environment Configuration Directory
-      file:
-        path: ~/.config/environment.d/
-        state: directory
-    - name: Create Autostart Configuration Directory
-      file:
-        path: ~/.config/autostart/
-        state: directory
-    - name: Disable GNOME Keyring Autostart
-      copy:
-        dest: "~/.config/autostart/gnome-keyring-ssh.desktop"
-        content: |
-          [Desktop Entry]
-          Type=Application
-          Name=SSH Key Agent
-          Exec=/usr/bin/true
-          Hidden=true
-    - name: Configure SSH to Use the GPG Agent
-      copy:
-        dest: "~/.config/environment.d/50-ssh-agent.conf"
-        content: |
-          SSH_AGENT_PID=
-          SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
-    - name: Create systemd User Session Directory
-      file:
-        path: ~/.config/systemd/user/
-        state: directory
-    - name: Create a GPG Agent Service
-      copy:
-        dest: "~/.config/systemd/user/gpg-agent.service"
-        content: |
-          [Service]
-          ExecStart=/usr/bin/gpg-agent --supervised --enable-ssh-support
-          ExecReload=/usr/bin/gpgconf --reload gpg-agent
-    - name: Create a GPG Agent Socket
-      copy:
-        dest: "~/.config/systemd/user/gpg-agent.socket"
-        content: |
-          [Socket]
-          ListenStream=%t/gnupg/S.gpg-agent
-          FileDescriptorName=std
-          SocketMode=0600
-          DirectoryMode=0700
-          
-          [Install]
-          WantedBy=sockets.target
-    - name: Create a GPG SSH Agent Socket
-      copy:
-        dest: "~/.config/systemd/user/gpg-agent-ssh.socket"
-        content: |
-          [Socket]
-          ListenStream=%t/gnupg/S.gpg-agent.ssh
-          FileDescriptorName=ssh
-          Service=gpg-agent.service
-          SocketMode=0600
-          DirectoryMode=0700
-          
-          [Install]
-          WantedBy=sockets.target
-    - name: Reload user-level systemd configuration
-      shell: systemctl --user daemon-reload
-    - name: Enable and Start the GPG Agent Socket
-      systemd:
-        name: gpg-agent.socket
-        state: started
-        enabled: yes
-        scope: user
-    - name: Enable and Start the GPG SSH Agent Socket
-      systemd:
-        name: gpg-agent-ssh.socket
-        state: started
-        enabled: yes
-        scope: user
