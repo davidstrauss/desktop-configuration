@@ -117,6 +117,7 @@
     - name: Read Default Terminal Profile
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
+      changed_when: false
     - name: Terminal - Unlimited Scrollback
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited

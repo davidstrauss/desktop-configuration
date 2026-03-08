@@ -94,7 +94,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 1. _Only if needed:_ Add RPM Fusion repositories for next Fedora:
 
-       rpm-ostree install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
+       rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(expr $(rpm -E %fedora) + 1).noarch.rpm
 
 1. Reboot.
 
