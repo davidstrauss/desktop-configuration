@@ -106,6 +106,10 @@
       shell: "gsettings get org.gnome.Terminal.ProfilesList default | tr --delete \"'\""
       register: terminal_default_profile
       changed_when: false
+    - name: Add ~/Projects to GNOME Search Locations
+      dconf:
+        key: /org/freedesktop/tracker/miner/files/index-recursive-directories
+        value: "['&DOCUMENTS', '&MUSIC', '&PICTURES', '&VIDEOS', '/home/{{ ansible_user_id }}/Projects']"
     - name: Terminal - Unlimited Scrollback
       dconf:
         key: /org/gnome/terminal/legacy/profiles:/:{{ terminal_default_profile.stdout }}/scrollback-unlimited
