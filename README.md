@@ -20,10 +20,8 @@
 
 1. Reboot into the newly installed Fedora, enable additional repositories, and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
-1. Switch to Flatpak for Firefox, install system-level tools and CLI utilities, and reboot:
+1. Install system-level tools and CLI utilities, and reboot:
 
-       flatpak install flathub org.mozilla.firefox
-       rpm-ostree override remove firefox firefox-langpacks
        rpm-ostree install ansible gnome-boxes gnome-tweaks google-chrome-stable libvirt-daemon-config-network ltunify powertop python3-psutil steam-devices
 
 1. Configure newly installed packages and desktop environment settings:

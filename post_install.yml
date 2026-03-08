@@ -6,9 +6,6 @@
       copy:
         src: vscode.repo
         dest: /etc/yum.repos.d/vscode.repo
-    - name: Install Firefox
-      flatpak:
-        name: org.mozilla.firefox
     - name: Install File Roller Archive Manager
       flatpak:
         name: org.gnome.FileRoller
