@@ -1,11 +1,6 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-    - name: Configure VSCode Repository
-      become: yes
-      copy:
-        src: vscode.repo
-        dest: /etc/yum.repos.d/vscode.repo
     - name: Install File Roller Archive Manager
       flatpak:
         name: org.gnome.FileRoller

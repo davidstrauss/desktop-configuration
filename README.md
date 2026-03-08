@@ -30,10 +30,11 @@
 1. Configure newly installed packages and desktop environment settings:
 
        sudo systemctl enable --now virtnetworkd-ro.socket
+       sudo cp vscode.repo /etc/yum.repos.d/
        cd ~/Downloads/
        curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
-       ansible-playbook --ask-become-pass post_install.yml  # Many dconf configs seem to fail unless already correctly set.
+       ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
 
 1. Configure git (if not restoring `~/.gitconfig`):
 
