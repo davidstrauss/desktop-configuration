@@ -63,7 +63,7 @@
     - name: Install Fedora Media Writer
       flatpak:
         name: org.fedoraproject.MediaWriter
-    - name: Install Tube Converter
+    - name: Install Parabolic
       flatpak:
         name: org.nickvision.tubeconverter
     - name: Disable DConf Editor Warning
