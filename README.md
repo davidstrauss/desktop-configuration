@@ -40,7 +40,7 @@
        git config --global user.email name@example.com
        git config --global init.defaultBranch main
        git config --global color.ui auto
-       
+
 1. Set battery charging thresholds (on laptop):
 
        echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
@@ -78,13 +78,9 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
        G:\EFI
        bootrec /rebuildbcd
 
-1. Booting to Windows 10 should now appear as an option from the recovery menus.
+1. Booting to Windows should now appear as an option from the recovery menus.
 1. Use the GUI boot repair tool, or [attempt it from the CLI](https://superuser.com/a/1111656).
 1. Review BIOS/firmware settings to restore Fedora Linux as the default.
-1. Switch to BLS and add Windows into the Linux boot menu:
-
-       sudo grub2-switch-to-blscfg
-       sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ## Upgrading
 
