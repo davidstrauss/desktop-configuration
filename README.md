@@ -54,6 +54,30 @@
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
 
+## LUKS Unlock with TPM2 + PIN
+
+After installing with LUKS encryption, enroll the TPM2 chip so the disk can be unlocked with a PIN instead of a full passphrase. The existing passphrase is kept as a fallback.
+
+### Initial Setup
+
+1. Enroll TPM2 with PIN (PCR 7 covers Secure Boot state):
+
+       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
+
+1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab`.
+
+1. Regenerate the initramfs to include the crypttab change:
+
+       rpm-ostree initramfs-etc --track=/etc/crypttab
+
+1. Reboot. The system should now prompt for the TPM2 PIN instead of the full passphrase.
+
+### Re-Enrolling After BIOS/Secure Boot Changes
+
+BIOS updates, Secure Boot key changes, or shim updates will change PCR 7 values, causing TPM unlock to fail. The system will fall back to the full LUKS passphrase. To re-enroll:
+
+       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
+
 ## Wireguard VPN Setup
 
        sudo nmcli connection import type wireguard file "$filename"
