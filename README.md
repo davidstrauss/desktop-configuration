@@ -26,14 +26,12 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Install system-level tools and CLI utilities, and reboot:
 
-       rpm-ostree install ansible gnome-boxes gnome-tweaks google-chrome-stable libvirt-daemon-config-network ltunify powertop python3-psutil steam-devices
+       rpm-ostree install ansible gnome-boxes gnome-tweaks steam-devices
 
 1. Configure newly installed packages and desktop environment settings:
 
-       sudo systemctl enable --now virtnetworkd-ro.socket
        sudo cp vscode.repo /etc/yum.repos.d/
-       cd ~/Downloads/
-       curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
+       cd ~/Projects/desktop-configuration/
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
 
