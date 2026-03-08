@@ -1,7 +1,7 @@
 # Desktop Configuration
 
 * Current distribution: **Fedora 43 Silverblue**
-* Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1**
+* Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1 (Intel)**
 
 ## Data to Back Up
 * `~/.gitconfig`
@@ -49,7 +49,7 @@
        #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
-1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Enlarge text and icons based on monitor size (requires restart)`.
+1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
 
 ## Wireguard VPN Setup
 
