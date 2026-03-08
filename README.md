@@ -6,9 +6,10 @@
 ## Data to Back Up
 * `~/.gitconfig`
 * `~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/`
-* `~/Documents`
-* `~/Pictures`
-* `~/Projects`
+* `~/Documents/`
+* `~/Pictures/`
+* `~/Projects/`
+* `/etc/NetworkManager/system-connections/`
 
 ## Machine Setup
 
