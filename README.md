@@ -5,7 +5,10 @@
 
 ## Data to Back Up
 * `~/.gitconfig`
-* `~/.pki/`
+* `~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/`
+* `~/Documents`
+* `~/Pictures`
+* `~/Projects`
 
 ## Machine Setup
 
@@ -96,7 +99,7 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 1. Reboot.
 
-## SSH with NitroKey
+## SSH with FIDO2
 
 ### Generating an SSH Key
 
@@ -123,4 +126,4 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
        mv setup_tes_morrowind_goty_2.0.0.7.exe morrowind/
        cd morrowind
        innoextract setup_tes_morrowind_goty_2.0.0.7.exe
-       #mv app/Data\ Files/* ~/.var/app/org.openmw.OpenMW/data/openmw/
+       mv app/Data\ Files/* ~/.var/app/org.openmw.OpenMW/data/openmw/data/
