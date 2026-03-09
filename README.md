@@ -6,9 +6,10 @@
 ## Data to Back Up
 * `~/.gitconfig`
 * `~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/`
-* `~/Documents`
-* `~/Pictures`
-* `~/Projects`
+* `~/Documents/`
+* `~/Pictures/`
+* `~/Projects/`
+* `/etc/NetworkManager/system-connections/`
 
 ## Machine Setup
 
@@ -25,15 +26,14 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Install system-level tools and CLI utilities, and reboot:
 
-       rpm-ostree install ansible gnome-boxes gnome-tweaks google-chrome-stable libvirt-daemon-config-network ltunify powertop python3-psutil steam-devices
+       rpm-ostree install ansible gnome-boxes gnome-tweaks steam-devices
 
 1. Configure newly installed packages and desktop environment settings:
 
-       sudo systemctl enable --now virtnetworkd-ro.socket
-       cd ~/Downloads/
-       curl https://raw.githubusercontent.com/davidstrauss/desktop-configuration/main/post_install.yml > post_install.yml
+       sudo cp vscode.repo /etc/yum.repos.d/
+       cd ~/Projects/desktop-configuration/
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
-       ansible-playbook --ask-become-pass post_install.yml  # Many dconf configs seem to fail unless already correctly set.
+       ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
 
 1. Configure git (if not restoring `~/.gitconfig`):
 
@@ -51,6 +51,30 @@
        #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
+
+## LUKS Unlock with TPM2 + PIN
+
+After installing with LUKS encryption, enroll the TPM2 chip so the disk can be unlocked with a PIN instead of a full passphrase. The existing passphrase is kept as a fallback.
+
+### Initial Setup
+
+1. Enroll TPM2 with PIN (PCR 7 covers Secure Boot state):
+
+       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
+
+1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab`.
+
+1. Regenerate the initramfs to include the crypttab change:
+
+       rpm-ostree initramfs-etc --track=/etc/crypttab
+
+1. Reboot. The system should now prompt for the TPM2 PIN instead of the full passphrase.
+
+### Re-Enrolling After BIOS/Secure Boot Changes
+
+BIOS updates, Secure Boot key changes, or shim updates will change PCR 7 values, causing TPM unlock to fail. The system will fall back to the full LUKS passphrase. To re-enroll:
+
+       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
 
 ## Wireguard VPN Setup
 
