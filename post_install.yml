@@ -1,5 +1,5 @@
 - hosts: localhost
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: Install File Roller Archive Manager
       flatpak:
