@@ -26,7 +26,7 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Install system-level tools and CLI utilities, and reboot:
 
-       rpm-ostree install ansible gnome-boxes gnome-tweaks steam-devices
+       rpm-ostree install ansible dbus-tools gnome-boxes gnome-tweaks steam-devices
 
 1. Configure newly installed packages and desktop environment settings:
 
