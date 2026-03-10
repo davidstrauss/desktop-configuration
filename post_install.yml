@@ -46,6 +46,9 @@
     - name: Install Fedora Media Writer
       flatpak:
         name: org.fedoraproject.MediaWriter
+    - name: Install Passwords and Keys
+      flatpak:
+        name: org.gnome.seahorse.Application
     - name: Install Parabolic
       flatpak:
         name: org.nickvision.tubeconverter

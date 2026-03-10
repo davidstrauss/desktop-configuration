@@ -34,6 +34,8 @@
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
 
+1. Disable the GNOME Keyring password (redundant with LUKS on a single-user system): open **Passwords and Keys** (installed by the playbook), right-click the **Login** keyring, select **Change Password**, enter the current password, and leave the new password blank.
+
 1. Configure git (if not restoring `~/.gitconfig`):
 
        git config --global user.name "David Strauss"
