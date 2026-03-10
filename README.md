@@ -24,13 +24,12 @@
 
 1. Reboot into the newly installed Fedora, enable additional repositories, and set up the first user.
 1. Update Fedora using the GNOME Software Center (and reboot).
-1. Install system-level tools and CLI utilities, and reboot:
+1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
-       rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks steam-devices
+       sudo cp google-chrome.repo vscode.repo /etc/yum.repos.d/
+       rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable steam-devices
 
 1. Configure newly installed packages and desktop environment settings:
-
-       sudo cp vscode.repo /etc/yum.repos.d/
        cd ~/Projects/desktop-configuration/
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
        ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
