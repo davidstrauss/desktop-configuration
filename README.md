@@ -32,7 +32,7 @@
 1. Configure newly installed packages and desktop environment settings:
        cd ~/Projects/desktop-configuration/
        ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
-       ansible-playbook post_install.yml  # Many dconf configs seem to fail unless already correctly set.
+       ansible-playbook post_install.yml
 
 1. Disable the GNOME Keyring password (redundant with LUKS on a single-user system): open **Passwords and Keys** (installed by the playbook), right-click the **Login** keyring, select **Change Password**, enter the current password, and leave the new password blank.
 
@@ -61,7 +61,7 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
 1. Enroll TPM2 with PIN (PCR 7 covers Secure Boot state):
 
-       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
+       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-token TYPE=crypto_LUKS -o device)
 
 1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab`.
 
@@ -75,7 +75,7 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
 BIOS updates, Secure Boot key changes, or shim updates will change PCR 7 values, causing TPM unlock to fail. The system will fall back to the full LUKS passphrase. To re-enroll:
 
-       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-tag TYPE=crypto_LUKS -o device)
+       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-token TYPE=crypto_LUKS -o device)
 
 ## Wireguard VPN Setup
 
