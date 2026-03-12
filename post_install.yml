@@ -52,6 +52,9 @@
     - name: Install Parabolic
       flatpak:
         name: org.nickvision.tubeconverter
+    - name: Install Obfuscate
+      flatpak:
+        name: com.belmoussaoui.Obfuscate
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning

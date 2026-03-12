@@ -63,12 +63,9 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
        sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-token TYPE=crypto_LUKS -o device)
 
-1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab`:
+1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab` and regenerate the initramfs to include the crypttab change:
 
        sudo sed -i 's/discard$/discard,tpm2-device=auto/' /etc/crypttab
-
-1. Regenerate the initramfs to include the crypttab change:
-
        rpm-ostree initramfs-etc --track=/etc/crypttab
 
 1. Reboot. The system should now prompt for the TPM2 PIN instead of the full passphrase.
