@@ -55,6 +55,9 @@
     - name: Install Obfuscate
       flatpak:
         name: com.belmoussaoui.Obfuscate
+    - name: Install Cheese
+      flatpak:
+        name: org.gnome.Cheese
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
