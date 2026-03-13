@@ -64,6 +64,9 @@
     - name: Install ZapZap
       flatpak:
         name: com.rtosta.zapzap
+    - name: Install Zoom
+      flatpak:
+        name: us.zoom.Zoom
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
