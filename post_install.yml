@@ -58,6 +58,12 @@
     - name: Install Cheese
       flatpak:
         name: org.gnome.Cheese
+    - name: Install Signal Desktop
+      flatpak:
+        name: org.signal.Signal
+    - name: Install ZapZap
+      flatpak:
+        name: com.rtosta.zapzap
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
