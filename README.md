@@ -61,7 +61,8 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
 1. Enroll TPM2 with PIN:
 
-       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-token TYPE=crypto_LUKS -o device)
+       LUKS_DEVICE=$(sudo blkid --match-token TYPE=crypto_LUKS -o device)
+       sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes "$LUKS_DEVICE"
 
 1. Add `tpm2-device=auto` to the options for the LUKS device in `/etc/crypttab` and regenerate the initramfs to include the crypttab change:
 
@@ -74,7 +75,22 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
 BIOS updates, Secure Boot key changes, or shim updates will change PCR 7 values, causing TPM unlock to fail. The system will fall back to the full LUKS passphrase. To re-enroll:
 
-       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes $(blkid --match-token TYPE=crypto_LUKS -o device)
+       LUKS_DEVICE=$(sudo blkid --match-token TYPE=crypto_LUKS -o device)
+       sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes "$LUKS_DEVICE"
+
+## WWAN / Mobile Broadband (ThinkPad)
+
+The ThinkPad T16 Gen 1 has an Intel XMM7560 (Fibocom L860-GL) LTE modem using the `iosm` kernel driver.
+
+1. Verify the modem is detected by ModemManager:
+
+       mmcli -L
+
+1. If the modem is listed but not connected, check its status:
+
+       mmcli -m $(mmcli -L | grep -oP '/Modem/\K\d+')
+
+1. Configure the mobile broadband connection in **GNOME Settings** under **Network**. The `mobile-broadband-provider-info` package allows GNOME to auto-detect the carrier APN from the SIM card.
 
 ## Wireguard VPN Setup
 
