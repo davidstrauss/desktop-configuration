@@ -64,6 +64,9 @@
     - name: Install ZapZap
       flatpak:
         name: com.rtosta.zapzap
+    - name: Install Bottles
+      flatpak:
+        name: com.usebottles.bottles
     - name: Install Zoom
       flatpak:
         name: us.zoom.Zoom
