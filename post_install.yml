@@ -73,6 +73,9 @@
     - name: Install Embellish
       flatpak:
         name: io.github.getnf.embellish
+    - name: Install Deja Dup
+      flatpak:
+        name: org.gnome.DejaDup
     - name: Install Zoom
       flatpak:
         name: us.zoom.Zoom
