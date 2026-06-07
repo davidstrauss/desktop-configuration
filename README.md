@@ -27,7 +27,12 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable steam-devices
+       rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm qemu-kvm steam-devices virt-install virt-manager
+
+1. Enable the libvirt socket and join the `libvirt` group so virt-manager works without root prompts (log out and back in for the group to take effect):
+
+       sudo systemctl enable --now libvirtd.socket
+       sudo usermod -aG libvirt $USER
 
 1. Configure newly installed packages and desktop environment settings:
        cd ~/Projects/desktop-configuration/
@@ -42,14 +47,6 @@
        git config --global user.email name@example.com
        git config --global init.defaultBranch main
        git config --global color.ui auto
-
-1. Set battery charging thresholds (on laptop):
-
-       echo 10 | sudo tee /sys/class/power_supply/BAT0/charge_start_threshold
-       echo 90 | sudo tee /sys/class/power_supply/BAT0/charge_stop_threshold
-       #Configuring thresholds for the second battery doesn't seem to work yet.
-       #echo 10 | sudo tee /sys/class/power_supply/BAT1/charge_start_threshold
-       #echo 90 | sudo tee /sys/class/power_supply/BAT1/charge_stop_threshold
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
 
