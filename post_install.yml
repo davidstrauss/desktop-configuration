@@ -79,6 +79,9 @@
     - name: Install Zoom
       flatpak:
         name: us.zoom.Zoom
+    - name: Install Showtime
+      flatpak:
+        name: org.gnome.Showtime
     - name: Disable DConf Editor Warning
       dconf:
         key: /ca/desrt/dconf-editor/show-warning
@@ -139,6 +142,15 @@
       dconf:
         key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
         value: "'nothing'"
+    - name: Read Battery Charge Threshold State
+      ansible.builtin.command:
+        cmd: busctl --system get-property org.freedesktop.UPower /org/freedesktop/UPower/devices/battery_BAT0 org.freedesktop.UPower.Device ChargeThresholdEnabled
+      register: charge_threshold_state
+      changed_when: false
+    - name: Preserve Battery Health (Limit Battery Charge)
+      ansible.builtin.command:
+        cmd: busctl --system call org.freedesktop.UPower /org/freedesktop/UPower/devices/battery_BAT0 org.freedesktop.UPower.Device EnableChargeThreshold b true
+      when: "'true' not in charge_threshold_state.stdout"
     - name: Disable All GNOME Extensions
       dconf:
         key: /org/gnome/shell/enabled-extensions
