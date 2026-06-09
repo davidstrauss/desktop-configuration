@@ -130,6 +130,10 @@
       dconf:
         key: /org/gnome/desktop/wm/preferences/num-workspaces
         value: "1"
+    - name: Pin Favorite Apps to the Dash
+      dconf:
+        key: /org/gnome/shell/favorite-apps
+        value: "['brave-browser.desktop', 'google-chrome.desktop', 'code.desktop', 'com.valvesoftware.Steam.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Software.desktop']"
     - name: Use List View in Nautilus
       dconf:
         key: /org/gnome/nautilus/preferences/default-folder-viewer
