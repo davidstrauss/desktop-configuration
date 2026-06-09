@@ -29,10 +29,10 @@
        sudo cp google-chrome.repo vscode.repo /etc/yum.repos.d/
        rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm qemu-kvm steam-devices virt-install virt-manager
 
-1. Enable the libvirt socket and join the `libvirt` group so virt-manager works without root prompts (log out and back in for the group to take effect):
+1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
        sudo systemctl enable --now libvirtd.socket
-       sudo usermod -aG libvirt $USER
+       sudo cp libvirt-wheel.rules /etc/polkit-1/rules.d/49-libvirt-wheel.rules
 
 1. Configure newly installed packages and desktop environment settings:
        cd ~/Projects/desktop-configuration/

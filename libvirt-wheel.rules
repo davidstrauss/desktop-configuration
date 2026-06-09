@@ -1,0 +1,8 @@
+// Allow members of the wheel group (sudoers) to manage libvirt
+// without an additional authentication prompt.
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.libvirt.unix.manage" &&
+        subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
