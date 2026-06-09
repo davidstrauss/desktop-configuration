@@ -188,6 +188,10 @@
       ansible.builtin.copy:
         src: vscode-settings.json
         dest: "{{ ansible_facts.user_dir }}/.config/Code/User/settings.json"
+    - name: Install Claude Code User Settings
+      ansible.builtin.copy:
+        src: claude-settings.json
+        dest: "{{ ansible_facts.user_dir }}/.claude/settings.json"
     - name: Ptyxis - Unlimited Scrollback
       dconf:
         key: /org/gnome/Ptyxis/Profiles/{{ ptyxis_default_profile.stdout }}/limit-scrollback
