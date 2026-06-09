@@ -1,0 +1,7 @@
+{
+    "git.autofetch": true,
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.selectedModel": "opus",
+    "git.confirmSync": false,
+    "workbench.editor.closeEmptyGroups": false
+}

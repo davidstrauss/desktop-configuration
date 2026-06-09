@@ -184,6 +184,10 @@
       dconf:
         key: /org/gnome/Ptyxis/Shortcuts/reset-and-clear
         value: "'F12'"
+    - name: Install VSCode User Settings
+      ansible.builtin.copy:
+        src: vscode-settings.json
+        dest: "{{ ansible_user_dir }}/.config/Code/User/settings.json"
     - name: Ptyxis - Unlimited Scrollback
       dconf:
         key: /org/gnome/Ptyxis/Profiles/{{ ptyxis_default_profile.stdout }}/limit-scrollback
