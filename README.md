@@ -26,8 +26,8 @@
 1. Update Fedora using the GNOME Software Center (and reboot).
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
-       sudo cp google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm qemu-kvm steam-devices virt-install virt-manager
+       sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
+       rpm-ostree install ansible brave-browser code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
