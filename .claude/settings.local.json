@@ -1,9 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch",
-      "WebFetch(domain:gitlab.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "Bash(gsettings list-recursively *)",
+      "Bash(flatpak remote-info *)",
+      "Bash(dconf list *)",
+      "Bash(dconf read *)",
+      "Bash(gsettings list-keys *)",
+      "Bash(gsettings list-schemas *)",
+      "Bash(gnome-shell --version)",
+      "Bash(gsettings describe *)"
     ]
   }
 }
