@@ -55,9 +55,6 @@
     - name: Install Obfuscate
       flatpak:
         name: com.belmoussaoui.Obfuscate
-    - name: Install Cheese
-      flatpak:
-        name: org.gnome.Cheese
     - name: Install Signal Desktop
       flatpak:
         name: org.signal.Signal
