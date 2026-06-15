@@ -146,15 +146,22 @@
       dconf:
         key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
         value: "'nothing'"
+    - name: Check for Battery Presence
+      ansible.builtin.stat:
+        path: /sys/class/power_supply/BAT0
+      register: battery_device
     - name: Read Battery Charge Threshold State
       ansible.builtin.command:
         cmd: busctl --system get-property org.freedesktop.UPower /org/freedesktop/UPower/devices/battery_BAT0 org.freedesktop.UPower.Device ChargeThresholdEnabled
       register: charge_threshold_state
       changed_when: false
+      when: battery_device.stat.exists
     - name: Preserve Battery Health (Limit Battery Charge)
       ansible.builtin.command:
         cmd: busctl --system call org.freedesktop.UPower /org/freedesktop/UPower/devices/battery_BAT0 org.freedesktop.UPower.Device EnableChargeThreshold b true
-      when: "'true' not in charge_threshold_state.stdout"
+      when:
+        - battery_device.stat.exists
+        - "'true' not in charge_threshold_state.stdout"
     - name: Disable All GNOME Extensions
       dconf:
         key: /org/gnome/shell/enabled-extensions
