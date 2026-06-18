@@ -1,0 +1,16 @@
+{
+    // Dev container for this repo. Doubles as an Ansible working environment and
+    // as a way to exercise the rootless Podman setup documented in the README.
+    // Open with: Ctrl+Shift+P -> Dev Containers: Reopen in Container
+    "name": "desktop-configuration",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+    // Map the container user to the host UID so files in the bind-mounted
+    // workspace stay owned by you under rootless Podman (see README caveats).
+    "runArgs": ["--userns=keep-id"],
+    "postCreateCommand": "pip install --quiet ansible ansible-lint && echo 'OK: devcontainer up as' $(id -un) '(uid' $(id -u)')' && ansible --version",
+    "customizations": {
+        "vscode": {
+            "extensions": ["redhat.ansible"]
+        }
+    }
+}
