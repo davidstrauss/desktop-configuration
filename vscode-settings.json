@@ -3,5 +3,7 @@
     "claudeCode.preferredLocation": "panel",
     "claudeCode.selectedModel": "opus",
     "git.confirmSync": false,
-    "workbench.editor.closeEmptyGroups": false
+    "workbench.editor.closeEmptyGroups": false,
+    "dev.containers.dockerPath": "podman",
+    "dev.containers.dockerComposePath": "podman-compose"
 }

@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -92,6 +92,16 @@ The ThinkPad T16 Gen 1 has an Intel XMM7560 (Fibocom L860-GL) LTE modem using th
 ## Wireguard VPN Setup
 
        sudo nmcli connection import type wireguard file "$filename"
+
+## Dev Containers with Podman
+
+VSCode runs on the host (the `code` RPM), **not** as a Flatpak — the Dev Containers extension shells out to the container CLI and bind-mounts the workspace, both of which the Flatpak sandbox breaks. The playbook sets `"dev.containers.dockerPath": "podman"` in the VSCode user settings so the extension drives rootless Podman directly. Caveats when using `.devcontainer`:
+
+* **File ownership / UID mapping:** if files created inside the container show as owned by the wrong user, add `--userns=keep-id` to the project's `devcontainer.json`:
+
+       "runArgs": ["--userns=keep-id"]
+
+* **SELinux bind mounts:** Silverblue runs SELinux enforcing. If a custom mount hits "permission denied," append `:Z` to it for per-container relabeling (the workspace mount is handled automatically).
 
 ## Workarounds
 
