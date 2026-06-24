@@ -93,6 +93,24 @@ The ThinkPad T16 Gen 1 has an Intel XMM7560 (Fibocom L860-GL) LTE modem using th
 
        sudo nmcli connection import type wireguard file "$filename"
 
+## Flipper Zero
+
+Updating the firmware over USB (qFlipper or the web updater) needs udev rules granting the local user access to the serial and DFU interfaces.
+
+1. Write the rules file:
+
+       sudo tee /etc/udev/rules.d/42-flipperzero.rules > /dev/null <<'EOF'
+       # Flipper Zero serial port
+       SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
+
+       # Flipper Zero DFU
+       SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", TAG+="uaccess"
+       EOF
+
+1. Reload the rules and apply them:
+
+       sudo udevadm control --reload-rules && sudo udevadm trigger
+
 ## Dev Containers with Podman
 
 VSCode runs on the host (the `code` RPM), **not** as a Flatpak — the Dev Containers extension shells out to the container CLI and bind-mounts the workspace, both of which the Flatpak sandbox breaks. The playbook sets `"dev.containers.dockerPath": "podman"` in the VSCode user settings so the extension drives rootless Podman directly. Caveats when using `.devcontainer`:
