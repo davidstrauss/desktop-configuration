@@ -95,7 +95,9 @@ The ThinkPad T16 Gen 1 has an Intel XMM7560 (Fibocom L860-GL) LTE modem using th
 
 ## Flipper Zero
 
-Updating the firmware over USB (qFlipper or the web updater) needs udev rules granting the local user access to the serial and DFU interfaces.
+### USB Access (udev)
+
+Updating the firmware over USB needs udev rules granting the local user access to the serial and DFU interfaces. This covers qFlipper / the Momentum web updater (the Flipper's STM32) and flashing the WiFi dev board (its ESP32-S2). The dev board rule also tells ModemManager to leave the port alone — otherwise it grabs the `ttyACM` device and the web flasher fails with "Failed to open serial port."
 
 1. Write the rules file:
 
@@ -105,11 +107,37 @@ Updating the firmware over USB (qFlipper or the web updater) needs udev rules gr
 
        # Flipper Zero DFU
        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", TAG+="uaccess"
+
+       # Flipper Zero WiFi dev board (ESP32-S2): serial access + keep ModemManager off it
+       SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="0002", ATTRS{manufacturer}=="Espressif", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
        EOF
 
-1. Reload the rules and apply them:
+1. Reload the rules, then unplug and replug the device so the rule applies:
 
        sudo udevadm control --reload-rules && sudo udevadm trigger
+
+### Momentum Firmware
+
+[Momentum](https://momentum-fw.dev/) is the custom firmware used here. The web updater is the simplest install:
+
+1. Close qFlipper — only one tool may access the Flipper at a time.
+1. Connect the Flipper over USB and open <https://momentum-fw.dev/update> in a WebSerial browser (Chrome or Edge; Firefox and Safari are unsupported).
+1. Follow the prompts and wait for the Flipper to reboot into the new firmware.
+
+Firmware lives in flash while user data is on the SD card, so updating never wipes your files. (qFlipper alternative: copy the release folder into `SD/update`, then run `Update` from the Flipper's file menu.)
+
+### WiFi Dev Board (Marauder)
+
+[Marauder](https://github.com/justcallmekoko/ESP32Marauder) is the most useful firmware for the official ESP32-S2 WiFi dev board (Wi-Fi scanning, sniffing, deauth). Detach the board from the Flipper and flash it standalone through its own USB-C port; the Flipper takes no part in flashing. Reattach it afterward to run the Marauder app.
+
+The case's two plungers are unlabeled but press through to the board's **BOOT** and **RESET** buttons (silkscreened `B0`/`RST` underneath). To tell them apart, tap one while the board is plugged in: **RESET** reboots it (LED blinks, the serial device re-enumerates), while **BOOT** alone does nothing. (Holding BOOT alone for ~10 seconds resets the board's settings to default.)
+
+1. Put the board into bootloader mode: hold **BOOT**, press and release **RESET**, wait ~5 seconds, then release **BOOT**.
+1. In Chrome or Edge, open <https://fzeeflasher.com>, click **Connect**, and select the board's serial device.
+1. Choose **Flipper Dev Board** as the board, **Marauder** firmware, version **latest**, then click **PROGRAM**.
+1. Press **RESET** once when flashing completes.
+
+Launch the **[WiFi] Marauder** app on the Flipper with the board attached to use it.
 
 ## Dev Containers with Podman
 
