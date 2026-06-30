@@ -123,6 +123,10 @@
       dconf:
         key: /org/gnome/mutter/dynamic-workspaces
         value: "false"
+    - name: Disable Dynamic Workspaces in GNOME Shell
+      dconf:
+        key: /org/gnome/shell/overrides/dynamic-workspaces
+        value: "false"
     - name: Use a Single Workspace
       dconf:
         key: /org/gnome/desktop/wm/preferences/num-workspaces
