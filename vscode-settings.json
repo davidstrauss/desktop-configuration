@@ -1,5 +1,8 @@
 {
     "git.autofetch": true,
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorScheme": "Default Light Modern",
+    "workbench.preferredDarkColorScheme": "Default Dark Modern",
     "claudeCode.preferredLocation": "panel",
     "claudeCode.selectedModel": "opus",
     "git.confirmSync": false,
