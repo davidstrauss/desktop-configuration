@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -47,6 +47,10 @@
        git config --global user.email name@example.com
        git config --global init.defaultBranch main
        git config --global color.ui auto
+
+1. Authenticate the GitHub CLI so cloning and pushing over HTTPS works without a manual token prompt. Choose **GitHub.com**, **HTTPS** as the protocol, and **Login with a web browser**; `gh` registers itself as git's credential helper, so subsequent `git clone https://github.com/...` commands authenticate automatically:
+
+       gh auth login
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
 
