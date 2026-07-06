@@ -201,3 +201,5 @@
         key: /org/gnome/Ptyxis/Profiles/{{ ptyxis_default_profile.stdout }}/limit-scrollback
         value: "false"
       when: not ansible_check_mode
+
+- import_playbook: personal.yml

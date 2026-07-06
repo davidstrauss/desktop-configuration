@@ -36,8 +36,8 @@
 
 1. Configure newly installed packages and desktop environment settings:
        cd ~/Projects/desktop-configuration/
-       ansible-playbook --check -vvv post_install.yml  # Optional Very Verbose Dry Run
-       ansible-playbook post_install.yml
+       ansible-playbook --check -vvv local.yml  # Optional Very Verbose Dry Run
+       ansible-playbook local.yml
 
 1. Disable the GNOME Keyring password (redundant with LUKS on a single-user system): open **Passwords and Keys** (installed by the playbook), right-click the **Login** keyring, select **Change Password**, enter the current password, and leave the new password blank.
 
