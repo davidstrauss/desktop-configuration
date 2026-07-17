@@ -201,5 +201,14 @@
         key: /org/gnome/Ptyxis/Profiles/{{ ptyxis_default_profile.stdout }}/limit-scrollback
         value: "false"
       when: not ansible_check_mode
-
+    - name: Set /org/gnome/tweaks/show-extensions-notice
+      community.general.dconf:
+        key: "/org/gnome/tweaks/show-extensions-notice"
+        value: "false"
+        state: present
+    - name: Set /org/gnome/software/show-nonfree-prompt
+      community.general.dconf:
+        key: "/org/gnome/software/show-nonfree-prompt"
+        value: "false"
+        state: present
 - import_playbook: personal.yml

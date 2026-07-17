@@ -1,0 +1,4 @@
+ignore:
+  - gsetting:/org/gnome/software/online-updates-timestamp
+ansible:
+  playbook: local.yml
