@@ -41,13 +41,6 @@
 
 1. Disable the GNOME Keyring password (redundant with LUKS on a single-user system): open **Passwords and Keys** (installed by the playbook), right-click the **Login** keyring, select **Change Password**, enter the current password, and leave the new password blank.
 
-1. Configure git (if not restoring `~/.gitconfig`):
-
-       git config --global user.name "David Strauss"
-       git config --global user.email name@example.com
-       git config --global init.defaultBranch main
-       git config --global color.ui auto
-
 1. Authenticate the GitHub CLI so cloning and pushing over HTTPS works without a manual token prompt. Choose **GitHub.com**, **HTTPS** as the protocol, and **Login with a web browser**; `gh` registers itself as git's credential helper, so subsequent `git clone https://github.com/...` commands authenticate automatically:
 
        gh auth login
@@ -198,20 +191,6 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 ## SSH with a FIDO2 Token (YubiKey)
 
-The host already has everything needed to *use* a token: OpenSSH 10.x has built-in FIDO2 USB HID support and `libfido2` is part of the base image. Only the provisioning tools need installing, and those go in a toolbox.
-
-### Can the PIN Be Cached?
-
-**Not for FIDO2 keys.** `ssh-keygen`'s `verify-required` option means "require user verification for *each* signature," and neither `ssh` nor `ssh-agent` caches a FIDO2 PIN — there is no unlock-once mode. The choice is per-signature interaction or none at all:
-
-| Key options | Interaction per SSH connection |
-| --- | --- |
-| `-t ed25519-sk` (default) | Touch |
-| `-t ed25519-sk -O verify-required` | PIN **and** touch, every time |
-| `-t ed25519-sk -O no-touch-required` | None (server must opt in via an `authorized_keys` option) |
-
-For "unlock once, then use freely for the rest of the session," use the **PIV applet** instead of FIDO2 — see [SSH with YubiKey PIV](#ssh-with-yubikey-piv-cached-pin) below. PIV's `ONCE` PIN policy is cached for the life of the agent's session with the card, which is the behavior FIDO2 deliberately does not offer.
-
 ### Installing the Provisioning Tools
 
 Toolbox containers are privileged and bind-mount both `/dev` and `/run/pcscd/pcscd.comm`, so `ykman` can reach the token's FIDO2 (hidraw) and PIV (CCID) interfaces without extra flags:
@@ -224,17 +203,7 @@ Run `ykman` inside the toolbox; run `ssh-keygen` and `ssh-add` on the host.
 
 ### Using the OpenSSH Agent Instead of GCR
 
-GNOME's default agent (`gcr-ssh-agent`, listening on `$XDG_RUNTIME_DIR/gcr/ssh`) supports **neither** FIDO2 `-sk` keys nor PKCS#11, so both workflows below require switching to OpenSSH's own agent:
-
-       systemctl --user disable --now gcr-ssh-agent.socket
-       systemctl --user enable --now ssh-agent.socket
-
-Point the session at it by creating `~/.config/environment.d/ssh-agent.conf`, then logging out and back in:
-
-       mkdir -p ~/.config/environment.d
-       echo 'SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket' > ~/.config/environment.d/ssh-agent.conf
-
-Verify with `echo $SSH_AUTH_SOCK` — it should no longer contain `gcr`.
+GNOME's default agent (`gcr-ssh-agent`) supports neither FIDO2 `-sk` keys nor PKCS#11. The playbook masks it, enables `ssh-agent.socket`, and writes `~/.config/environment.d/ssh-agent.conf`; log out and back in, then confirm `$SSH_AUTH_SOCK` no longer contains `gcr`.
 
 Terminal `ssh` prompts for the PIN on the tty. For GUI clients (VSCode) to prompt, the host also needs an askpass helper, which must be layered rather than put in a toolbox: `rpm-ostree install openssh-askpass`.
 

@@ -211,4 +211,34 @@
         key: "/org/gnome/software/show-nonfree-prompt"
         value: "false"
         state: present
+    - name: Restrict Permissions on ~/.ssh
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.ssh"
+        state: directory
+        mode: "0700"
+    - name: Create the systemd User Environment Directory
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.config/environment.d"
+        state: directory
+        mode: "0755"
+    - name: Point SSH_AUTH_SOCK at the OpenSSH Agent
+      ansible.builtin.copy:
+        dest: "{{ ansible_facts.user_dir }}/.config/environment.d/ssh-agent.conf"
+        mode: "0644"
+        content: |
+          SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
+    - name: Use the OpenSSH Agent (Supports FIDO2 and PKCS#11)
+      ansible.builtin.systemd_service:
+        name: ssh-agent.socket
+        scope: user
+        enabled: true
+        state: started
+    # gcr-ssh-agent supports neither FIDO2 -sk keys nor PKCS#11. It is pulled in
+    # by gnome-session-services.target rather than a symlink, so masking is the
+    # only way to keep it from starting; disabling it is a no-op.
+    - name: Mask the GCR SSH Agent
+      ansible.builtin.systemd_service:
+        name: gcr-ssh-agent.socket
+        scope: user
+        masked: true
 - import_playbook: personal.yml

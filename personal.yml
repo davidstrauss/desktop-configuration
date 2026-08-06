@@ -16,3 +16,13 @@
       dconf:
         key: /org/gnome/desktop/interface/clock-format
         value: "'24h'"
+    - name: Configure Git
+      community.general.git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: global
+      loop:
+        - { name: user.name, value: "David Strauss" }
+        - { name: user.email, value: "david@davidstrauss.net" }
+        - { name: init.defaultBranch, value: "main" }
+        - { name: color.ui, value: "auto" }
