@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm openssh-askpass podman-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -189,41 +189,47 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 1. Reboot.
 
-## SSH with a FIDO2 Token (YubiKey)
+## SSH with a FIDO2 Token
 
-### Installing the Provisioning Tools
+OpenSSH has built-in FIDO2 USB HID support and `libfido2` is part of the base image, so only the management tool needs installing.
 
-Toolbox containers are privileged and bind-mount both `/dev` and `/run/pcscd/pcscd.comm`, so `ykman` can reach the token's FIDO2 (hidraw) and PIV (CCID) interfaces without extra flags:
+### Installing the Management Tool
+
+Toolbox containers are privileged and bind-mount `/dev`, so `fido2-token` reaches the token's hidraw interface without extra flags:
 
        toolbox create   # only if no container exists yet
        toolbox enter
-       sudo dnf install -y yubikey-manager fido2-tools
+       sudo dnf install -y fido2-tools
 
-Run `ykman` inside the toolbox; run `ssh-keygen` and `ssh-add` on the host.
+Run `fido2-token` inside the toolbox; run `ssh-keygen` and `ssh-add` on the host.
 
 ### Using the OpenSSH Agent Instead of GCR
 
-GNOME's default agent (`gcr-ssh-agent`) supports neither FIDO2 `-sk` keys nor PKCS#11. The playbook masks it, enables `ssh-agent.socket`, and writes `~/.config/environment.d/ssh-agent.conf`; log out and back in, then confirm `$SSH_AUTH_SOCK` no longer contains `gcr`.
+GNOME's default agent (`gcr-ssh-agent`) does not support FIDO2 `-sk` keys. The playbook masks it, enables `ssh-agent.socket`, and writes `~/.config/environment.d/ssh-agent.conf`; log out and back in, then confirm `echo $SSH_AUTH_SOCK` no longer contains `gcr`.
 
-Terminal `ssh` prompts for the PIN on the tty. For GUI clients (VSCode) to prompt, the host also needs an askpass helper, which must be layered rather than put in a toolbox: `rpm-ostree install openssh-askpass`.
+Terminal `ssh` prompts for the PIN on the tty; GUI clients (VSCode) prompt through `openssh-askpass`, installed above.
 
-### Wiping the Token and Setting a FIDO2 PIN
+### Wiping the Token and Setting a PIN
 
-A FIDO2 reset erases **all** resident credentials and the PIN — every site registered for passwordless login must be re-enrolled. The token only accepts a reset within ~5 seconds of being plugged in, and it requires a touch:
+Identify the token's device path:
 
-       ykman fido reset          # unplug and replug first, then touch when it blinks
-       ykman fido access change-pin --new-pin <pin>
-       ykman fido info
+       fido2-token -L
 
-The PIN may be 4–63 characters. Three wrong attempts in a row force a replug; eight total attempts lock the FIDO2 applet until another reset.
+A reset erases **all** resident credentials and the PIN, so every site registered for passwordless login must be re-enrolled. `-R` does not ask for confirmation. Most tokens only accept a reset within a few seconds of being plugged in and require a touch to confirm:
+
+       fido2-token -R /dev/hidrawX          # unplug and replug first, then touch
+       fido2-token -S /dev/hidrawX          # prompts for the new PIN
+       fido2-token -I /dev/hidrawX          # confirms "clientPin: true"
+
+`-S` sets a PIN on a token that has none; `-C` changes an existing one. The PIN may be 4–63 characters. Three wrong attempts in a row force a replug; eight lock the token until another reset.
 
 ### Generating the Key
 
-Run this on the host. `-O resident` stores the handle on the token so it can be recovered on another machine, and `-O application=ssh:` namespaces it so multiple resident keys can coexist:
+Run this on the host. `-O resident` stores the handle on the token so it can be recovered on another machine, and `-O verify-required` demands the PIN for every signature:
 
-       ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -C "fedora@$(hostname)"
+       ssh-keygen -t ed25519-sk -O resident -O verify-required -C "main-keychain"
 
-Add `-O verify-required` if you want the PIN demanded on every use, accepting that it cannot be cached. Older tokens (YubiKey firmware before 5.2.3) lack Ed25519 support — use `-t ecdsa-sk` there.
+Tokens without Ed25519 support need `-t ecdsa-sk` instead.
 
 ### Loading a Resident Key on a New Machine
 
@@ -234,36 +240,6 @@ Add `-O verify-required` if you want the PIN demanded on every use, accepting th
 
        ssh-add -L
        ssh -T git@github.com
-
-## SSH with YubiKey PIV (Cached PIN)
-
-This is the path that gives a session-long unlock. Slot `9a` defaults to a `ONCE` PIN policy, meaning the PIN is required once per session with the card; `ssh-agent` holds that session open, so one prompt covers every subsequent connection. `pcscd.socket` is enabled by default on Fedora and `opensc-pkcs11.so` ships in the base image, so no host layering is needed.
-
-1. Reset and configure the PIV applet (in the toolbox). This wipes all PIV keys and certificates and restores the default PIN `123456` and PUK `12345678`, which should then be changed:
-
-       ykman piv reset
-       ykman piv access change-pin
-       ykman piv access change-puk
-       ykman piv access change-management-key --generate --protect
-
-1. Generate a key in slot `9a`. `--touch-policy CACHED` requires a touch at most once per 15 seconds; use `NEVER` for no touch at all:
-
-       ykman piv keys generate --algorithm ECCP384 --pin-policy ONCE --touch-policy CACHED 9a /tmp/9a.pem
-
-1. OpenSC only exposes slots that hold a certificate, so generate a self-signed one:
-
-       ykman piv certificates generate --subject "CN=SSH" 9a /tmp/9a.pem
-
-1. Export the SSH public key for `authorized_keys` and GitHub (run on the host):
-
-       ssh-keygen -D /usr/lib64/opensc-pkcs11.so -e
-
-1. Load it into the agent. The PIN is requested once here and cached until the token is unplugged or the agent restarts:
-
-       ssh-add -s /usr/lib64/opensc-pkcs11.so
-       ssh-add -l
-
-To make it automatic, add `PKCS11Provider /usr/lib64/opensc-pkcs11.so` to `~/.ssh/config`.
 
 ## OpenMW
 
