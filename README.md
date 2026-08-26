@@ -1,130 +1,87 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 27**
-* Current hardware: **ThinkPad T580**
+* Current distribution: **Fedora 44**
+* Current hardware: **Pangolin 14**
 
 ## Data to Back Up
 * `~/.gnupg/`
-* `~/.password-store/`
 * `~/.gitconfig`
 
 ## Machine Setup
-1. Initialize a thumb drive using the [Fedora Media Writer](https://fedoraproject.org/wiki/How_to_create_and_use_Live_USB#Quickstart:_Using_Fedora_Media_Writer).
-2. Boot to the USB drive.
-3. Reclaim disk space. Disk encryption is good; I use [Opal](https://en.wikipedia.org/wiki/Opal_Storage_Specification) from my ThinkPad BIOS setup, but you can use [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup). I prefer Opal because GNOME Software Center updates require two reboots, and Opal can persist across reboots.
-4. Set up a single admin user (no password set for `root`).
-5. Reboot into the newly installed Fedora.
-6. If installed from a Live ISO, update Fedora using the GNOME Software Center. (A direct `dnf upgrade` can, rarely, cause issues.)
-7. Configure the GNOME desktop:
+1. `dd if=Downloads/$FEDORA_IMAGE.iso of=/dev/$PATH_TO_USB bs=1m && sync`
 
-       gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"  # Use Caps Lock as Ctrl
+1. Install
+
+1. Configure the GNOME desktop:
+
        gsettings set org.gnome.mutter dynamic-workspaces false  # Use static workspaces.
-       gsettings set org.gnome.desktop.wm.preferences num-workspaces 1  # Disable all workspace functionality.
+       gsettings set org.gnome.desktop.wm.preferences num-workspaces 3  # Statically set the number of workspaces
+       gsettings get org.gnome.mutter workspaces-only-on-primary true
+       gsettings set org.gnome.desktop.interface enable-hot-corners false
        gsettings set org.gnome.desktop.interface clock-show-seconds true
        gsettings set org.gnome.desktop.interface clock-show-date true
-       gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true  # Use Apple-style natural scrolling.
-       gsettings set org.gnome.shell enabled-extensions "[]"  # Disable the Fedora desktop logo.
+       gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
        gsettings set org.gnome.desktop.interface clock-show-date true # Show date in the status bar.
 
-       # Terminal:
-       gsettings set "org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/" reset-and-clear 'F12'  # Set F12 to Reset and Clear
-       TPROFILE=$(gsettings get org.gnome.Terminal.ProfilesList default | tr --delete "'")
-       gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$TPROFILE/" scrollback-unlimited true  # Enable unlimited scrollback.
 
-8. Install Google Chrome:
+1. Install Brave:
 
-       sudo dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+       curl -fsS https://dl.brave.com/install.sh | CHANNEL=nightly sh
 
-9. Add [RPM Fusion](https://rpmfusion.org/) repositories:
 
-       sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+1. Install other packages:
 
-10. Install other packages:
+       sudo dnf install gimp htop dkms iotop vim git powertop quassel-client nmap virt-manager pinentry-gnome4 gnupg2 pcsc-lite pcsc-lite-libs libvirt-daemon-config-network chrome-gnome-shell
 
-       sudo dnf install gimp htop inkscape iotop mariadb meld nano php-cli powertop quassel-client tor unbound wireshark-gnome transmission gnome-system-log fatsort nmap-frontend pass ghex composer gnome-builder libvirt-daemon-config-network chrome-gnome-shell
-
-11. Set the editor (in this case, nano, but anything will work):
+1. Set the editor:
 
        mkdir -p ~/.config/environment.d/
-       echo "EDITOR=nano" > ~/.config/environment.d/50-editor.conf
+       echo "EDITOR=vim" > ~/.config/environment.d/50-editor.conf
 
-12. Add the [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
+1. Install Gnome Extension Manager, and add the following extensions:
 
-13. Configure git:
+     - [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+     - [Caffeine GNOME Shell extension](https://extensions.gnome.org/extension/517/caffeine/).
+     - [Dash in Panel](https://extensions.gnome.org/extension/7855/dash-in-panel/)
+     - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
+     - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
+     - [OSB Volume Number](https://extensions.gnome.org/extension/5461/osd-volume-number/)
+     - [PiP on top](https://extensions.gnome.org/extension/4691/pip-on-top/)
+     - [Quick Settings Audio Panel](https://extensions.gnome.org/extension/5940/quick-settings-audio-panel/)
+     - [System Monitor](https://extensions.gnome.org/extension/6807/system-monitor/)
 
-       git config --global user.name "David Strauss"
-       git config --global user.email name@example.com
-       git config --global color.ui auto
+2. Configure git:
+
+    ```
+    git config --global user.name "alexfornuto"
+    git config --global user.email name@example.com
+    git config --global color.ui auto
+    ```
 
 ## Smart Cards
 
-### Tested Hardware
-
-* Reader and card: [YubiKey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/) and Neo-N
-* Reader and card: [YubiKey 4](https://www.yubico.com/products/yubikey-hardware/yubikey4/) and 4 Nano
-* Card only: [Fidesmo Dual Interface](http://shop.fidesmo.com/product/fidesmo-card-dual-interface)
-* Reader only: [JK-A0100 Series Smartcard Keyboard](http://cherryamericas.com/product/jk-a0100eu-smartcard-keyboard/): Use `enable-pinpad-varlen` in `.gnupg/gpg-agent.conf` for secure PIN entry. The specific tested model was JK-A0100EU-2.
-* Reader only: Identiv SCM SPR 532: Should work with secure PIN entry out of the box
-* Reader only: Lenovo ThinkPad T560 built-in: No secure PIN entry available
-* [LWN Article: A comparison of cryptographic keycards](https://lwn.net/Articles/736231/)
-
 ### Machine Setup
 
-1. Disable the GNOME Keyring SSH agent by overriding the desktop file:
+1. Enable SSH support in gpg-agent.conf
 
-       mkdir -p ~/.config/autostart/
+    ```
+    cat <<EOT >> ~/.gnupg/gpg-agent.conf
+    enable-ssh-support
+    EOT
+    ```
 
-       cat <<EOT >> ~/.config/autostart/gnome-keyring-ssh.desktop
-       [Desktop Entry]
-       Type=Application
-       Name=SSH Key Agent
-       Exec=/usr/bin/true
-       Hidden=true
-       EOT
+1. Enable the agent services
 
-2. Redirect sessions to use the GPG agent for SSH:
+    ```
+    systemctl --user enable --now gpg-agent.socket
+    systemctl --user enable --now gpg-agent-ssh.socket
+    ```
 
-       mkdir -p ~/.config/environment.d/
+1. Set `SSH_AUTH_SOCK` in the shell rc file:
 
-       cat <<EOT >> ~/.config/environment.d/50-ssh-agent.conf
-       SSH_AGENT_PID=
-       SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
-       EOT
-
-3. Add a user service and corresponding sockets for the GPG agent:
-
-       mkdir -p ~/.config/systemd/user/
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent.service
-       [Service]
-       ExecStart=/usr/bin/gpg-agent --supervised --enable-ssh-support
-       ExecReload=/usr/bin/gpgconf --reload gpg-agent
-       EOT
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent.socket
-       [Socket]
-       ListenStream=%t/gnupg/S.gpg-agent
-       FileDescriptorName=std
-       SocketMode=0600
-       DirectoryMode=0700
-
-       [Install]
-       WantedBy=sockets.target
-       EOT
-
-       cat <<EOT >> ~/.config/systemd/user/gpg-agent-ssh.socket
-       [Socket]
-       ListenStream=%t/gnupg/S.gpg-agent.ssh
-       FileDescriptorName=ssh
-       Service=gpg-agent.service
-       SocketMode=0600
-       DirectoryMode=0700
-
-       [Install]
-       WantedBy=sockets.target
-       EOT
-
-       systemctl --user enable --now gpg-agent.socket gpg-agent-ssh.socket
+    ```
+    echo 'export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"' >> ~/.bashrc
+    ```
 
 ### Using an Existing Smart Card
 
