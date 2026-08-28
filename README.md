@@ -34,7 +34,13 @@
        sudo systemctl enable --now libvirtd.socket
        sudo cp libvirt-wheel.rules /etc/polkit-1/rules.d/49-libvirt-wheel.rules
 
+1. Add the Flathub remote system-wide. A raw Fedora installation only has the `fedora` remote, and enabling third-party repositories during setup adds a *filtered* Flathub definition, so the playbook's Flatpak installs fail until both are handled:
+
+       sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+       sudo flatpak remote-modify --enable --no-filter flathub
+
 1. Configure newly installed packages and desktop environment settings:
+
        cd ~/Projects/desktop-configuration/
        ansible-playbook --check -vvv local.yml  # Optional Very Verbose Dry Run
        ansible-playbook local.yml

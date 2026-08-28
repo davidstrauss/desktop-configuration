@@ -188,10 +188,20 @@
       dconf:
         key: /org/gnome/Ptyxis/Shortcuts/reset-and-clear
         value: "'F12'"
+    - name: Create the VSCode User Settings Directory
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.config/Code/User"
+        state: directory
+        mode: "0755"
     - name: Install VSCode User Settings
       ansible.builtin.copy:
         src: vscode-settings.json
         dest: "{{ ansible_facts.user_dir }}/.config/Code/User/settings.json"
+    - name: Create the Claude Code Configuration Directory
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.claude"
+        state: directory
+        mode: "0755"
     - name: Install Claude Code User Settings
       ansible.builtin.copy:
         src: claude-settings.json
