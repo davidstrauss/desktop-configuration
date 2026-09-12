@@ -1,6 +1,6 @@
 # Desktop Configuration
 
-* Current distribution: **Fedora 43 Silverblue**
+* Current distribution: **Fedora 44 Silverblue**
 * Current hardware: **AMD X570 + 5900X + RX580 Desktop**, **ThinkPad T16 Gen 1 (Intel)**
 
 ## Data to Back Up
