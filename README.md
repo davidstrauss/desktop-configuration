@@ -197,55 +197,45 @@ After a complete wipe of the EFI partition, Windows won't have its required reso
 
 ## SSH with a FIDO2 Token
 
-OpenSSH has built-in FIDO2 USB HID support and `libfido2` is part of the base image, so only the management tool needs installing.
+OpenSSH has built-in FIDO2 USB HID support and `libfido2` is part of the base image, so nothing extra needs installing. The key is *non-resident*: the private key lives only inside the token, and the file in `~/.ssh` is a key handle (a stub) the token needs in order to sign. The token alone cannot sign without the handle, and the handle alone is useless without the token. Every signature requires a touch, and no PIN is asked for.
 
-### Installing the Management Tool
+### Generating the Key
 
-Toolbox containers are privileged and bind-mount `/dev`, so `fido2-token` reaches the token's hidraw interface without extra flags:
+Run this on the host and touch the token when it blinks. If the token has a PIN set, `ssh-keygen` asks for it once here and never again for signing. Do **not** add `-O resident` (it copies the handle onto the token, making token plus PIN sufficient) or `-O verify-required` (it demands the PIN on every signature). A passphrase on the handle is optional:
+
+       ssh-keygen -t ed25519-sk -C "main-keychain"
+
+Tokens without Ed25519 support need `-t ecdsa-sk` instead.
+
+### Backing Up and Moving the Key Handle
+
+Because the handle is not on the token, it cannot be recovered from the token on a new machine. Copy `~/.ssh/id_ed25519_sk` and `~/.ssh/id_ed25519_sk.pub` to the new machine (and keep a copy somewhere safe). The handle is not a secret on its own, but with the token it is, so treat the copy like a key.
+
+### The SSH Agent
+
+GNOME's default agent (`gcr-ssh-agent`) proxies to a regular `ssh-agent` and handles FIDO2 `-sk` keys as-is; no agent changes are needed. `openssh-askpass` (installed above) lets the agent show a "confirm user presence" notice while the token waits for a touch, which matters for GUI clients like VSCode that have no terminal.
+
+Machines that applied an earlier version of the playbook, which masked `gcr-ssh-agent` in favor of `ssh-agent.socket`, can be restored to the default with a one-off playbook (log out and back in afterward):
+
+       ansible-playbook restore-gcr-ssh-agent.yml
+
+### Testing
+
+       ssh -T git@github.com     # touch when the token blinks
+
+### Removing an Old Resident Key from the Token
+
+Tokens that previously held a resident (`-O resident`) SSH key still carry that credential. Removing it needs `fido2-token`, which is easiest to run from a toolbox (containers are privileged and bind-mount `/dev`):
 
        toolbox create   # only if no container exists yet
        toolbox enter
        sudo dnf install -y fido2-tools
+       fido2-token -L                        # find the token's /dev/hidrawX
+       fido2-token -L -r /dev/hidrawX        # list relying parties; SSH keys are under "ssh:"
+       fido2-token -L -k ssh: /dev/hidrawX   # list the credential IDs
+       fido2-token -D -i <credential-id> /dev/hidrawX
 
-Run `fido2-token` inside the toolbox; run `ssh-keygen` and `ssh-add` on the host.
-
-### Using the OpenSSH Agent Instead of GCR
-
-GNOME's default agent (`gcr-ssh-agent`) does not support FIDO2 `-sk` keys. The playbook masks it, enables `ssh-agent.socket`, and writes `~/.config/environment.d/ssh-agent.conf`; log out and back in, then confirm `echo $SSH_AUTH_SOCK` no longer contains `gcr`.
-
-Terminal `ssh` prompts for the PIN on the tty; GUI clients (VSCode) prompt through `openssh-askpass`, installed above.
-
-### Wiping the Token and Setting a PIN
-
-Identify the token's device path:
-
-       fido2-token -L
-
-A reset erases **all** resident credentials and the PIN, so every site registered for passwordless login must be re-enrolled. `-R` does not ask for confirmation. Most tokens only accept a reset within a few seconds of being plugged in and require a touch to confirm:
-
-       fido2-token -R /dev/hidrawX          # unplug and replug first, then touch
-       fido2-token -S /dev/hidrawX          # prompts for the new PIN
-       fido2-token -I /dev/hidrawX          # confirms "clientPin: true"
-
-`-S` sets a PIN on a token that has none; `-C` changes an existing one. The PIN may be 4–63 characters. Three wrong attempts in a row force a replug; eight lock the token until another reset.
-
-### Generating the Key
-
-Run this on the host. `-O resident` stores the handle on the token so it can be recovered on another machine, and `-O verify-required` demands the PIN for every signature:
-
-       ssh-keygen -t ed25519-sk -O resident -O verify-required -C "main-keychain"
-
-Tokens without Ed25519 support need `-t ecdsa-sk` instead.
-
-### Loading a Resident Key on a New Machine
-
-       ssh-keygen -K          # writes the key handle into the current directory
-       ssh-add -K             # loads resident keys straight into the agent
-
-### Testing
-
-       ssh-add -L
-       ssh -T git@github.com
+Each of these prompts for the token PIN.
 
 ## OpenMW
 
