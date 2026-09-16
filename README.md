@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm openssh-askpass podman-compose qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -213,7 +213,7 @@ Because the handle is not on the token, it cannot be recovered from the token on
 
 ### The SSH Agent
 
-GNOME's default agent (`gcr-ssh-agent`) proxies to a regular `ssh-agent` and handles FIDO2 `-sk` keys as-is; no agent changes are needed. `openssh-askpass` (installed above) lets the agent show a "confirm user presence" notice while the token waits for a touch, which matters for GUI clients like VSCode that have no terminal.
+GNOME's default agent (`gcr-ssh-agent`) proxies to a regular `ssh-agent` and handles FIDO2 `-sk` keys as-is; no agent changes are needed. On the first use of a passphrase-protected key handle, gcr prompts through GNOME Shell's system dialog. Tick "Automatically unlock this key whenever I'm logged in" and the passphrase is stored in the login keyring, so it is never asked for again on that machine. Signatures then need only a touch, signaled by the token's blinking LED; there is no on-screen prompt for it, which is why `openssh-askpass` is deliberately not installed.
 
 Machines that applied an earlier version of the playbook, which masked `gcr-ssh-agent` in favor of `ssh-agent.socket`, can be restored to the default with a one-off playbook (log out and back in afterward):
 
