@@ -1,0 +1,24 @@
+# One-off cleanup for machines that applied the earlier local.yml which
+# masked gcr-ssh-agent and switched to ssh-agent.socket. Restores the GNOME
+# default. Log out and back in afterward so the session picks up the default
+# SSH_AUTH_SOCK again.
+#
+#     ansible-playbook restore-gcr-ssh-agent.yml
+- hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Remove the SSH_AUTH_SOCK Override
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.config/environment.d/ssh-agent.conf"
+        state: absent
+    - name: Disable the Standalone OpenSSH Agent
+      ansible.builtin.systemd_service:
+        name: ssh-agent.socket
+        scope: user
+        enabled: false
+        state: stopped
+    - name: Unmask the GCR SSH Agent
+      ansible.builtin.systemd_service:
+        name: gcr-ssh-agent.socket
+        scope: user
+        masked: false
