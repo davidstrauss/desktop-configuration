@@ -47,9 +47,9 @@
 
 1. Disable the GNOME Keyring password (redundant with LUKS on a single-user system): open **Passwords and Keys** (installed by the playbook), right-click the **Login** keyring, select **Change Password**, enter the current password, and leave the new password blank.
 
-1. Authenticate the GitHub CLI so cloning and pushing over HTTPS works without a manual token prompt. Choose **GitHub.com**, **SSH** as the protocol, and **Login with a web browser**; `gh` registers itself as git's credential helper, so subsequent `git clone https://github.com/...` commands authenticate automatically:
+1. Authenticate the GitHub CLI:
 
-       gh auth login
+       gh config set -h github.com git_protocol ssh
 
 1. To disable Steam scaling: `Steam` -> `Settings` -> `Interface` -> `Scale text and icons to match monitor settings`.
 
