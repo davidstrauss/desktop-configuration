@@ -16,6 +16,9 @@
     - name: Install Steam
       flatpak:
         name: com.valvesoftware.Steam
+    - name: Install Moonlight
+      flatpak:
+        name: com.moonlight_stream.Moonlight
     - name: Install Camera Controls
       flatpak:
         name: hu.irl.cameractrls
@@ -130,7 +133,7 @@
     - name: Pin Favorite Apps to the Dash
       dconf:
         key: /org/gnome/shell/favorite-apps
-        value: "['brave-browser.desktop', 'google-chrome.desktop', 'code.desktop', 'com.valvesoftware.Steam.desktop', 'com.moonlight_stream.Moonlight.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Software.desktop']"
+        value: "['brave-browser.desktop', 'google-chrome.desktop', 'com.microsoft.VSCode.desktop', 'com.valvesoftware.Steam.desktop', 'com.moonlight_stream.Moonlight.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Software.desktop']"
     - name: Use List View in Nautilus
       dconf:
         key: /org/gnome/nautilus/preferences/default-folder-viewer
