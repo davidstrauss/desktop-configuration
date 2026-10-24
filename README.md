@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm podman-compose qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm openssh-askpass podman-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -213,11 +213,11 @@ Because the handle is not on the token, it cannot be recovered from the token on
 
 ### The SSH Agent
 
-GNOME's default agent (`gcr-ssh-agent`) proxies to a regular `ssh-agent` and handles FIDO2 `-sk` keys as-is; no agent changes are needed. On the first use of a passphrase-protected key handle, gcr prompts through GNOME Shell's system dialog. Tick "Automatically unlock this key whenever I'm logged in" and the passphrase is stored in the login keyring, so it is never asked for again on that machine. Signatures then need only a touch, signaled by the token's blinking LED; there is no on-screen prompt for it, which is why `openssh-askpass` is deliberately not installed.
+GNOME's default agent (`gcr-ssh-agent`) deadlocks on FIDO2 `-sk` keys: to load one, it runs `ssh-add` against its own socket and then waits on it, so the token is never asked to sign. The playbook masks it and uses OpenSSH's `ssh-agent.socket` instead, pointing `SSH_AUTH_SOCK` at it through `~/.config/environment.d`. Log out and back in after the first run so the session picks up the new socket.
 
-Machines that applied an earlier version of the playbook, which masked `gcr-ssh-agent` in favor of `ssh-agent.socket`, can be restored to the default with a one-off playbook (log out and back in afterward):
+`~/.ssh/config` gets `AddKeysToAgent yes`, so the first `ssh` of a session asks for the key handle's passphrase, takes a touch, and hands the key to the agent. In a terminal the passphrase is asked for there; GUI clients such as VSCode get a `gnome-ssh-askpass` dialog (from `openssh-askpass`, installed above). The agent holds the key until logout, so the passphrase is asked for once per login. After that, signatures need only a touch, signaled by the token's blinking LED.
 
-       ansible-playbook restore-gcr-ssh-agent.yml
+The agent itself runs without `SSH_ASKPASS`. It never needs to prompt, and otherwise it would show a "confirm user presence" notice on every signature whose keyboard grab triggers GNOME Shell's inhibit-shortcuts dialog.
 
 ### Testing
 
