@@ -73,7 +73,9 @@ After installing with LUKS encryption, enroll the TPM2 chip so the disk can be u
 
 ### Re-Enrolling After BIOS/Secure Boot Changes
 
-BIOS updates, Secure Boot key changes, or shim updates will change PCR 7 values, causing TPM unlock to fail. The system will fall back to the full LUKS passphrase. To re-enroll:
+BIOS updates (including the ones fwupd installs), BIOS setting changes, Secure Boot key changes, or shim updates will change PCR 7 values. After that the PIN prompt can never succeed, even with the right PIN, and systemd-cryptsetup falls back to asking for the LUKS passphrase without saying why. It logs the reason only to the journal, as `TPM policy does not match current system state`.
+
+The playbook installs `tpm-unlock-check`, which looks for that message after each login. If it finds it, it shows a notification with a **Re-enroll PIN…** button that opens a terminal and runs the re-enrollment. To re-enroll by hand:
 
        LUKS_DEVICE=$(sudo blkid --match-token TYPE=crypto_LUKS -o device)
        sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 --tpm2-with-pin=yes "$LUKS_DEVICE"

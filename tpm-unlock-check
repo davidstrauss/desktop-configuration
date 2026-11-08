@@ -1,0 +1,70 @@
+#!/usr/bin/bash
+# Warns after login when the TPM2+PIN disk unlock failed this boot because
+# the TPM's PCR policy no longer matches the firmware state. systemd-cryptsetup
+# only logs that to the journal, then falls back to a passphrase prompt that
+# looks like a wrong PIN.
+#
+#   tpm-unlock-check              check this boot; notify if it failed
+#   tpm-unlock-check --re-enroll  re-enroll every affected volume (run in a terminal)
+set -euo pipefail
+
+boot_id=$(</proc/sys/kernel/random/boot_id)
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/tpm-unlock-check"
+
+# Prints the LUKS UUID of each volume whose TPM unlock hit a policy mismatch
+# this boot. The UUID is in the cryptsetup unit's instance name.
+affected_uuids() {
+    journalctl -b 0 -t systemd-cryptsetup -q --no-pager \
+        --grep 'TPM policy does not match' \
+        -o json --output-fields=_SYSTEMD_UNIT 2>/dev/null |
+        grep -o '"_SYSTEMD_UNIT":"[^"]*"' | sort -u |
+        sed -e 's/^"_SYSTEMD_UNIT":"//' -e 's/"$//' -e 's/\\\\/\\/g' |
+        while read -r unit; do
+            name=$(systemd-escape --unescape --instance "$unit")
+            echo "${name#luks-}"
+        done
+}
+
+re_enroll() {
+    local uuid status=0
+    for uuid in "$@"; do
+        echo "Re-enrolling the TPM2+PIN unlock for /dev/disk/by-uuid/$uuid."
+        echo "You'll be asked for your sudo password, an existing LUKS passphrase, then a new PIN."
+        echo
+        if sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto \
+            --tpm2-pcrs=7 --tpm2-with-pin=yes "/dev/disk/by-uuid/$uuid"; then
+            echo "Done. The PIN will work again on the next boot."
+        else
+            echo "Re-enrollment failed; the existing passphrase still unlocks the disk."
+            status=1
+        fi
+        echo
+    done
+    if [ "$status" -eq 0 ]; then
+        mkdir -p "$state_dir"
+        echo "$boot_id" >"$state_dir/re-enrolled-boot"
+    fi
+    read -rp "Press Enter to close."
+    return "$status"
+}
+
+mapfile -t uuids < <(affected_uuids)
+[ "${#uuids[@]}" -gt 0 ] || exit 0
+
+if [ "${1:-}" = --re-enroll ]; then
+    re_enroll "${uuids[@]}"
+    exit
+fi
+
+# Already fixed during this boot; the journal still holds the old failure.
+[ "$(cat "$state_dir/re-enrolled-boot" 2>/dev/null)" != "$boot_id" ] || exit 0
+
+action=$(notify-send --urgency=critical --app-name="Disk Encryption" \
+    --icon=drive-harddisk-system-symbolic \
+    --action=re-enroll="Re-enroll PIN…" \
+    "Disk PIN unlock is out of date" \
+    "Your PIN wasn't the problem. The firmware's Secure Boot state (TPM PCR 7) changed since the PIN was enrolled, so the TPM refused to unlock and you were asked for the passphrase instead. This usually follows a BIOS update or a BIOS setting change; if you made neither, find out why before re-enrolling.")
+
+if [ "$action" = re-enroll ]; then
+    exec ptyxis --new-window -- "$0" --re-enroll
+fi

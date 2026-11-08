@@ -280,4 +280,39 @@
         name: gcr-ssh-agent.socket
         scope: user
         masked: true
+    - name: Create the User Binaries Directory
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.local/bin"
+        state: directory
+        mode: "0755"
+    # When the TPM's PCR 7 policy no longer matches the firmware, the boot PIN
+    # prompt can never succeed, and systemd-cryptsetup says why only in the
+    # journal. This checks after login and offers to re-enroll.
+    - name: Install the TPM Disk Unlock Check
+      ansible.builtin.copy:
+        src: tpm-unlock-check
+        dest: "{{ ansible_facts.user_dir }}/.local/bin/tpm-unlock-check"
+        mode: "0755"
+    - name: Install the TPM Disk Unlock Check Service
+      ansible.builtin.copy:
+        dest: "{{ ansible_facts.user_dir }}/.config/systemd/user/tpm-unlock-check.service"
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Warn when the TPM disk unlock no longer matches the firmware
+          After=graphical-session.target
+          PartOf=graphical-session.target
+
+          [Service]
+          Type=exec
+          ExecStart=%h/.local/bin/tpm-unlock-check
+
+          [Install]
+          WantedBy=graphical-session.target
+    - name: Run the TPM Disk Unlock Check at Login
+      ansible.builtin.systemd_service:
+        name: tpm-unlock-check.service
+        scope: user
+        enabled: true
+        daemon_reload: true
 - import_playbook: personal.yml
