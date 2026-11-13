@@ -257,6 +257,14 @@
         mode: "0644"
         content: |
           DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
+    # Rootless Podman + VS Code Dev Containers with Compose: projects set
+    # `userns_mode: ${DEVCONTAINER_USERNS:-}` so the checkout stays writable.
+    - name: Map the Host User into Compose Dev Containers
+      ansible.builtin.copy:
+        dest: "{{ ansible_facts.user_dir }}/.config/environment.d/60-devcontainer-userns.conf"
+        mode: "0644"
+        content: |
+          DEVCONTAINER_USERNS=keep-id
     - name: Serve the Docker API from Rootless Podman
       ansible.builtin.systemd_service:
         name: podman.socket
