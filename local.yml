@@ -249,6 +249,20 @@
         mode: "0644"
         content: |
           SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
+    # docker-compose (Compose v2) talks to the Docker API, which rootless
+    # Podman serves on a socket-activated user socket.
+    - name: Point DOCKER_HOST at the Rootless Podman Socket
+      ansible.builtin.copy:
+        dest: "{{ ansible_facts.user_dir }}/.config/environment.d/docker-host.conf"
+        mode: "0644"
+        content: |
+          DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
+    - name: Serve the Docker API from Rootless Podman
+      ansible.builtin.systemd_service:
+        name: podman.socket
+        scope: user
+        enabled: true
+        state: started
     - name: Create the OpenSSH Agent Drop-In Directory
       ansible.builtin.file:
         path: "{{ ansible_facts.user_dir }}/.config/systemd/user/ssh-agent.service.d"

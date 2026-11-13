@@ -27,7 +27,7 @@
 1. Add third-party repositories and install system-level tools and CLI utilities, then reboot:
 
        sudo cp brave-browser.repo google-chrome.repo vscode.repo /etc/yum.repos.d/
-       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm openssh-askpass podman-compose qemu-kvm steam-devices virt-install virt-manager
+       rpm-ostree install ansible brave-browser code dbus-tools gh gnome-boxes gnome-tweaks google-chrome-stable libguestfs-tools libvirt-daemon-kvm openssh-askpass docker-compose qemu-kvm steam-devices virt-install virt-manager
 
 1. Enable the libvirt socket and install a polkit rule so members of `wheel` can manage libvirt without an auth prompt (the unix socket is already world-rw on Fedora, so polkit is the only gate; no group membership is needed):
 
@@ -146,7 +146,7 @@ Launch the **[WiFi] Marauder** app on the Flipper with the board attached to use
 
 ## Dev Containers with Podman
 
-VSCode runs on the host (the `code` RPM), **not** as a Flatpak — the Dev Containers extension shells out to the container CLI and bind-mounts the workspace, both of which the Flatpak sandbox breaks. The playbook sets `"dev.containers.dockerPath": "podman"` in the VSCode user settings so the extension drives rootless Podman directly. Caveats when using `.devcontainer`:
+VSCode runs on the host (the `code` RPM), **not** as a Flatpak — the Dev Containers extension shells out to the container CLI and bind-mounts the workspace, both of which the Flatpak sandbox breaks. The playbook sets `"dev.containers.dockerPath": "podman"` in the VSCode user settings so the extension drives rootless Podman directly. For Compose-based dev containers, it sets `"dev.containers.dockerComposePath": "docker-compose"` to use Docker's Compose v2 instead of `podman-compose`, enables the rootless `podman.socket` to serve the Docker API, and points `DOCKER_HOST` at that socket through `~/.config/environment.d/` (log out and back in for it to take effect). Caveats when using `.devcontainer`:
 
 * **File ownership / UID mapping:** if files created inside the container show as owned by the wrong user, add `--userns=keep-id` to the project's `devcontainer.json`:
 
